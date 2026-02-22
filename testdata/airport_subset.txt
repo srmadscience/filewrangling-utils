@@ -1,0 +1,2 @@
+Code,Description
+"01A","Afognak Lake, AK: Afognak Lake Airport"

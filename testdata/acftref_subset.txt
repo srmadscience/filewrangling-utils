@@ -1,0 +1,2 @@
+﻿CODE,MFR,MODEL,TYPE-ACFT,TYPE-ENG,AC-CAT,BUILD-CERT-IND,NO-ENG,NO-SEATS,AC-WEIGHT,SPEED,TC-DATA-SHEET,TC-DATA-HOLDER,
+0020901,AAR AIRLIFT GROUP INC         ,UH-60A              ,6,3 ,1,0,02,015,CLASS 3,0000,               ,                                                  ,
