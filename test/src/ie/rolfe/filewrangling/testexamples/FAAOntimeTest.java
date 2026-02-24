@@ -7,7 +7,6 @@
  */
 package ie.rolfe.filewrangling.testexamples;
 
-import ie.rolfe.filewrangling.examples.FAAAircraft;
 import ie.rolfe.filewrangling.examples.FAAOntimeHistory;
 
 import java.io.BufferedReader;

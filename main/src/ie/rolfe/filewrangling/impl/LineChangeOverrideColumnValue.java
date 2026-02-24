@@ -46,7 +46,7 @@ public class LineChangeOverrideColumnValue extends AbstractLineWrangler implemen
 
             fields[fieldNumberStartingAtZero] = newValue;
 
-            StringBuffer newString = new StringBuffer();
+            StringBuilder newString = new StringBuilder();
             for (int i = 0; i < fields.length; i++) {
                 if (i > 0) {
                     newString.append(',');

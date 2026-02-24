@@ -45,9 +45,6 @@ class LineChangeFieldValueTest {
 
         LineChangeReplaceAllValueOfFieldInLine thingToTest =
                 new LineChangeReplaceAllValueOfFieldInLine(1, 1, "B", "D");
-        final String testLine = "ABC";
-
-        String input = null;
         String output = thingToTest.fixLine(1, null);
 
         assertNull(output);

@@ -43,9 +43,6 @@ class LineRemoveLastCharTest {
     void fixLineNull() {
 
         LineRemoveLastChar thingToTest = new LineRemoveLastChar(1, 1);
-        final String testLine = "ABC";
-
-        String input = null;
         String output = thingToTest.fixLine(1, null);
 
         assertNull(output);

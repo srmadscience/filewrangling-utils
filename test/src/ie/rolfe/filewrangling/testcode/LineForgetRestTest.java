@@ -19,7 +19,7 @@ class LineForgetRestTest {
     void testNull() {
         LineForgetRest l = new LineForgetRest(1, 1, 3);
 
-         String output = l.fixLine(1, null);
+        String output = l.fixLine(1, null);
         Assertions.assertNull(output);
     }
 

@@ -45,9 +45,6 @@ class LineChangeColumnValueTest {
 
         LineChangeOverrideColumnValue thingToTest =
                 new LineChangeOverrideColumnValue(1, 1, 1, "D");
-        final String testLine = "ABC";
-
-        String input = null;
         String output = thingToTest.fixLine(1, null);
 
         assertNull(output);

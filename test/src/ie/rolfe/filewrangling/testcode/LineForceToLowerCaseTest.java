@@ -20,7 +20,7 @@ class LineForceToLowerCaseTest {
         LineForceToLowerCase thingToTest = new LineForceToLowerCase(1, 1);
         final String testLine = "ABC";
 
-         String output = thingToTest.fixLine(42, testLine);
+        String output = thingToTest.fixLine(42, testLine);
 
         assertEquals(testLine, output);
     }

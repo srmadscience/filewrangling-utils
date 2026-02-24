@@ -12,7 +12,6 @@ import ie.rolfe.filewrangling.BaseFileWrangler;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 import ie.rolfe.filewrangling.impl.FieldFixDateFormat;
 import ie.rolfe.filewrangling.impl.FieldKeep;
-import ie.rolfe.filewrangling.impl.FieldSkip;
 import ie.rolfe.filewrangling.impl.LineForceToLowerCase;
 
 import java.io.File;
@@ -32,8 +31,6 @@ public class FAAOntimeHistory extends BaseFileWrangler {
         for (int i = 1; i < fields.length; i++) {
             fields[i] = new FieldKeep();
         }
-
-
 
         this.setFieldChanges(fields);
     }

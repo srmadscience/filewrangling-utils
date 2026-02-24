@@ -41,7 +41,7 @@ public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler
                 return line;
             }
 
-            StringBuffer newString = new StringBuffer();
+            StringBuilder newString = new StringBuilder();
             for (int i = 0; i < fields.length; i++) {
                 if (i > 0) {
                     newString.append(',');
