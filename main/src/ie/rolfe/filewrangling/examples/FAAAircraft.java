@@ -27,8 +27,19 @@ public class FAAAircraft extends BaseFileWrangler {
 
         fields[0] = new FieldPrepend("N");
         fields[2] = new FieldKeep();
-        fields[4] = new FieldMapToZero();
+        fields[4] = new FieldNvl();
         this.setFieldChanges(fields);
     }
 
+    public static void main(String[] args) {
+
+        File[] files = getFiles(args);
+
+        FAAAircraft theFileWrangler = new FAAAircraft(files[0], files[1]);
+
+        theFileWrangler.makeChangedCopy();
+
+        System.exit(0);
+
+    }
 }

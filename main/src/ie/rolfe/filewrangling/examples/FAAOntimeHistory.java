@@ -12,6 +12,7 @@ import ie.rolfe.filewrangling.BaseFileWrangler;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 import ie.rolfe.filewrangling.impl.FieldFixDateFormat;
 import ie.rolfe.filewrangling.impl.FieldKeep;
+import ie.rolfe.filewrangling.impl.FieldNvl;
 import ie.rolfe.filewrangling.impl.LineForceToLowerCase;
 
 import java.io.File;
@@ -29,10 +30,30 @@ public class FAAOntimeHistory extends BaseFileWrangler {
         CSVFieldWranglerIFace[] fields = new CSVFieldWranglerIFace[16];
         fields[0] = new FieldFixDateFormat(inputMask, Locale.US, outputMask, Locale.UK);
         for (int i = 1; i < fields.length; i++) {
-            fields[i] = new FieldKeep();
+            if (i == 2) {
+                fields[i] = new FieldNvl("UNKNOWN");
+            } else if (i <= 8) {
+                fields[i] = new FieldKeep();
+            } else {
+                fields[i] = new FieldNvl();
+            }
+
         }
 
         this.setFieldChanges(fields);
     }
+
+    public static void main(String[] args) {
+
+        File[] files = getFiles(args);
+
+        FAAOntimeHistory theFileWrangler = new FAAOntimeHistory(files[0], files[1]);
+
+        theFileWrangler.makeChangedCopy();
+
+        System.exit(0);
+
+    }
+
 
 }

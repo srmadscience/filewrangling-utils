@@ -15,13 +15,13 @@ import ie.rolfe.filewrangling.impl.LineForceToLowerCase;
 
 import java.io.File;
 
-public class FAAAirport extends BaseFileWrangler {
-    public FAAAirport(File inputFile, File outputFile) {
+public class FAACarrierHistory extends BaseFileWrangler {
+    public FAACarrierHistory(File inputFile, File outputFile) {
         super(inputFile, outputFile);
 
         this.addLineChange(new LineForceToLowerCase(1, 1));
 
-        CSVFieldWranglerIFace[] fields = new CSVFieldWranglerIFace[3];
+        CSVFieldWranglerIFace[] fields = new CSVFieldWranglerIFace[2];
         for (int i = 0; i < fields.length; i++) {
             fields[i] = new FieldKeep();
         }
@@ -33,7 +33,7 @@ public class FAAAirport extends BaseFileWrangler {
 
         File[] files = getFiles(args);
 
-        FAAAirport theFileWrangler = new FAAAirport(files[0], files[1]);
+        FAACarrierHistory theFileWrangler = new FAACarrierHistory(files[0], files[1]);
 
         theFileWrangler.makeChangedCopy();
 

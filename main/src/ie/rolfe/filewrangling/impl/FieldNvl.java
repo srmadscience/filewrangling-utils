@@ -9,12 +9,23 @@ package ie.rolfe.filewrangling.impl;
 
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 
-public class FieldMapToZero extends AbstractFieldWrangler implements CSVFieldWranglerIFace {
+public class FieldNvl extends AbstractFieldWrangler implements CSVFieldWranglerIFace {
+
+    String nvlValue;
+
+    public FieldNvl() {
+        this.nvlValue = "0";
+    }
+
+    public FieldNvl(String nvlValue) {
+        this.nvlValue = nvlValue;
+    }
+
     @Override
     public String fixField(String field) {
 
-        if (field == null || field.isEmpty()) {
-            return processExtraWranglers("0");
+        if (field == null || field.trim().isEmpty()) {
+            return processExtraWranglers(nvlValue);
         }
         return processExtraWranglers(field);
     }

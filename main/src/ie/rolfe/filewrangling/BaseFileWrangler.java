@@ -48,8 +48,7 @@ public class BaseFileWrangler {
 
     }
 
-    public static void main(String[] args) {
-
+    protected static File[] getFiles(String[] args) {
         msg("Parameters:" + Arrays.toString(args));
 
         if (args.length != 2) {
@@ -57,10 +56,13 @@ public class BaseFileWrangler {
             System.exit(1);
         }
 
+        File inputFile = null;
+        File outputFile = null;
+
+
         try {
 
-            File inputFile = new File(args[0]);
-            File outputFile = new File(args[1]);
+            inputFile = new File(args[0]);
 
             if (!inputFile.exists()) {
                 msg("Input file does not exist");
@@ -78,26 +80,29 @@ public class BaseFileWrangler {
                 System.exit(4);
             }
 
+            outputFile = new File(args[1]);
             if (outputFile.exists()) {
                 msg("Output file already exists");
                 System.exit(5);
             }
 
-            if (!outputFile.canWrite()) {
-                msg("Output file  not writable");
-                System.exit(6);
-            }
-
-            BaseFileWrangler theFileWrangler = new BaseFileWrangler(inputFile, outputFile);
-
-            theFileWrangler.makeChangedCopy();
 
         } catch (Exception e) {
             msg(e.getMessage());
         }
 
+        return new File[]{inputFile, outputFile};
     }
 
+    public static void main(String[] args) {
+
+        File[] files = getFiles(args);
+
+        BaseFileWrangler theFileWrangler = new BaseFileWrangler(files[0], files[1]);
+
+        theFileWrangler.makeChangedCopy();
+
+    }
 
     public void addLineChange(AbstractLineWrangler newLineChange) {
         lineChanges.add(newLineChange);
@@ -178,6 +183,10 @@ public class BaseFileWrangler {
                 lineNumber++;
                 printer.println(processLine(lineNumber, line));
                 line = reader.readLine();
+
+                if (lineNumber % 1000 == 0) {
+                    msg("Processing line " + lineNumber);
+                }
             }
 
             reader.close();
@@ -189,6 +198,4 @@ public class BaseFileWrangler {
             System.exit(7);
         }
     }
-
-
 }

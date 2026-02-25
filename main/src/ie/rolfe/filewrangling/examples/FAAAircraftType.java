@@ -9,7 +9,7 @@ package ie.rolfe.filewrangling.examples;
 
 import ie.rolfe.filewrangling.BaseFileWrangler;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
-import ie.rolfe.filewrangling.impl.FieldMapToZero;
+import ie.rolfe.filewrangling.impl.FieldNvl;
 import ie.rolfe.filewrangling.impl.LineReplace;
 
 import java.io.File;
@@ -22,13 +22,24 @@ public class FAAAircraftType extends BaseFileWrangler {
 
         CSVFieldWranglerIFace[] fields = new CSVFieldWranglerIFace[9];
 
-        fields[0] = new FieldMapToZero();
-        fields[1] = new FieldMapToZero();
-        fields[2] = new FieldMapToZero();
-        fields[7] = new FieldMapToZero();
-        fields[8] = new FieldMapToZero();
+        fields[0] = new FieldNvl();
+        fields[1] = new FieldNvl();
+        fields[2] = new FieldNvl();
+        fields[7] = new FieldNvl();
+        fields[8] = new FieldNvl();
 
         this.setFieldChanges(fields);
     }
 
+    public static void main(String[] args) {
+
+        File[] files = getFiles(args);
+
+        FAAAircraftType theFileWrangler = new FAAAircraftType(files[0], files[1]);
+
+        theFileWrangler.makeChangedCopy();
+
+        System.exit(0);
+
+    }
 }
