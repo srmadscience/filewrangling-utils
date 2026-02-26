@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
+    ArrayList<String> fieldNames = new ArrayList<String>();
     ArrayList<CSVFieldWranglerIFace> theExtraWranglers = new ArrayList<CSVFieldWranglerIFace>();
 
     @Override
@@ -32,4 +33,15 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
     }
 
 
+    public void useForField(String fieldName) {
+        fieldNames.add(fieldName);
+    }
+
+    public boolean isUsableForField(String fieldName) {
+        return fieldNames.contains(fieldName);
+    }
+
 }
+
+
+

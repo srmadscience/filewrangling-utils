@@ -15,4 +15,10 @@ public interface CSVFieldWranglerIFace {
     String fixField(String field) throws FileWranglingException, SkipThisFieldException;
 
     void addCSVFieldWranglerIFace(CSVFieldWranglerIFace theExtraWrangler);
+
+    void useForField(String fieldName);
+
+    boolean isUsableForField(String fieldName);
+
+
 }

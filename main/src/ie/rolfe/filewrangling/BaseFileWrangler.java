@@ -26,7 +26,11 @@ public class BaseFileWrangler {
     int startFieldLine = 2;
 
     ArrayList<AbstractLineWrangler> lineChanges = new ArrayList<AbstractLineWrangler>();
+    ArrayList<CSVFieldWranglerIFace> rawFieldChanges = new ArrayList<CSVFieldWranglerIFace>();
     CSVFieldWranglerIFace[] fieldChanges = new CSVFieldWranglerIFace[0];
+
+
+    int headerLine = 1;
 
     public BaseFileWrangler(File inputFile, File outputFile) {
         this.inputFile = inputFile;
@@ -124,6 +128,12 @@ public class BaseFileWrangler {
             return line;
         }
 
+        if (lineNumber == headerLine) {
+
+            mapFieldsToPositions(line);
+
+        }
+
         String newLine = line;
 
         for (AbstractLineWrangler lineChange : lineChanges) {
@@ -156,6 +166,33 @@ public class BaseFileWrangler {
 
         return sb.toString();
 
+    }
+
+    public void addField(CSVFieldWranglerIFace newField) {
+        rawFieldChanges.add(newField);
+    }
+
+    private void mapFieldsToPositions(String header) {
+        String[] fields = header.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+        if (fieldChanges == null) {
+            fieldChanges = new CSVFieldWranglerIFace[fields.length];
+        }
+
+        for (int i = 0; i < fields.length; i++) {
+            for (int j = 0; j < rawFieldChanges.size(); j++) {
+                if (rawFieldChanges.get(j).isUsableForField(fields[i])) {
+                    if (fieldChanges[i] == null) {
+                        fieldChanges[i] = rawFieldChanges.get(j);
+                    } else {
+                        fieldChanges[i].addCSVFieldWranglerIFace(rawFieldChanges.get(j));
+                    }
+
+                }
+            }
+        }
+
+        setFieldChanges(fieldChanges);
     }
 
     public int getStartFieldLine() {
@@ -198,4 +235,13 @@ public class BaseFileWrangler {
             System.exit(7);
         }
     }
+
+    public int getHeaderLine() {
+        return headerLine;
+    }
+
+    public void setHeaderLine(int headerLine) {
+        this.headerLine = headerLine;
+    }
+
 }

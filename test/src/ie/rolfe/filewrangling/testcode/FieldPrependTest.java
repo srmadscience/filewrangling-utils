@@ -28,15 +28,15 @@ class FieldPrependTest {
     @org.junit.jupiter.api.Test
     void fixFieldNotMull() {
 
-        final String StringToPrepand = "N";
+        final String StringToPrepend = "N";
         final String payload = "1976T";
 
-        FieldPrepend fieldToTest = new FieldPrepend(StringToPrepand);
+        FieldPrepend fieldToTest = new FieldPrepend(StringToPrepend);
 
         String input = payload;
         String output = fieldToTest.fixField(input);
 
-        assertEquals(StringToPrepand + payload, output);
+        assertEquals(StringToPrepend + payload, output);
     }
 
 }
