@@ -27,20 +27,24 @@ public class FAAOntimeHistory extends BaseFileWrangler {
 
         this.addLineChange(new LineForceToLowerCase(1, 1));
 
-        CSVFieldWranglerIFace[] fields = new CSVFieldWranglerIFace[16];
-        fields[0] = new FieldFixDateFormat(inputMask, Locale.US, outputMask, Locale.UK);
-        for (int i = 1; i < fields.length; i++) {
-            if (i == 2) {
-                fields[i] = new FieldNvl("UNKNOWN");
-            } else if (i <= 8) {
-                fields[i] = new FieldKeep();
-            } else {
-                fields[i] = new FieldNvl();
-            }
 
-        }
+        CSVFieldWranglerIFace dateField = new FieldFixDateFormat(inputMask, Locale.US, outputMask, Locale.UK);
+        dateField.useForField("FL_DATE");
 
-        this.setFieldChanges(fields);
+        CSVFieldWranglerIFace wantedFields = new FieldKeep();
+        wantedFields.useForField("FL_DATE,OP_UNIQUE_CARRIER,TAIL_NUM,OP_CARRIER_FL_NUM,ORIGIN,ORIGIN_CITY_NAME,DEST,DEST_CITY_NAME,CRS_DEP_TIME,DEP_TIME,DEP_DELAY,CRS_ARR_TIME,CRS_ELAPSED_TIME,DISTANCE");
+
+        CSVFieldWranglerIFace nvlField = new FieldNvl("UNKNOWN");
+        nvlField.useForField("TAIL_NUM");
+
+        CSVFieldWranglerIFace nvlZeroField = new FieldKeep();
+        nvlZeroField.useForField("CRS_DEP_TIME,DEP_TIME,DEP_DELAY,CRS_ARR_TIME,CRS_ELAPSED_TIME,DISTANCE");
+
+        this.addField(wantedFields);
+        this.addField(dateField);
+        this.addField(nvlField);
+        this.addField(nvlZeroField);
+
     }
 
     public static void main(String[] args) {
