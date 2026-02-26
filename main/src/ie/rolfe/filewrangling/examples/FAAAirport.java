@@ -21,12 +21,12 @@ public class FAAAirport extends BaseFileWrangler {
 
         this.addLineChange(new LineForceToLowerCase(1, 1));
 
-        CSVFieldWranglerIFace[] fields = new CSVFieldWranglerIFace[3];
-        for (int i = 0; i < fields.length; i++) {
-            fields[i] = new FieldKeep();
-        }
 
-        this.setFieldChanges(fields);
+        CSVFieldWranglerIFace theField = new FieldKeep();
+        theField.useForField("Code");
+        theField.useForField("Description");
+        this.addField(theField);
+
     }
 
     public static void main(String[] args) {

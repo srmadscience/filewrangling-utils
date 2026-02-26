@@ -175,7 +175,7 @@ public class BaseFileWrangler {
     private void mapFieldsToPositions(String header) {
         String[] fields = header.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-        if (fieldChanges == null) {
+        if (fieldChanges == null || fieldChanges.length == 0) {
             fieldChanges = new CSVFieldWranglerIFace[fields.length];
         }
 
