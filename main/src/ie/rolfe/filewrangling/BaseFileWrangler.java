@@ -21,6 +21,7 @@ import java.util.Date;
 public class BaseFileWrangler {
 
     public static final char DELIM = ',';
+    public static final String COMMA_SPLIT_REGEX = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
     File inputFile = null;
     File outputFile = null;
     int startFieldLine = 2;
@@ -173,7 +174,7 @@ public class BaseFileWrangler {
     }
 
     private void mapFieldsToPositions(String header) {
-        String[] fields = header.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+        String[] fields = header.split(COMMA_SPLIT_REGEX, -1);
 
         if (fieldChanges == null || fieldChanges.length == 0) {
             fieldChanges = new CSVFieldWranglerIFace[fields.length];

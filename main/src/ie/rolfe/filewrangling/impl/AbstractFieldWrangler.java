@@ -11,6 +11,9 @@ import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 
 import java.util.ArrayList;
 
+import static ie.rolfe.filewrangling.BaseFileWrangler.COMMA_SPLIT_REGEX;
+import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
+
 public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
     ArrayList<String> fieldNames = new ArrayList<String>();
@@ -34,7 +37,16 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
 
     public void useForField(String fieldName) {
-        fieldNames.add(fieldName);
+
+        if (fieldName.indexOf(DELIM) == -1) {
+            fieldNames.add(fieldName);
+        } else {
+            String[] fields = fieldName.split(COMMA_SPLIT_REGEX, -1);
+            for (int i = 1; i < fields.length; i++) {
+                fieldNames.add(fields[i].trim());
+            }
+        }
+
     }
 
     public boolean isUsableForField(String fieldName) {
