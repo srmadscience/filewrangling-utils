@@ -21,7 +21,7 @@ import java.util.Date;
 public class BaseFileWrangler {
 
     public static final char DELIM = ',';
-    public static final String COMMA_SPLIT_REGEX = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+    public static final String DELIM_SPLIT_REGEX = DELIM + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
     File inputFile = null;
     File outputFile = null;
     int startFieldLine = 2;
@@ -174,7 +174,7 @@ public class BaseFileWrangler {
     }
 
     private void mapFieldsToPositions(String header) {
-        String[] fields = header.split(COMMA_SPLIT_REGEX, -1);
+        String[] fields = header.split(DELIM_SPLIT_REGEX, -1);
 
         if (fieldChanges == null || fieldChanges.length == 0) {
             fieldChanges = new CSVFieldWranglerIFace[fields.length];
@@ -182,7 +182,7 @@ public class BaseFileWrangler {
 
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < rawFieldChanges.size(); j++) {
-                if (rawFieldChanges.get(j).isUsableForField(fields[i])) {
+                if (rawFieldChanges.get(j).isUsedForField(fields[i])) {
                     if (fieldChanges[i] == null) {
                         fieldChanges[i] = rawFieldChanges.get(j);
                     } else {

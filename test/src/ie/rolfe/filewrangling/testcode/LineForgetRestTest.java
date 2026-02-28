@@ -8,8 +8,11 @@
 package ie.rolfe.filewrangling.testcode;
 
 import ie.rolfe.filewrangling.impl.LineForgetRest;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,6 +38,50 @@ class LineForgetRestTest {
     @Test
     void testNotRightLine() {
         LineForgetRest l = new LineForgetRest(1, 1, 3);
+        String front = "A,B,C";
+        String back = ",D,E,F";
+        String output = l.fixLine(2, front + back);
+        assertEquals(front + back, output);
+    }
+
+
+    @Test
+    void testNullWR() {
+
+
+        Properties p = new Properties();
+        p.put("startLine", 1);
+        p.put("endLine", 1);
+        p.put("lastColumn", 3);
+        WranglerRequest w = new WranglerRequest("LineForgetRest", p);
+        LineForgetRest l = new LineForgetRest(w);
+
+        String output = l.fixLine(1, null);
+        Assertions.assertNull(output);
+    }
+
+    @Test
+    void testNotNullWR() {
+        Properties p = new Properties();
+        p.put("startLine", 1);
+        p.put("endLine", 1);
+        p.put("lastColumn", 3);
+        WranglerRequest w = new WranglerRequest("LineForgetRest", p);
+        LineForgetRest l = new LineForgetRest(w);
+        String front = "A,B,C";
+        String back = ",D,E,F";
+        String output = l.fixLine(1, front + back);
+        assertEquals(front, output);
+    }
+
+    @Test
+    void testNotRightLineWR() {
+        Properties p = new Properties();
+        p.put("startLine", 1);
+        p.put("endLine", 1);
+        p.put("lastColumn", 3);
+        WranglerRequest w = new WranglerRequest("LineForgetRest", p);
+        LineForgetRest l = new LineForgetRest(w);
         String front = "A,B,C";
         String back = ",D,E,F";
         String output = l.fixLine(2, front + back);

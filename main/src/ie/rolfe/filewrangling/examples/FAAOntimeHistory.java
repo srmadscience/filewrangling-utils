@@ -29,16 +29,16 @@ public class FAAOntimeHistory extends BaseFileWrangler {
 
 
         CSVFieldWranglerIFace dateField = new FieldFixDateFormat(inputMask, Locale.US, outputMask, Locale.UK);
-        dateField.useForField("FL_DATE");
+        dateField.useForFields("FL_DATE");
 
         CSVFieldWranglerIFace wantedFields = new FieldKeep();
-        wantedFields.useForField("FL_DATE,OP_UNIQUE_CARRIER,TAIL_NUM,OP_CARRIER_FL_NUM,ORIGIN,ORIGIN_CITY_NAME,DEST,DEST_CITY_NAME,CRS_DEP_TIME,DEP_TIME,DEP_DELAY,CRS_ARR_TIME,CRS_ELAPSED_TIME,DISTANCE");
+        wantedFields.useForFields("FL_DATE,OP_UNIQUE_CARRIER,TAIL_NUM,OP_CARRIER_FL_NUM,ORIGIN,ORIGIN_CITY_NAME,DEST,DEST_CITY_NAME,CRS_DEP_TIME,DEP_TIME,DEP_DELAY,CRS_ARR_TIME,CRS_ELAPSED_TIME,DISTANCE");
 
         CSVFieldWranglerIFace nvlField = new FieldNvl("UNKNOWN");
-        nvlField.useForField("TAIL_NUM");
+        nvlField.useForFields("TAIL_NUM");
 
         CSVFieldWranglerIFace nvlZeroField = new FieldKeep();
-        nvlZeroField.useForField("CRS_DEP_TIME,DEP_TIME,DEP_DELAY,CRS_ARR_TIME,CRS_ELAPSED_TIME,DISTANCE");
+        nvlZeroField.useForFields("CRS_DEP_TIME,DEP_TIME,DEP_DELAY,CRS_ARR_TIME,CRS_ELAPSED_TIME,DISTANCE");
 
         this.addField(wantedFields);
         this.addField(dateField);

@@ -9,6 +9,7 @@
 package ie.rolfe.filewrangling.impl;
 
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class LineReplace extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
@@ -20,6 +21,14 @@ public class LineReplace extends AbstractLineWrangler implements CSVLineWrangler
         this.startLine = startLine;
         this.endLine = endLine;
         this.newValue = newValue;
+    }
+
+    public LineReplace(WranglerRequest wranglerRequest) {
+        super(wranglerRequest);
+
+        this.startLine = (Integer) wranglerRequest.get("startLine");
+        this.endLine = (Integer) wranglerRequest.get("endLine");
+        this.newValue = (String) wranglerRequest.get("newValue");
     }
 
     public LineReplace(String newValue) {

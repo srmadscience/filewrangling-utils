@@ -8,8 +8,10 @@
 package ie.rolfe.filewrangling.testcode;
 
 import ie.rolfe.filewrangling.impl.FieldFixDateFormat;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.util.Locale;
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -46,6 +48,55 @@ public class FieldFixUSAMPMDateTest {
     }
 
     @org.junit.jupiter.api.Test
+    void fixFieldNullRW() {
+
+        final String inputMask = "MM/dd/yy";
+        final String outputMask = "dd/MM/yy";
+
+        Properties p = new Properties();
+        p.put("inputFormat", inputMask);
+        p.put("outputFormat", outputMask);
+        p.put("inputLocale", Locale.US);
+        p.put("outputLocale", Locale.UK);
+
+
+        WranglerRequest w = new WranglerRequest("FieldFixDateFormat", p);
+
+
+        FieldFixDateFormat fieldToTest = new FieldFixDateFormat(w);
+
+        String input = null;
+        String output = fieldToTest.fixField(input);
+
+        assertEquals("", output);
+    }
+
+    @org.junit.jupiter.api.Test
+    void fixFieldNotMullRW() {
+
+        final String inputMask = "MM/dd/yy";
+        final String outputMask = "dd/MM/yy";
+        final String simpleTestUS = "12/30/26";
+        final String simpleTestUK = "30/12/26";
+
+
+        Properties p = new Properties();
+        p.put("inputFormat", inputMask);
+        p.put("outputFormat", outputMask);
+        p.put("inputLocale", Locale.US);
+        p.put("outputLocale", Locale.UK);
+
+        WranglerRequest w = new WranglerRequest("FieldFixDateFormat", p);
+
+        FieldFixDateFormat fieldToTest = new FieldFixDateFormat(w);
+
+        String input = simpleTestUS;
+        String output = fieldToTest.fixField(input);
+
+        assertEquals(simpleTestUK, output);
+    }
+
+    @org.junit.jupiter.api.Test
     void fixFieldUSFormat() {
 
         final String inputMask = "MM/dd/yyyy KK:mm:ss a";
@@ -53,7 +104,15 @@ public class FieldFixUSAMPMDateTest {
         final String simpleTestUS = "2/1/2025 12:00:00 AM";
         final String simpleTestUK = "01/02/25";
 
-        FieldFixDateFormat fieldToTest = new FieldFixDateFormat(inputMask, Locale.US, outputMask, Locale.UK);
+        Properties p = new Properties();
+        p.put("inputFormat", inputMask);
+        p.put("outputFormat", outputMask);
+        p.put("inputLocale", Locale.US);
+        p.put("outputLocale", Locale.UK);
+
+        WranglerRequest w = new WranglerRequest("FieldFixDateFormat", p);
+
+        FieldFixDateFormat fieldToTest = new FieldFixDateFormat(w);
 
         String input = simpleTestUS;
         String output = fieldToTest.fixField(input);

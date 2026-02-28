@@ -9,6 +9,9 @@
 package ie.rolfe.filewrangling.impl;
 
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
+import ie.rolfe.filewrangling.model.WranglerRequest;
+
+import java.util.Locale;
 
 public class LineChangeOverrideColumnValue extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
@@ -23,7 +26,14 @@ public class LineChangeOverrideColumnValue extends AbstractLineWrangler implemen
         this.fieldNumberStartingAtZero = fieldNumberStartingAtZero;
         this.newValue = newValue;
     }
+    public LineChangeOverrideColumnValue(WranglerRequest wranglerRequest) {
+        super(wranglerRequest);
 
+        this.startLine =  (Integer) wranglerRequest.get("startLine");
+        this.endLine =  (Integer) wranglerRequest.get("endLine");
+        this.fieldNumberStartingAtZero = (Integer) wranglerRequest.get("fieldNumberStartingAtZero");
+        this.newValue = (String) wranglerRequest.get("newValue");
+    }
 
     @Override
     public String fixLine(int lineNumber, String line) {

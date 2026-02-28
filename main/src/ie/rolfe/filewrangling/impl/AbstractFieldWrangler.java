@@ -7,17 +7,29 @@
  */
 package ie.rolfe.filewrangling.impl;
 
+import ie.rolfe.filewrangling.exceptions.WranglerRequestException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.util.ArrayList;
 
-import static ie.rolfe.filewrangling.BaseFileWrangler.COMMA_SPLIT_REGEX;
+import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
 
 public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
     ArrayList<String> fieldNames = new ArrayList<String>();
     ArrayList<CSVFieldWranglerIFace> theExtraWranglers = new ArrayList<CSVFieldWranglerIFace>();
+
+    public AbstractFieldWrangler() {}
+
+    public AbstractFieldWrangler(WranglerRequest wranglerRequest)
+    {
+        if (! wranglerRequest.requestType.equals(this.getClass().getSimpleName())) {
+            throw new WranglerRequestException(wranglerRequest.requestType + " can't be used for " + this.getClass().getSimpleName());
+        }
+    }
+
 
     @Override
     public void addCSVFieldWranglerIFace(CSVFieldWranglerIFace anExtraWrangler) {
@@ -36,12 +48,12 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
     }
 
 
-    public void useForField(String fieldName) {
+    public void useForFields(String fieldNameList) {
 
-        if (fieldName.indexOf(DELIM) == -1) {
-            fieldNames.add(fieldName);
+        if (fieldNameList.indexOf(DELIM) == -1) {
+            fieldNames.add(fieldNameList);
         } else {
-            String[] fields = fieldName.split(COMMA_SPLIT_REGEX, -1);
+            String[] fields = fieldNameList.split(DELIM_SPLIT_REGEX, -1);
             for (int i = 1; i < fields.length; i++) {
                 fieldNames.add(fields[i].trim());
             }
@@ -49,7 +61,7 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
     }
 
-    public boolean isUsableForField(String fieldName) {
+    public boolean isUsedForField(String fieldName) {
         return fieldNames.contains(fieldName);
     }
 

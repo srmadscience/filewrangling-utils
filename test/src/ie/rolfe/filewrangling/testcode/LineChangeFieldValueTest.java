@@ -8,11 +8,16 @@
 package ie.rolfe.filewrangling.testcode;
 
 import ie.rolfe.filewrangling.impl.LineChangeReplaceAllValueOfFieldInLine;
+import ie.rolfe.filewrangling.model.WranglerRequest;
+
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class LineChangeFieldValueTest {
+
+    private static final String TEST_VALUE_D =  "D";private static final String TEST_VALUE_B =  "B";
 
     @org.junit.jupiter.api.Test
     void fixLineNoMatches() {
@@ -50,5 +55,62 @@ class LineChangeFieldValueTest {
         assertNull(output);
     }
 
+
+    @org.junit.jupiter.api.Test
+    void fixLineNoMatchesWR() {
+
+        Properties p = new Properties();
+        p.put("startLine", 1);
+        p.put("endLine", 1);
+        p.put("columnValue", TEST_VALUE_B);
+        p.put("newValue", TEST_VALUE_D);
+        WranglerRequest w = new WranglerRequest("LineChangeReplaceAllValueOfFieldInLine", p);
+
+        LineChangeReplaceAllValueOfFieldInLine thingToTest =
+                new LineChangeReplaceAllValueOfFieldInLine(w);
+        final String testLine = "A,B,C";
+
+        String output = thingToTest.fixLine(42, testLine);
+
+        assertEquals(testLine, output);
+    }
+
+    @org.junit.jupiter.api.Test
+    void fixLineMatchesWR() {
+
+        Properties p = new Properties();
+        p.put("startLine", 1);
+        p.put("endLine", 1);
+        p.put("columnValue", TEST_VALUE_B);
+        p.put("newValue", TEST_VALUE_D);
+        WranglerRequest w = new WranglerRequest("LineChangeReplaceAllValueOfFieldInLine", p);
+
+        LineChangeReplaceAllValueOfFieldInLine thingToTest =
+                new LineChangeReplaceAllValueOfFieldInLine(w);
+        final String testLine = "A,B,C";
+        final String expectedLine = "A,D,C";
+
+        String output = thingToTest.fixLine(1, testLine);
+
+        assertEquals(expectedLine, output);
+    }
+
+
+    @org.junit.jupiter.api.Test
+    void fixLineNullWR() {
+
+        Properties p = new Properties();
+        p.put("startLine", 1);
+        p.put("endLine", 1);
+        p.put("columnValue", TEST_VALUE_B);
+        p.put("newValue", TEST_VALUE_D);
+        WranglerRequest w = new WranglerRequest("LineChangeReplaceAllValueOfFieldInLine", p);
+
+        LineChangeReplaceAllValueOfFieldInLine thingToTest =
+                new LineChangeReplaceAllValueOfFieldInLine(w);
+        String output = thingToTest.fixLine(1, null);
+
+        assertNull(output);
+    }
 
 }

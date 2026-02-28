@@ -7,7 +7,9 @@
  */
 package ie.rolfe.filewrangling.impl;
 
+import ie.rolfe.filewrangling.exceptions.WranglerRequestException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
@@ -17,6 +19,10 @@ public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWrang
         this.thingToPrepend = thingToPrepend;
     }
 
+    public FieldPrepend(WranglerRequest wranglerRequest) throws WranglerRequestException {
+        super(wranglerRequest);
+        this.thingToPrepend = (String) wranglerRequest.get("thingToPrepend");
+    }
 
     @Override
     public String fixField(String field) {

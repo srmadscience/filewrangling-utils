@@ -9,6 +9,7 @@
 package ie.rolfe.filewrangling.impl;
 
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class LineForceToLowerCase extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
@@ -19,6 +20,14 @@ public class LineForceToLowerCase extends AbstractLineWrangler implements CSVLin
         this.startLine = startLine;
         this.endLine = endLine;
     }
+
+    public LineForceToLowerCase(WranglerRequest wranglerRequest) {
+        super(wranglerRequest);
+
+        this.startLine =  (Integer) wranglerRequest.get("startLine");
+        this.endLine =  (Integer) wranglerRequest.get("endLine");
+    }
+
 
     @Override
     public String fixLine(int lineNumber, String line) {

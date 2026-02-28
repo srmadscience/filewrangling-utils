@@ -16,9 +16,9 @@ public interface CSVFieldWranglerIFace {
 
     void addCSVFieldWranglerIFace(CSVFieldWranglerIFace theExtraWrangler);
 
-    void useForField(String fieldName);
+    void useForFields(String fieldNameList);
 
-    boolean isUsableForField(String fieldName);
+    boolean isUsedForField(String fieldName);
 
 
 }

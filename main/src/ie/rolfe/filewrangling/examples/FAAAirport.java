@@ -23,8 +23,8 @@ public class FAAAirport extends BaseFileWrangler {
 
 
         CSVFieldWranglerIFace theField = new FieldKeep();
-        theField.useForField("Code");
-        theField.useForField("Description");
+        theField.useForFields("Code");
+        theField.useForFields("Description");
         this.addField(theField);
 
     }

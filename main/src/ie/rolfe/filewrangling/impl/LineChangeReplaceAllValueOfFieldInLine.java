@@ -10,6 +10,7 @@ package ie.rolfe.filewrangling.impl;
 
 import ie.rolfe.filewrangling.BaseFileWrangler;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
@@ -23,6 +24,15 @@ public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler
         this.endLine = endLine;
         this.columnValue = columnValue;
         this.newValue = newValue;
+    }
+
+    public LineChangeReplaceAllValueOfFieldInLine(WranglerRequest wranglerRequest) {
+        super(wranglerRequest);
+
+        this.startLine =  (Integer) wranglerRequest.get("startLine");
+        this.endLine =  (Integer) wranglerRequest.get("endLine");
+        this.columnValue = (String) wranglerRequest.get("columnValue");
+        this.newValue = (String) wranglerRequest.get("newValue");
     }
 
 

@@ -8,6 +8,9 @@
 package ie.rolfe.filewrangling.testcode;
 
 import ie.rolfe.filewrangling.impl.LineForceToLowerCase;
+import ie.rolfe.filewrangling.model.WranglerRequest;
+
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -41,6 +44,51 @@ class LineForceToLowerCaseTest {
     void fixLineNull() {
 
         LineForceToLowerCase thingToTest = new LineForceToLowerCase(1, 1);
+
+        String output = thingToTest.fixLine(1, null);
+
+        assertNull(output);
+    }
+
+    @org.junit.jupiter.api.Test
+    void fixLineNoMatchesWR() {
+
+        Properties p = new Properties();
+        p.put("startLine", 1);
+        p.put("endLine", 1);
+        WranglerRequest w = new WranglerRequest("LineForceToLowerCase", p);
+        final String testLine = "ABC";
+        LineForceToLowerCase thingToTest = new LineForceToLowerCase(w);
+
+        String output = thingToTest.fixLine(42, testLine);
+
+        assertEquals(testLine, output);
+    }
+
+    @org.junit.jupiter.api.Test
+    void fixLineMatchesWR() {
+
+        Properties p = new Properties();
+        p.put("startLine", 1);
+        p.put("endLine", 1);
+        WranglerRequest w = new WranglerRequest("LineForceToLowerCase", p);
+        final String testLine = "ABC";
+        LineForceToLowerCase thingToTest = new LineForceToLowerCase(w);
+
+        String output = thingToTest.fixLine(1, testLine);
+
+        assertEquals(testLine.toLowerCase(), output);
+    }
+
+
+    @org.junit.jupiter.api.Test
+    void fixLineNullWR() {
+
+        Properties p = new Properties();
+        p.put("startLine", 1);
+        p.put("endLine", 1);
+        WranglerRequest w = new WranglerRequest("LineForceToLowerCase", p);
+        LineForceToLowerCase thingToTest = new LineForceToLowerCase(w);
 
         String output = thingToTest.fixLine(1, null);
 

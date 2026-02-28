@@ -10,6 +10,7 @@ package ie.rolfe.filewrangling.impl;
 
 import ie.rolfe.filewrangling.BaseFileWrangler;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class LineForgetRest extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
@@ -23,6 +24,15 @@ public class LineForgetRest extends AbstractLineWrangler implements CSVLineWrang
         this.lastColumn = lastColumn;
 
     }
+
+    public LineForgetRest(WranglerRequest wranglerRequest) {
+        super(wranglerRequest);
+
+        this.startLine =  (Integer) wranglerRequest.get("startLine");
+        this.endLine =  (Integer) wranglerRequest.get("endLine");
+        this.lastColumn = (Integer) wranglerRequest.get("lastColumn");
+    }
+
 
 
     @Override

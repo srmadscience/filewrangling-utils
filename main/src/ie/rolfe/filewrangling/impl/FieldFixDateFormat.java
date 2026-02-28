@@ -8,7 +8,9 @@
 package ie.rolfe.filewrangling.impl;
 
 import ie.rolfe.filewrangling.exceptions.FileWranglingException;
+import ie.rolfe.filewrangling.exceptions.WranglerRequestException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +25,19 @@ public class FieldFixDateFormat extends AbstractFieldWrangler implements CSVFiel
     public FieldFixDateFormat(String inputFormat, Locale inputLocale, String outputFormat, Locale outputLocale) {
         this.inputFormat = new SimpleDateFormat(inputFormat, inputLocale);
         this.outputFormat = new SimpleDateFormat(outputFormat, outputLocale);
+    }
+
+    public FieldFixDateFormat(WranglerRequest wranglerRequest) throws WranglerRequestException {
+        super(wranglerRequest);
+
+        String inputFormat = (String) wranglerRequest.get("inputFormat");
+        Locale inputLocale =  (Locale)  wranglerRequest.get("inputLocale");
+        String outputFormat = (String) wranglerRequest.get("outputFormat");
+        Locale outputLocale =  (Locale)  wranglerRequest.get("outputLocale");
+
+        this.inputFormat = new SimpleDateFormat(inputFormat, inputLocale);
+        this.outputFormat = new SimpleDateFormat(outputFormat, outputLocale);
+
     }
 
     @Override
