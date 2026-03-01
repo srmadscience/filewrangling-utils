@@ -18,6 +18,7 @@ import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,12 +30,12 @@ public class FileWrangler {
     public static final String DELIM_SPLIT_REGEX = DELIM + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
     public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
     private static final int IO_BUFFER_SIZE = 2048;
-    File inputFile = null;
-    File outputFile = null;
-    File jsonFile = null;
+    File inputFile;
+    File outputFile;
+    File jsonFile;
     int startFieldLine = 2;
-    ArrayList<CSVLineWranglerIFace> lineChanges = new ArrayList<CSVLineWranglerIFace>();
-    ArrayList<CSVFieldWranglerIFace> rawFieldChanges = new ArrayList<CSVFieldWranglerIFace>();
+    ArrayList<CSVLineWranglerIFace> lineChanges = new ArrayList<>();
+    ArrayList<CSVFieldWranglerIFace> rawFieldChanges = new ArrayList<>();
     CSVFieldWranglerIFace[] fieldChanges = new CSVFieldWranglerIFace[0];
 
     Gson gson = new Gson();
@@ -51,7 +52,7 @@ public class FileWrangler {
     /**
      * Print a formatted message.
      *
-     * @param message
+     * @param message A message
      */
     public static void msg(String message) {
 
@@ -159,7 +160,7 @@ public class FileWrangler {
 
         try {
             int bytesRead;
-            BufferedInputStream source = new BufferedInputStream(new FileInputStream(inFile), IO_BUFFER_SIZE);
+            BufferedInputStream source = new BufferedInputStream(Files.newInputStream(inFile.toPath()), IO_BUFFER_SIZE);
             bytesRead = source.read(buff, 0, (int) inFile.length());
             source.close();
 

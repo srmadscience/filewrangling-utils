@@ -19,8 +19,8 @@ import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
 
 public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
-    ArrayList<String> fieldNames = new ArrayList<String>();
-    ArrayList<CSVFieldWranglerIFace> theExtraWranglers = new ArrayList<CSVFieldWranglerIFace>();
+    ArrayList<String> fieldNames = new ArrayList<>();
+    ArrayList<CSVFieldWranglerIFace> theExtraWranglers = new ArrayList<>();
 
     public AbstractFieldWrangler() {
     }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public abstract class AbstractLineWrangler implements CSVLineWranglerIFace {
 
-    ArrayList<CSVLineWranglerIFace> theExtraWranglers = new ArrayList<CSVLineWranglerIFace>();
+    ArrayList<CSVLineWranglerIFace> theExtraWranglers = new ArrayList<>();
 
 
     public AbstractLineWrangler() {

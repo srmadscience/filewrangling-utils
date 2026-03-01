@@ -16,9 +16,9 @@ import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
 
 public class WranglerRequest {
-    public String requestType = null;
+    public String requestType;
     public Properties props = new Properties();
-    public ArrayList<String> fieldNames = new ArrayList<String>();
+    public ArrayList<String> fieldNames = new ArrayList<>();
 
     public WranglerRequest(String requestType) {
         this.requestType = requestType;
