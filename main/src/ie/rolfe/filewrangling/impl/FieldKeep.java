@@ -27,4 +27,12 @@ public class FieldKeep extends AbstractFieldWrangler implements CSVFieldWrangler
     public String fixField(String field) {
         return field;
     }
+
+    @Override
+    public String toString() {
+        return "FieldKeep{" +
+                "fieldNames=" + fieldNames +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
+    }
 }

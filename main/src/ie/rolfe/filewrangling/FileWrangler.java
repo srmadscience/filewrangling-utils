@@ -8,37 +8,47 @@
 package ie.rolfe.filewrangling;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import ie.rolfe.filewrangling.exceptions.FileWranglingException;
 import ie.rolfe.filewrangling.exceptions.SkipThisFieldException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.impl.AbstractLineWrangler;
 import ie.rolfe.filewrangling.impl.FieldSkip;
 import ie.rolfe.filewrangling.model.FileMapping;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-public class BaseFileWrangler {
+public class FileWrangler {
 
     public static final char DELIM = ',';
     public static final String DELIM_SPLIT_REGEX = DELIM + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+    private static final int IO_BUFFER_SIZE = 2048;
+    public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
     File inputFile = null;
     File outputFile = null;
+    File jsonFile = null;
     int startFieldLine = 2;
-
     ArrayList<CSVLineWranglerIFace> lineChanges = new ArrayList<CSVLineWranglerIFace>();
     ArrayList<CSVFieldWranglerIFace> rawFieldChanges = new ArrayList<CSVFieldWranglerIFace>();
     CSVFieldWranglerIFace[] fieldChanges = new CSVFieldWranglerIFace[0];
 
+    Gson gson = new Gson();
+
 
     int headerLine = 1;
 
-    public BaseFileWrangler(File inputFile, File outputFile) {
+    public FileWrangler(File inputFile, File outputFile, File jsonFile) {
         this.inputFile = inputFile;
         this.outputFile = outputFile;
+        this.jsonFile = jsonFile;
     }
 
     /**
@@ -56,36 +66,44 @@ public class BaseFileWrangler {
 
     }
 
-    protected static File[] getFiles(String[] args) {
+    protected static File[] validateFiles(String[] args) {
         msg("Parameters:" + Arrays.toString(args));
 
-        if (args.length != 2) {
-            msg("Usage: inputfilename outputfilename");
+        if (args.length != 3) {
+            msg("Usage: inputfilename outputfilename jsonfile");
             System.exit(1);
         }
 
         File inputFile = null;
         File outputFile = null;
+        File jsonFile = null;
 
 
         try {
 
             inputFile = new File(args[0]);
+            jsonFile = new File(args[2]);
 
-            if (!inputFile.exists()) {
-                msg("Input file does not exist");
-                System.exit(2);
-            }
+            File[] readableFiles = {inputFile, jsonFile};
 
-            if (!inputFile.isFile()) {
-                msg("Input file is not a file");
-                System.exit(3);
-            }
+            for (File readableFile : readableFiles) {
+
+                if (!readableFile.exists()) {
+                    msg("File " + readableFile.getAbsolutePath() + " does not exist");
+
+                    System.exit(2);
+                }
+
+                if (!inputFile.isFile()) {
+                    msg("File " + readableFile.getAbsolutePath() + " is not a file");
+                    System.exit(3);
+                }
 
 
-            if (!inputFile.canRead()) {
-                msg("Input file is not readable");
-                System.exit(4);
+                if (!inputFile.canRead()) {
+                    msg("File " + readableFile.getAbsolutePath() + " is not readable");
+                    System.exit(4);
+                }
             }
 
             outputFile = new File(args[1]);
@@ -99,32 +117,58 @@ public class BaseFileWrangler {
             msg(e.getMessage());
         }
 
-        return new File[]{inputFile, outputFile};
+        return new File[]{inputFile, outputFile, jsonFile};
     }
 
     public static void main(String[] args) {
 
-        File[] files = getFiles(args);
+        File[] files = validateFiles(args);
 
-        BaseFileWrangler theFileWrangler = new BaseFileWrangler(files[0], files[1]);
+        FileWrangler theFileWrangler = new FileWrangler(files[0], files[1], files[2]);
 
-        theFileWrangler.printConfig();
+        theFileWrangler.parseJsonFile();
 
         theFileWrangler.makeChangedCopy();
 
     }
 
-    public void printConfig() {
-        Gson g = new Gson();
+    public void parseJsonFile() {
 
-        FileMapping fm = new FileMapping();
-        msg(g.toJson(lineChanges));
-        msg(g.toJson(rawFieldChanges));
-        msg(g.toJson(fieldChanges));
+
+        String jsonFileContents = new String(loadFileIntoByteArray(jsonFile));
+
+        try {
+            FileMapping fm = gson.fromJson(jsonFileContents, FileMapping.class);
+
+            for (int i=0; i < fm.lineMappings.length; i++) {
+
+                msg(i + " Create instance of " + fm.lineMappings[i].requestType + "...");
+
+                Class<?> clazz = Class.forName(PACKAGE_NAME + fm.lineMappings[i].requestType);
+                Constructor<?> constructor = clazz.getConstructor(WranglerRequest.class);
+                Object instance = constructor.newInstance(fm.lineMappings[i]);
+                addLineChange((CSVLineWranglerIFace)instance);
+                msg(i + " " + instance);
+            }
+
+            for (int i=0; i < fm.fieldMappings.length; i++) {
+
+                msg(i + " Create instance of " + fm.fieldMappings[i].requestType + "...");
+
+                Class<?> clazz = Class.forName(PACKAGE_NAME + fm.fieldMappings[i].requestType);
+                Constructor<?> constructor = clazz.getConstructor(WranglerRequest.class);
+                Object instance = constructor.newInstance(fm.fieldMappings[i]);
+                addField((CSVFieldWranglerIFace)instance);
+                msg(i + " " + instance);
+            }
+
+        } catch (Exception e) {
+            throw new FileWranglingException(jsonFile +":" + e.getMessage());
+        }
 
     }
 
-    public void addLineChange(AbstractLineWrangler newLineChange) {
+    public void addLineChange(CSVLineWranglerIFace newLineChange) {
         lineChanges.add(newLineChange);
     }
 
@@ -145,7 +189,9 @@ public class BaseFileWrangler {
         }
 
         if (lineNumber == headerLine) {
+
             mapFieldsToPositions(line);
+
         }
 
         String newLine = line;
@@ -258,4 +304,59 @@ public class BaseFileWrangler {
         this.headerLine = headerLine;
     }
 
+
+    /**
+     * Loads a file into a byte array. Note that this will not work with really big files.
+     * Non-existant or zero length files are returned as a zero length array. This routine
+     * has been tested with files up to 1MB in size.
+     * @param  inFile the file you want copied
+     * @return byte[] a byte array
+     * @since JDBCWizard 4.0.2108
+     */
+    public static byte[] loadFileIntoByteArray(File inFile) throws FileWranglingException
+    {
+        byte[] buff;
+
+        if (inFile == null || (! inFile.exists()) || inFile.length() == 0)
+        {
+            // Return zero length array.
+            buff = new byte[0];
+            return(buff);
+        }
+
+        try
+        {
+            // Note that a file can be Long.MAX_VALUE but that
+            // our byte array can only be Integer.MAX_VALUE in size
+            buff = new byte[(int)inFile.length()];
+        }
+        catch (Exception e)
+        {
+            throw new FileWranglingException("loadFileIntoByteArray: File " + inFile.getAbsolutePath()
+                    + " is too big to be turned into a byte array. Size is "
+                    + inFile.length());
+        }
+
+        try
+        {
+            int bytesRead;
+            BufferedInputStream  source = new BufferedInputStream(new FileInputStream(inFile),IO_BUFFER_SIZE );
+            bytesRead = source.read(buff,0,(int)inFile.length());
+            source.close();
+
+            if (bytesRead != inFile.length())
+            {
+                throw new FileWranglingException("loadFileIntoByteArray: File " + inFile.getAbsolutePath()
+                        + " could not be turned into a byte array of same size. File size is "
+                        + inFile.length() + ". Only " + bytesRead + " bytes were retrieved");
+            }
+
+        }
+        catch(IOException error)
+        {
+            throw new FileWranglingException("loadFileIntoByteArray: Error while reading: " + error.getMessage());
+        }
+
+        return(buff);
+    }
 }

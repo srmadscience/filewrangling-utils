@@ -14,6 +14,7 @@ import java.util.Properties;
 public class WranglerRequest {
     public String requestType = null;
     public Properties props = new Properties();
+    public String[] fieldNames = null;
 
     public WranglerRequest(String requestType) {
         this.requestType = requestType;
@@ -33,4 +34,32 @@ public class WranglerRequest {
 
         return value;
     }
+
+    public String getString(String key) throws WranglerRequestException {
+        return get(key).toString();
+    }
+
+    public int getInt(String key) throws WranglerRequestException {
+        Object theValue = get(key);
+
+        if (theValue instanceof Integer) {
+            return (Integer) theValue;
+        }
+
+        return Integer.parseInt(theValue.toString());
+
+    }
+
+    public String[] getFieldNames() {
+        return fieldNames;
+    }
+
+    public void setFieldNames(String[] fieldNames) {
+        this.fieldNames = fieldNames;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldNames = new String[]{fieldName};
+    }
+
 }

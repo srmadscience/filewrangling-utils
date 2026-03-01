@@ -11,4 +11,8 @@ public class FileWranglingException extends RuntimeException {
     public FileWranglingException(String payload, String wrangler, String message) {
         super(wrangler + ":" + message + ":" + payload);
     }
+
+    public FileWranglingException(String message) {
+        super(message);
+    }
 }

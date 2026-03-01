@@ -9,6 +9,8 @@ package ie.rolfe.filewrangling.iface;
 
 public interface CSVLineWranglerIFace {
 
+    String getName();
+
     String fixLine(int lineNumber, String line);
 
     void addCSVLineWranglerIFace(CSVLineWranglerIFace theExtraWrangler);

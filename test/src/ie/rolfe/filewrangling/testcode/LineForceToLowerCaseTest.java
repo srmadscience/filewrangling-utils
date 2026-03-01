@@ -7,11 +7,13 @@
  */
 package ie.rolfe.filewrangling.testcode;
 
+import com.google.gson.Gson;
 import ie.rolfe.filewrangling.impl.LineForceToLowerCase;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.util.Properties;
 
+import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -89,6 +91,8 @@ class LineForceToLowerCaseTest {
         p.put("endLine", 1);
         WranglerRequest w = new WranglerRequest("LineForceToLowerCase", p);
         LineForceToLowerCase thingToTest = new LineForceToLowerCase(w);
+        Gson g  = new Gson();
+        msg(g.toJson(w));
 
         String output = thingToTest.fixLine(1, null);
 

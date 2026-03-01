@@ -19,6 +19,8 @@ public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWrang
         this.thingToPrepend = thingToPrepend;
     }
 
+
+
     public FieldPrepend(WranglerRequest wranglerRequest) throws WranglerRequestException {
         super(wranglerRequest);
         this.thingToPrepend = (String) wranglerRequest.get("thingToPrepend");
@@ -33,4 +35,15 @@ public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWrang
 
         return processExtraWranglers(thingToPrepend + field);
     }
+
+
+    @Override
+    public String toString() {
+        return "FieldPrepend{" +
+                "thingToPrepend='" + thingToPrepend + '\'' +
+                ", fieldNames=" + fieldNames +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
+    }
+
 }

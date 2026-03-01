@@ -11,22 +11,29 @@ import ie.rolfe.filewrangling.exceptions.WranglerRequestException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
+import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
 
 public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
     ArrayList<String> fieldNames = new ArrayList<String>();
     ArrayList<CSVFieldWranglerIFace> theExtraWranglers = new ArrayList<CSVFieldWranglerIFace>();
 
-    public AbstractFieldWrangler() {}
+    public AbstractFieldWrangler() {
+    }
 
-    public AbstractFieldWrangler(WranglerRequest wranglerRequest)
-    {
-        if (! wranglerRequest.requestType.equals(this.getClass().getSimpleName())) {
+    public AbstractFieldWrangler(WranglerRequest wranglerRequest) {
+        if (!wranglerRequest.requestType.equals(this.getClass().getSimpleName())) {
             throw new WranglerRequestException(wranglerRequest.requestType + " can't be used for " + this.getClass().getSimpleName());
+        }
+
+        if (wranglerRequest.fieldNames != null) {
+            for (int i = 0; i < wranglerRequest.fieldNames.length; i++) {
+                useForFields(wranglerRequest.fieldNames[i]);
+            }
         }
     }
 
@@ -62,9 +69,15 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
     }
 
     public boolean isUsedForField(String fieldName) {
-        return fieldNames.contains(fieldName);
+
+        String testString = new String(fieldName.getBytes(StandardCharsets.UTF_8)).replace("\ufeff", "");
+
+        return fieldNames.contains(testString);
     }
 
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
 }
 
 

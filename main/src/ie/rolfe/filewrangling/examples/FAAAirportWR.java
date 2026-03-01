@@ -15,8 +15,8 @@ import ie.rolfe.filewrangling.impl.LineForceToLowerCase;
 
 import java.io.File;
 
-public class FAAAirport extends BaseFileWrangler {
-    public FAAAirport(File inputFile, File outputFile) {
+public class FAAAirportWR extends BaseFileWrangler {
+    public FAAAirportWR(File inputFile, File outputFile) {
         super(inputFile, outputFile);
 
         this.addLineChange(new LineForceToLowerCase(1, 1));
@@ -33,7 +33,7 @@ public class FAAAirport extends BaseFileWrangler {
 
         File[] files = getFiles(args);
 
-        FAAAirport theFileWrangler = new FAAAirport(files[0], files[1]);
+        FAAAirportWR theFileWrangler = new FAAAirportWR(files[0], files[1]);
         theFileWrangler.printConfig();
 
         theFileWrangler.makeChangedCopy();

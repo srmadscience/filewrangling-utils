@@ -12,6 +12,8 @@ import ie.rolfe.filewrangling.exceptions.SkipThisFieldException;
 
 public interface CSVFieldWranglerIFace {
 
+    String getName();
+
     String fixField(String field) throws FileWranglingException, SkipThisFieldException;
 
     void addCSVFieldWranglerIFace(CSVFieldWranglerIFace theExtraWrangler);

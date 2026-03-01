@@ -25,4 +25,13 @@ public class FieldSkip extends AbstractFieldWrangler implements CSVFieldWrangler
     public FieldSkip(WranglerRequest wranglerRequest) throws WranglerRequestException {
         super(wranglerRequest);
     }
+
+
+    @Override
+    public String toString() {
+        return "FieldSkip{" +
+                "fieldNames=" + fieldNames +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
+    }
 }

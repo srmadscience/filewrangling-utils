@@ -7,11 +7,13 @@
  */
 package ie.rolfe.filewrangling.testcode;
 
+import com.google.gson.Gson;
 import ie.rolfe.filewrangling.impl.LineChangeOverrideColumnValue;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.util.Properties;
 
+import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -108,6 +110,9 @@ class LineChangeColumnValueTest {
         p.put("fieldNumberStartingAtZero", 1);
         p.put("newValue", TEST_VALUE);
         WranglerRequest w = new WranglerRequest("LineChangeOverrideColumnValue", p);
+
+        Gson g  = new Gson();
+        msg(g.toJson(w));
 
         LineChangeOverrideColumnValue thingToTest =
                 new LineChangeOverrideColumnValue(w);

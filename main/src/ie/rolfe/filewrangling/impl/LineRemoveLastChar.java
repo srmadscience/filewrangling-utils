@@ -21,12 +21,12 @@ public class LineRemoveLastChar extends AbstractLineWrangler implements CSVLineW
         this.endLine = endLine;
     }
 
+
     public LineRemoveLastChar(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
 
-        this.startLine =  (Integer) wranglerRequest.get("startLine");
-        this.endLine =  (Integer) wranglerRequest.get("endLine");
-    }
+        this.startLine = wranglerRequest.getInt("startLine");
+        this.endLine =   wranglerRequest.getInt("endLine");    }
 
     @Override
     public String fixLine(int lineNumber, String line) {
@@ -41,5 +41,13 @@ public class LineRemoveLastChar extends AbstractLineWrangler implements CSVLineW
         return processExtraWranglers(lineNumber, line);
     }
 
+    @Override
+    public String toString() {
+        return "LineRemoveLastChar{" +
+                "startLine=" + startLine +
+                ", endLine=" + endLine +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
+    }
 
 }

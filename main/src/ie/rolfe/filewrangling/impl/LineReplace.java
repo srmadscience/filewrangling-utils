@@ -23,11 +23,12 @@ public class LineReplace extends AbstractLineWrangler implements CSVLineWrangler
         this.newValue = newValue;
     }
 
+
     public LineReplace(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
 
-        this.startLine = (Integer) wranglerRequest.get("startLine");
-        this.endLine = (Integer) wranglerRequest.get("endLine");
+        this.startLine = wranglerRequest.getInt("startLine");
+        this.endLine =   wranglerRequest.getInt("endLine");
         this.newValue = (String) wranglerRequest.get("newValue");
     }
 
@@ -48,6 +49,16 @@ public class LineReplace extends AbstractLineWrangler implements CSVLineWrangler
             return processExtraWranglers(lineNumber, newValue);
         }
         return processExtraWranglers(lineNumber, line);
+    }
+
+    @Override
+    public String toString() {
+        return "LineReplace{" +
+                "startLine=" + startLine +
+                ", endLine=" + endLine +
+                ", newValue='" + newValue + '\'' +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
     }
 
 

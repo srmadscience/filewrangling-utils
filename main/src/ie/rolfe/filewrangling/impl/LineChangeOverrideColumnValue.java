@@ -26,12 +26,15 @@ public class LineChangeOverrideColumnValue extends AbstractLineWrangler implemen
         this.fieldNumberStartingAtZero = fieldNumberStartingAtZero;
         this.newValue = newValue;
     }
+
+
+
     public LineChangeOverrideColumnValue(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
 
-        this.startLine =  (Integer) wranglerRequest.get("startLine");
-        this.endLine =  (Integer) wranglerRequest.get("endLine");
-        this.fieldNumberStartingAtZero = (Integer) wranglerRequest.get("fieldNumberStartingAtZero");
+        this.startLine = wranglerRequest.getInt("startLine");
+        this.endLine =   wranglerRequest.getInt("endLine");
+        this.fieldNumberStartingAtZero =  wranglerRequest.getInt("fieldNumberStartingAtZero");
         this.newValue = (String) wranglerRequest.get("newValue");
     }
 
@@ -70,5 +73,15 @@ public class LineChangeOverrideColumnValue extends AbstractLineWrangler implemen
         return processExtraWranglers(lineNumber, line);
     }
 
+    @Override
+    public String toString() {
+        return "LineChangeOverrideColumnValue{" +
+                "startLine=" + startLine +
+                ", endLine=" + endLine +
+                ", fieldNumberStartingAtZero=" + fieldNumberStartingAtZero +
+                ", newValue='" + newValue + '\'' +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
+    }
 
 }

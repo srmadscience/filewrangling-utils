@@ -43,5 +43,7 @@ public abstract class AbstractLineWrangler implements CSVLineWranglerIFace {
 
         return newField;
     }
-
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
 }

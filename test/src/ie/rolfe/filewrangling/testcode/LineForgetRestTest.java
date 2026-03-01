@@ -7,6 +7,7 @@
  */
 package ie.rolfe.filewrangling.testcode;
 
+import com.google.gson.Gson;
 import ie.rolfe.filewrangling.impl.LineForgetRest;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Properties;
 
+import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LineForgetRestTest {
@@ -56,7 +58,10 @@ class LineForgetRestTest {
         WranglerRequest w = new WranglerRequest("LineForgetRest", p);
         LineForgetRest l = new LineForgetRest(w);
 
+        Gson g  = new Gson();
+        msg(g.toJson(w));
         String output = l.fixLine(1, null);
+
         Assertions.assertNull(output);
     }
 

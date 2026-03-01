@@ -16,6 +16,7 @@ public class LineForceToLowerCase extends AbstractLineWrangler implements CSVLin
     int startLine;
     int endLine;
 
+
     public LineForceToLowerCase(int startLine, int endLine) {
         this.startLine = startLine;
         this.endLine = endLine;
@@ -24,8 +25,8 @@ public class LineForceToLowerCase extends AbstractLineWrangler implements CSVLin
     public LineForceToLowerCase(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
 
-        this.startLine =  (Integer) wranglerRequest.get("startLine");
-        this.endLine =  (Integer) wranglerRequest.get("endLine");
+        this.startLine = wranglerRequest.getInt("startLine");
+        this.endLine =  wranglerRequest.getInt("endLine");
     }
 
 
@@ -42,5 +43,13 @@ public class LineForceToLowerCase extends AbstractLineWrangler implements CSVLin
         return processExtraWranglers(lineNumber, line);
     }
 
+    @Override
+    public String toString() {
+        return "LineForceToLowerCase{" +
+                "startLine=" + startLine +
+                ", endLine=" + endLine +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
+    }
 
 }

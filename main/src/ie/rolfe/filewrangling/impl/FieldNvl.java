@@ -11,9 +11,6 @@ import ie.rolfe.filewrangling.exceptions.WranglerRequestException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 public class FieldNvl extends AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
     private static final String ZERO_AS_STRING = "0";
@@ -45,5 +42,15 @@ public class FieldNvl extends AbstractFieldWrangler implements CSVFieldWranglerI
             return processExtraWranglers(nvlValue);
         }
         return processExtraWranglers(field);
+    }
+
+
+    @Override
+    public String toString() {
+        return "FieldNvl{" +
+                "nvlValue='" + nvlValue + '\'' +
+                ", fieldNames=" + fieldNames +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
     }
 }

@@ -25,12 +25,13 @@ public class LineForgetRest extends AbstractLineWrangler implements CSVLineWrang
 
     }
 
+
     public LineForgetRest(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
 
-        this.startLine =  (Integer) wranglerRequest.get("startLine");
-        this.endLine =  (Integer) wranglerRequest.get("endLine");
-        this.lastColumn = (Integer) wranglerRequest.get("lastColumn");
+        this.startLine = wranglerRequest.getInt("startLine");
+        this.endLine =   wranglerRequest.getInt("endLine");
+        this.lastColumn =  wranglerRequest.getInt("lastColumn");
     }
 
 
@@ -64,6 +65,16 @@ public class LineForgetRest extends AbstractLineWrangler implements CSVLineWrang
             return processExtraWranglers(lineNumber, newString.toString());
         }
         return processExtraWranglers(lineNumber, line);
+    }
+
+    @Override
+    public String toString() {
+        return "LineForgetRest{" +
+                "startLine=" + startLine +
+                ", endLine=" + endLine +
+                ", lastColumn=" + lastColumn +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
     }
 
 

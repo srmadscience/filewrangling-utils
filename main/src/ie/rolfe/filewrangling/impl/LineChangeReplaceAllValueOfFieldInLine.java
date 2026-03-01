@@ -26,11 +26,12 @@ public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler
         this.newValue = newValue;
     }
 
+
     public LineChangeReplaceAllValueOfFieldInLine(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
 
-        this.startLine =  (Integer) wranglerRequest.get("startLine");
-        this.endLine =  (Integer) wranglerRequest.get("endLine");
+        this.startLine = wranglerRequest.getInt("startLine");
+        this.endLine =   wranglerRequest.getInt("endLine");
         this.columnValue = (String) wranglerRequest.get("columnValue");
         this.newValue = (String) wranglerRequest.get("newValue");
     }
@@ -69,5 +70,15 @@ public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler
         return processExtraWranglers(lineNumber, line);
     }
 
+    @Override
+    public String toString() {
+        return "LineChangeReplaceAllValueOfFieldInLine{" +
+                "startLine=" + startLine +
+                ", endLine=" + endLine +
+                ", columnValue='" + columnValue + '\'' +
+                ", newValue='" + newValue + '\'' +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
+    }
 
 }

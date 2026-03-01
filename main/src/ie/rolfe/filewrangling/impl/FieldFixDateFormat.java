@@ -31,9 +31,9 @@ public class FieldFixDateFormat extends AbstractFieldWrangler implements CSVFiel
         super(wranglerRequest);
 
         String inputFormat = (String) wranglerRequest.get("inputFormat");
-        Locale inputLocale =  (Locale)  wranglerRequest.get("inputLocale");
+        Locale inputLocale = (Locale) wranglerRequest.get("inputLocale");
         String outputFormat = (String) wranglerRequest.get("outputFormat");
-        Locale outputLocale =  (Locale)  wranglerRequest.get("outputLocale");
+        Locale outputLocale = (Locale) wranglerRequest.get("outputLocale");
 
         this.inputFormat = new SimpleDateFormat(inputFormat, inputLocale);
         this.outputFormat = new SimpleDateFormat(outputFormat, outputLocale);
@@ -60,5 +60,16 @@ public class FieldFixDateFormat extends AbstractFieldWrangler implements CSVFiel
         return processExtraWranglers(newField);
     }
 
+    @Override
+    public String toString() {
+        return "FieldFixDateFormat{" +
+                "inputFormat=" + inputFormat +
+                ", outputFormat=" + outputFormat +
+                ", fieldNames=" + fieldNames +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
+    }
 }
+
+
 

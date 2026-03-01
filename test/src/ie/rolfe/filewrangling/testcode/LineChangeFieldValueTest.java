@@ -7,11 +7,13 @@
  */
 package ie.rolfe.filewrangling.testcode;
 
+import com.google.gson.Gson;
 import ie.rolfe.filewrangling.impl.LineChangeReplaceAllValueOfFieldInLine;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.util.Properties;
 
+import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -65,6 +67,9 @@ class LineChangeFieldValueTest {
         p.put("columnValue", TEST_VALUE_B);
         p.put("newValue", TEST_VALUE_D);
         WranglerRequest w = new WranglerRequest("LineChangeReplaceAllValueOfFieldInLine", p);
+
+        Gson g  = new Gson();
+        msg(g.toJson(w));
 
         LineChangeReplaceAllValueOfFieldInLine thingToTest =
                 new LineChangeReplaceAllValueOfFieldInLine(w);

@@ -7,12 +7,14 @@
  */
 package ie.rolfe.filewrangling.testcode;
 
+import com.google.gson.Gson;
 import ie.rolfe.filewrangling.impl.FieldFixDateFormat;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.util.Locale;
 import java.util.Properties;
 
+import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FieldFixUSAMPMDateTest {
@@ -112,6 +114,8 @@ public class FieldFixUSAMPMDateTest {
 
         WranglerRequest w = new WranglerRequest("FieldFixDateFormat", p);
 
+        Gson g  = new Gson();
+        msg(g.toJson(w));
         FieldFixDateFormat fieldToTest = new FieldFixDateFormat(w);
 
         String input = simpleTestUS;

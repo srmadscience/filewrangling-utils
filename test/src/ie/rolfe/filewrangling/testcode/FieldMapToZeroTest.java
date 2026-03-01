@@ -7,12 +7,14 @@
  */
 package ie.rolfe.filewrangling.testcode;
 
+import com.google.gson.Gson;
 import ie.rolfe.filewrangling.impl.FieldNvl;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.util.Locale;
 import java.util.Properties;
 
+import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FieldMapToZeroTest {
@@ -83,6 +85,8 @@ class FieldMapToZeroTest {
         WranglerRequest w = new WranglerRequest("FieldNvl");
 
         FieldNvl fieldMapToZero = new FieldNvl(w);
+        Gson g  = new Gson();
+        msg(g.toJson(w));
 
         String input = null;
         String output = fieldMapToZero.fixField(input);
