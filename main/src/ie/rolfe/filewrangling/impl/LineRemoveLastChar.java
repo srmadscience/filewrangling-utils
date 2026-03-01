@@ -26,7 +26,8 @@ public class LineRemoveLastChar extends AbstractLineWrangler implements CSVLineW
         super(wranglerRequest);
 
         this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine =   wranglerRequest.getInt("endLine");    }
+        this.endLine = wranglerRequest.getInt("endLine");
+    }
 
     @Override
     public String fixLine(int lineNumber, String line) {

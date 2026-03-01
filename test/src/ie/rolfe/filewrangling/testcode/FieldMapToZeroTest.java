@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import ie.rolfe.filewrangling.impl.FieldNvl;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
-import java.util.Locale;
 import java.util.Properties;
 
 import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
@@ -84,6 +83,7 @@ class FieldMapToZeroTest {
 
         WranglerRequest w = new WranglerRequest("FieldNvl");
 
+
         FieldNvl fieldMapToZero = new FieldNvl(w);
         Gson g  = new Gson();
         msg(g.toJson(w));
@@ -103,7 +103,7 @@ class FieldMapToZeroTest {
         WranglerRequest w = new WranglerRequest("FieldNvl",p);
 
 
-        FieldNvl fieldMapToZero = new FieldNvl(mapValue);
+        FieldNvl fieldMapToZero = new FieldNvl(w);
 
         String input = null;
         String output = fieldMapToZero.fixField(input);
@@ -115,7 +115,6 @@ class FieldMapToZeroTest {
     @org.junit.jupiter.api.Test
     void fixFieldNotNullWR() {
 
-        Properties p = new Properties();
 
 
         WranglerRequest w = new WranglerRequest("FieldNvl");

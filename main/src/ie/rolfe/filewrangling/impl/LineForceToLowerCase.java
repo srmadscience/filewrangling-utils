@@ -26,7 +26,7 @@ public class LineForceToLowerCase extends AbstractLineWrangler implements CSVLin
         super(wranglerRequest);
 
         this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine =  wranglerRequest.getInt("endLine");
+        this.endLine = wranglerRequest.getInt("endLine");
     }
 
 

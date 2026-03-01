@@ -20,7 +20,6 @@ public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWrang
     }
 
 
-
     public FieldPrepend(WranglerRequest wranglerRequest) throws WranglerRequestException {
         super(wranglerRequest);
         this.thingToPrepend = (String) wranglerRequest.get("thingToPrepend");

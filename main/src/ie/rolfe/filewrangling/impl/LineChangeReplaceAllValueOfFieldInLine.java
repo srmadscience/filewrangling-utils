@@ -31,7 +31,7 @@ public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler
         super(wranglerRequest);
 
         this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine =   wranglerRequest.getInt("endLine");
+        this.endLine = wranglerRequest.getInt("endLine");
         this.columnValue = (String) wranglerRequest.get("columnValue");
         this.newValue = (String) wranglerRequest.get("newValue");
     }

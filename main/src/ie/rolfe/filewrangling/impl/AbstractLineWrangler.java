@@ -18,11 +18,11 @@ public abstract class AbstractLineWrangler implements CSVLineWranglerIFace {
     ArrayList<CSVLineWranglerIFace> theExtraWranglers = new ArrayList<CSVLineWranglerIFace>();
 
 
-    public AbstractLineWrangler() {}
+    public AbstractLineWrangler() {
+    }
 
-    public AbstractLineWrangler(WranglerRequest wranglerRequest)
-    {
-        if (! wranglerRequest.requestType.equals(this.getClass().getSimpleName())) {
+    public AbstractLineWrangler(WranglerRequest wranglerRequest) {
+        if (!wranglerRequest.requestType.equals(this.getClass().getSimpleName())) {
             throw new WranglerRequestException(wranglerRequest.requestType + " can't be used for " + this.getClass().getSimpleName());
         }
     }
@@ -43,6 +43,7 @@ public abstract class AbstractLineWrangler implements CSVLineWranglerIFace {
 
         return newField;
     }
+
     public String getName() {
         return this.getClass().getSimpleName();
     }

@@ -28,7 +28,7 @@ public class LineReplace extends AbstractLineWrangler implements CSVLineWrangler
         super(wranglerRequest);
 
         this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine =   wranglerRequest.getInt("endLine");
+        this.endLine = wranglerRequest.getInt("endLine");
         this.newValue = (String) wranglerRequest.get("newValue");
     }
 

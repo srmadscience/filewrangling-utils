@@ -14,10 +14,6 @@ import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class FieldSkip extends AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
-    @Override
-    public String fixField(String field) {
-        throw new SkipThisFieldException(field);
-    }
     public FieldSkip() {
 
     }
@@ -26,6 +22,10 @@ public class FieldSkip extends AbstractFieldWrangler implements CSVFieldWrangler
         super(wranglerRequest);
     }
 
+    @Override
+    public String fixField(String field) {
+        throw new SkipThisFieldException(field);
+    }
 
     @Override
     public String toString() {

@@ -8,19 +8,16 @@
 package ie.rolfe.filewrangling;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import ie.rolfe.filewrangling.exceptions.FileWranglingException;
 import ie.rolfe.filewrangling.exceptions.SkipThisFieldException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
-import ie.rolfe.filewrangling.impl.AbstractLineWrangler;
 import ie.rolfe.filewrangling.impl.FieldSkip;
 import ie.rolfe.filewrangling.model.FileMapping;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,8 +27,8 @@ public class FileWrangler {
 
     public static final char DELIM = ',';
     public static final String DELIM_SPLIT_REGEX = DELIM + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
-    private static final int IO_BUFFER_SIZE = 2048;
     public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
+    private static final int IO_BUFFER_SIZE = 2048;
     File inputFile = null;
     File outputFile = null;
     File jsonFile = null;
@@ -132,6 +129,53 @@ public class FileWrangler {
 
     }
 
+    /**
+     * Loads a file into a byte array. Note that this will not work with really big files.
+     * Non-existant or zero length files are returned as a zero length array. This routine
+     * has been tested with files up to 1MB in size.
+     *
+     * @param inFile the file you want copied
+     * @return byte[] a byte array
+     * @since JDBCWizard 4.0.2108
+     */
+    public static byte[] loadFileIntoByteArray(File inFile) throws FileWranglingException {
+        byte[] buff;
+
+        if (inFile == null || (!inFile.exists()) || inFile.length() == 0) {
+            // Return zero length array.
+            buff = new byte[0];
+            return (buff);
+        }
+
+        try {
+            // Note that a file can be Long.MAX_VALUE but that
+            // our byte array can only be Integer.MAX_VALUE in size
+            buff = new byte[(int) inFile.length()];
+        } catch (Exception e) {
+            throw new FileWranglingException("loadFileIntoByteArray: File " + inFile.getAbsolutePath()
+                    + " is too big to be turned into a byte array. Size is "
+                    + inFile.length());
+        }
+
+        try {
+            int bytesRead;
+            BufferedInputStream source = new BufferedInputStream(new FileInputStream(inFile), IO_BUFFER_SIZE);
+            bytesRead = source.read(buff, 0, (int) inFile.length());
+            source.close();
+
+            if (bytesRead != inFile.length()) {
+                throw new FileWranglingException("loadFileIntoByteArray: File " + inFile.getAbsolutePath()
+                        + " could not be turned into a byte array of same size. File size is "
+                        + inFile.length() + ". Only " + bytesRead + " bytes were retrieved");
+            }
+
+        } catch (IOException error) {
+            throw new FileWranglingException("loadFileIntoByteArray: Error while reading: " + error.getMessage());
+        }
+
+        return (buff);
+    }
+
     public void parseJsonFile() {
 
 
@@ -140,30 +184,30 @@ public class FileWrangler {
         try {
             FileMapping fm = gson.fromJson(jsonFileContents, FileMapping.class);
 
-            for (int i=0; i < fm.lineMappings.length; i++) {
+            for (int i = 0; i < fm.lineMappings.length; i++) {
 
                 msg(i + " Create instance of " + fm.lineMappings[i].requestType + "...");
 
                 Class<?> clazz = Class.forName(PACKAGE_NAME + fm.lineMappings[i].requestType);
                 Constructor<?> constructor = clazz.getConstructor(WranglerRequest.class);
                 Object instance = constructor.newInstance(fm.lineMappings[i]);
-                addLineChange((CSVLineWranglerIFace)instance);
+                addLineChange((CSVLineWranglerIFace) instance);
                 msg(i + " " + instance);
             }
 
-            for (int i=0; i < fm.fieldMappings.length; i++) {
+            for (int i = 0; i < fm.fieldMappings.length; i++) {
 
                 msg(i + " Create instance of " + fm.fieldMappings[i].requestType + "...");
 
                 Class<?> clazz = Class.forName(PACKAGE_NAME + fm.fieldMappings[i].requestType);
                 Constructor<?> constructor = clazz.getConstructor(WranglerRequest.class);
                 Object instance = constructor.newInstance(fm.fieldMappings[i]);
-                addField((CSVFieldWranglerIFace)instance);
+                addField((CSVFieldWranglerIFace) instance);
                 msg(i + " " + instance);
             }
 
         } catch (Exception e) {
-            throw new FileWranglingException(jsonFile +":" + e.getMessage());
+            throw new FileWranglingException(jsonFile + ":" + e.getMessage());
         }
 
     }
@@ -302,61 +346,5 @@ public class FileWrangler {
 
     public void setHeaderLine(int headerLine) {
         this.headerLine = headerLine;
-    }
-
-
-    /**
-     * Loads a file into a byte array. Note that this will not work with really big files.
-     * Non-existant or zero length files are returned as a zero length array. This routine
-     * has been tested with files up to 1MB in size.
-     * @param  inFile the file you want copied
-     * @return byte[] a byte array
-     * @since JDBCWizard 4.0.2108
-     */
-    public static byte[] loadFileIntoByteArray(File inFile) throws FileWranglingException
-    {
-        byte[] buff;
-
-        if (inFile == null || (! inFile.exists()) || inFile.length() == 0)
-        {
-            // Return zero length array.
-            buff = new byte[0];
-            return(buff);
-        }
-
-        try
-        {
-            // Note that a file can be Long.MAX_VALUE but that
-            // our byte array can only be Integer.MAX_VALUE in size
-            buff = new byte[(int)inFile.length()];
-        }
-        catch (Exception e)
-        {
-            throw new FileWranglingException("loadFileIntoByteArray: File " + inFile.getAbsolutePath()
-                    + " is too big to be turned into a byte array. Size is "
-                    + inFile.length());
-        }
-
-        try
-        {
-            int bytesRead;
-            BufferedInputStream  source = new BufferedInputStream(new FileInputStream(inFile),IO_BUFFER_SIZE );
-            bytesRead = source.read(buff,0,(int)inFile.length());
-            source.close();
-
-            if (bytesRead != inFile.length())
-            {
-                throw new FileWranglingException("loadFileIntoByteArray: File " + inFile.getAbsolutePath()
-                        + " could not be turned into a byte array of same size. File size is "
-                        + inFile.length() + ". Only " + bytesRead + " bytes were retrieved");
-            }
-
-        }
-        catch(IOException error)
-        {
-            throw new FileWranglingException("loadFileIntoByteArray: Error while reading: " + error.getMessage());
-        }
-
-        return(buff);
     }
 }

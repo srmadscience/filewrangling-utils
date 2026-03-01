@@ -31,8 +31,8 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
         }
 
         if (wranglerRequest.fieldNames != null) {
-            for (int i = 0; i < wranglerRequest.fieldNames.length; i++) {
-                useForFields(wranglerRequest.fieldNames[i]);
+            for (int i = 0; i < wranglerRequest.fieldNames.size(); i++) {
+                useForFields(wranglerRequest.fieldNames.get(i));
             }
         }
     }

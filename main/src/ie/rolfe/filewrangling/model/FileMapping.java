@@ -7,8 +7,17 @@
  */
 package ie.rolfe.filewrangling.model;
 
+import java.util.Arrays;
+
 public class FileMapping {
     public WranglerRequest[] lineMappings = new WranglerRequest[0];
     public WranglerRequest[] fieldMappings = new WranglerRequest[0];
 
+    @Override
+    public String toString() {
+        return "FileMapping{" +
+                "lineMappings=" + Arrays.toString(lineMappings) +
+                ", fieldMappings=" + Arrays.toString(fieldMappings) +
+                '}';
+    }
 }

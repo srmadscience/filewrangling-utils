@@ -9,12 +9,16 @@ package ie.rolfe.filewrangling.model;
 
 import ie.rolfe.filewrangling.exceptions.WranglerRequestException;
 
+import java.util.ArrayList;
 import java.util.Properties;
+
+import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
+import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
 
 public class WranglerRequest {
     public String requestType = null;
     public Properties props = new Properties();
-    public String[] fieldNames = null;
+    public ArrayList<String> fieldNames = new ArrayList<String>();
 
     public WranglerRequest(String requestType) {
         this.requestType = requestType;
@@ -51,15 +55,29 @@ public class WranglerRequest {
     }
 
     public String[] getFieldNames() {
-        return fieldNames;
+        return fieldNames.toArray(new String[fieldNames.size()]);
     }
 
-    public void setFieldNames(String[] fieldNames) {
-        this.fieldNames = fieldNames;
+
+    public void setFieldNames(String fieldNameList) {
+
+        if (fieldNameList.indexOf(DELIM) == -1) {
+            fieldNames.add(fieldNameList);
+        } else {
+            String[] fields = fieldNameList.split(DELIM_SPLIT_REGEX, -1);
+            for (int i = 1; i < fields.length; i++) {
+                fieldNames.add(fields[i].trim());
+            }
+        }
+
     }
 
-    public void setFieldName(String fieldName) {
-        this.fieldNames = new String[]{fieldName};
+    @Override
+    public String toString() {
+        return "WranglerRequest{" +
+                "requestType='" + requestType + '\'' +
+                ", props=" + props +
+                ", fieldNames=" + fieldNames +
+                '}';
     }
-
 }

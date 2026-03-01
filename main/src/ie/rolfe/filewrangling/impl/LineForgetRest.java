@@ -30,10 +30,9 @@ public class LineForgetRest extends AbstractLineWrangler implements CSVLineWrang
         super(wranglerRequest);
 
         this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine =   wranglerRequest.getInt("endLine");
-        this.lastColumn =  wranglerRequest.getInt("lastColumn");
+        this.endLine = wranglerRequest.getInt("endLine");
+        this.lastColumn = wranglerRequest.getInt("lastColumn");
     }
-
 
 
     @Override
