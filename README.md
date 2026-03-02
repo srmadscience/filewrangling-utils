@@ -44,6 +44,11 @@ You can do this using this code and the following [JSON file](https://github.com
 } 
 ````
 
+The above JSON in a GSONized version of [FileMapping](https://github.com/srmadscience/filewrangling-utils/blob/main/main/src/ie/rolfe/filewrangling/model/FileMapping.java), which is 
+a holder for two arrays of [WranglerRequest](https://github.com/srmadscience/filewrangling-utils/blob/main/main/src/ie/rolfe/filewrangling/model/WranglerRequest.java),
+one for Field changes and one line changes. These requests are used to instantiate instances of the classes in
+[ie.rolfe.filewrangling.impl](https://github.com/srmadscience/filewrangling-utils/tree/main/main/src/ie/rolfe/filewrangling/impl) at runtime. These classes do the actual work.
+
 Call FileWrangler with the following parameters:
 
 ```
