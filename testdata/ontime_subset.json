@@ -1,0 +1,12 @@
+{
+"lineMappings":[
+{"requestType":"LineForceToLowerCase","props":{"endLine":1,"startLine":1}}
+]
+, "fieldMappings":[
+{"requestType":"FieldFixDateFormat","props":{"outputLocale":"en_GB","inputLocale":"en_US","inputFormat":"MM/dd/yyyy KK:mm:ss a","outputFormat":"dd/MM/yyyy"},"fieldNames":["FL_DATE"]}
+,{"requestType":"FieldKeep","props":{}, "fieldNames":["OP_UNIQUE_CARRIER,TAIL_NUM,OP_CARRIER_FL_NUM,ORIGIN,ORIGIN_CITY_NAME,DEST,DEST_CITY_NAME,CRS_DEP_TIME,DEP_TIME,DEP_DELAY,CRS_ARR_TIME,CRS_ELAPSED_TIME,DISTANCE"] }
+,{"requestType":"FieldPrepend","props":{"thingToPrepend":"N"}, "fieldNames":["N-NUMBER"] }
+,{"requestType":"FieldNvl","props":{"nvlValue":"UNKNOWN"}, "fieldNames":["TAIL_NUM"] }
+,{"requestType":"FieldNvl","props":{"nvlValue":"0"}, "fieldNames":["CRS_DEP_TIME,DEP_TIME,DEP_DELAY,CRS_ARR_TIME,CRS_ELAPSED_TIME,DISTANCE"] }
+] 
+} 

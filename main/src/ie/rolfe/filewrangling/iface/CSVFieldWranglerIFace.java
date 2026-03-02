@@ -9,6 +9,7 @@ package ie.rolfe.filewrangling.iface;
 
 import ie.rolfe.filewrangling.exceptions.FileWranglingException;
 import ie.rolfe.filewrangling.exceptions.SkipThisFieldException;
+import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public interface CSVFieldWranglerIFace {
 
@@ -22,5 +23,8 @@ public interface CSVFieldWranglerIFace {
 
     boolean isUsedForField(String fieldName);
 
+    public WranglerRequest getOriginalWranglerRequest() ;
 
-}
+    }
+
+

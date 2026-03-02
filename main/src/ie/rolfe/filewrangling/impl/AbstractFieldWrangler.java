@@ -22,10 +22,15 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
     ArrayList<String> fieldNames = new ArrayList<>();
     ArrayList<CSVFieldWranglerIFace> theExtraWranglers = new ArrayList<>();
 
+    WranglerRequest originalWranglerRequest;
+
     public AbstractFieldWrangler() {
     }
 
     public AbstractFieldWrangler(WranglerRequest wranglerRequest) {
+
+        originalWranglerRequest = wranglerRequest;
+
         if (!wranglerRequest.requestType.equals(this.getClass().getSimpleName())) {
             throw new WranglerRequestException(wranglerRequest.requestType + " can't be used for " + this.getClass().getSimpleName());
         }
@@ -61,7 +66,7 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
             fieldNames.add(fieldNameList);
         } else {
             String[] fields = fieldNameList.split(DELIM_SPLIT_REGEX, -1);
-            for (int i = 1; i < fields.length; i++) {
+            for (int i = 0; i < fields.length; i++) {
                 fieldNames.add(fields[i].trim());
             }
         }
@@ -77,6 +82,10 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
     public String getName() {
         return this.getClass().getSimpleName();
+    }
+
+    public WranglerRequest getOriginalWranglerRequest() {
+        return originalWranglerRequest;
     }
 }
 

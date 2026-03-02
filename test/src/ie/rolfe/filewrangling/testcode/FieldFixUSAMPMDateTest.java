@@ -113,6 +113,7 @@ public class FieldFixUSAMPMDateTest {
         p.put("outputLocale", Locale.UK);
 
         WranglerRequest w = new WranglerRequest("FieldFixDateFormat", p);
+        w.setFieldNames("A_FIELD, ANOTHER_FIELD");
 
         Gson g  = new Gson();
         msg(g.toJson(w));

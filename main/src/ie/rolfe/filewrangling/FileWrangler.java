@@ -18,6 +18,7 @@ import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -288,9 +289,11 @@ public class FileWrangler {
             for (int j = 0; j < rawFieldChanges.size(); j++) {
                 if (rawFieldChanges.get(j).isUsedForField(fields[i])) {
                     if (fieldChanges[i] == null) {
-                        fieldChanges[i] = rawFieldChanges.get(j);
+
+                        setFieldToCopyOfRawField(j, i);
                     } else {
-                        fieldChanges[i].addCSVFieldWranglerIFace(rawFieldChanges.get(j));
+                        //TODO Doesn't work properly...
+                        setFieldToCopyOfRawField(j, i);
                     }
 
                 }
@@ -298,6 +301,18 @@ public class FileWrangler {
         }
 
         setFieldChanges(fieldChanges);
+    }
+
+    private void setFieldToCopyOfRawField(int rawFieldId, int fieldId) {
+        try {
+            Class<?> clazz = Class.forName(PACKAGE_NAME + rawFieldChanges.get(rawFieldId).getOriginalWranglerRequest().requestType);
+            Constructor<?> constructor = clazz.getConstructor(WranglerRequest.class);
+            Object instance = constructor.newInstance(rawFieldChanges.get(rawFieldId).getOriginalWranglerRequest());
+            fieldChanges[fieldId] = (CSVFieldWranglerIFace) instance;
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
+                 IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getStartFieldLine() {

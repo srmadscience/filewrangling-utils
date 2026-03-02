@@ -10,6 +10,7 @@ package ie.rolfe.filewrangling.model;
 import ie.rolfe.filewrangling.exceptions.WranglerRequestException;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Properties;
 
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
@@ -54,6 +55,29 @@ public class WranglerRequest {
 
     }
 
+    public Locale getLocale(String key) throws WranglerRequestException {
+        Object theValue = get(key);
+
+        if (theValue instanceof Locale) {
+            return (Locale) theValue;
+        }
+
+
+        if (theValue instanceof String) {
+            String localeString = (String) theValue;
+
+            //TODO Fix locale stuff. Shouldn't do the stuff below...
+            if (localeString.matches("en_US")) {
+                return Locale.US;
+            } else if (localeString.matches("en_GB")) {
+                return Locale.UK;
+            }
+        }
+
+        return Locale.forLanguageTag((String) theValue);
+
+    }
+
     public String[] getFieldNames() {
         return fieldNames.toArray(new String[fieldNames.size()]);
     }
@@ -65,7 +89,7 @@ public class WranglerRequest {
             fieldNames.add(fieldNameList);
         } else {
             String[] fields = fieldNameList.split(DELIM_SPLIT_REGEX, -1);
-            for (int i = 1; i < fields.length; i++) {
+            for (int i = 0; i < fields.length; i++) {
                 fieldNames.add(fields[i].trim());
             }
         }
