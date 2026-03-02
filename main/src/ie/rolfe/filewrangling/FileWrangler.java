@@ -288,14 +288,7 @@ public class FileWrangler {
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < rawFieldChanges.size(); j++) {
                 if (rawFieldChanges.get(j).isUsedForField(fields[i])) {
-                    if (fieldChanges[i] == null) {
-
-                        setFieldToCopyOfRawField(j, i);
-                    } else {
-                        //TODO Doesn't work properly...
-                        setFieldToCopyOfRawField(j, i);
-                    }
-
+                    setFieldToCopyOfRawField(j, i);
                 }
             }
         }
@@ -308,7 +301,12 @@ public class FileWrangler {
             Class<?> clazz = Class.forName(PACKAGE_NAME + rawFieldChanges.get(rawFieldId).getOriginalWranglerRequest().requestType);
             Constructor<?> constructor = clazz.getConstructor(WranglerRequest.class);
             Object instance = constructor.newInstance(rawFieldChanges.get(rawFieldId).getOriginalWranglerRequest());
-            fieldChanges[fieldId] = (CSVFieldWranglerIFace) instance;
+            if (fieldChanges[fieldId]  == null) {
+                fieldChanges[fieldId] = (CSVFieldWranglerIFace) instance;
+            } else {
+                fieldChanges[fieldId].addCSVFieldWranglerIFace((CSVFieldWranglerIFace) instance);
+            }
+
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
                  IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
