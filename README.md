@@ -27,7 +27,7 @@ You need to:
 * Add "N" to the front of TAIL_NUM
 * Convert the wacky American date format ````7/1/2021 12:00:00 AM```` into something you can parse
 
-You can do this using this code and the following [JSON file]([input file](https://github.com/srmadscience/filewrangling-utils/blob/main/testdata/ontime_subset.json):
+You can do this using this code and the following [JSON file](https://github.com/srmadscience/filewrangling-utils/blob/main/testdata/ontime_subset.json):
 
 ````
 {
