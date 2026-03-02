@@ -62,20 +62,11 @@ public class WranglerRequest {
             return (Locale) theValue;
         }
 
-
         if (theValue instanceof String) {
-            String localeString = (String) theValue;
-
-            //TODO Fix locale stuff. Shouldn't do the stuff below...
-            if (localeString.matches("en_US")) {
-                return Locale.US;
-            } else if (localeString.matches("en_GB")) {
-                return Locale.UK;
-            }
+            return Locale.of((String) theValue);
         }
 
         return Locale.forLanguageTag((String) theValue);
-
     }
 
     public String[] getFieldNames() {
