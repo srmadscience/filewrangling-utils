@@ -1,14 +1,71 @@
 {
-"lineMappings":[
-{"requestType":"LineChangeOverrideColumnValue","props":{"endLine":1,"startLine":0,"fieldNumberStartingAtZero":0,"newValue":"n_number"}}
-,{"requestType":"LineChangeOverrideColumnValue","props":{"endLine":1,"startLine":1,"fieldNumberStartingAtZero":1,"newValue":"model"}}
-,{"requestType":"LineChangeOverrideColumnValue","props":{"endLine":1,"startLine":1,"fieldNumberStartingAtZero":2,"newValue":"YEAR"}}
-,{"requestType":"LineForceToLowerCase","props":{"endLine":1,"startLine":1}}
-,{"requestType":"LineForgetRest","props":{"endLine":1,"startLine":1,"lastColumn":3}}
-]
-, "fieldMappings":[
- {"requestType":"FieldKeep","props":{}, "fieldNames":["N-NUMBER,MFR MDL CODE,YEAR MFR"] }
-,{"requestType":"FieldPrepend","props":{"thingToPrepend":"N"}, "fieldNames":["N-NUMBER"] }
-,{"requestType":"FieldNvl","props":{}, "fieldNames":["YEAR MFR"] }
-] 
+  "lineMappings": [
+    {
+      "requestType": "LineChangeOverrideColumnValue",
+      "props": {
+        "endLine": 1,
+        "startLine": 0,
+        "fieldNumberStartingAtZero": 0,
+        "newValue": "n_number"
+      }
+    },
+    {
+      "requestType": "LineChangeOverrideColumnValue",
+      "props": {
+        "endLine": 1,
+        "startLine": 1,
+        "fieldNumberStartingAtZero": 1,
+        "newValue": "model"
+      }
+    },
+    {
+      "requestType": "LineChangeOverrideColumnValue",
+      "props": {
+        "endLine": 1,
+        "startLine": 1,
+        "fieldNumberStartingAtZero": 2,
+        "newValue": "YEAR"
+      }
+    },
+    {
+      "requestType": "LineForceToLowerCase",
+      "props": {
+        "endLine": 1,
+        "startLine": 1
+      }
+    },
+    {
+      "requestType": "LineForgetRest",
+      "props": {
+        "endLine": 1,
+        "startLine": 1,
+        "lastColumn": 3
+      }
+    }
+  ],
+  "fieldMappings": [
+    {
+      "requestType": "FieldKeep",
+      "props": {},
+      "fieldNames": [
+        "N-NUMBER,MFR MDL CODE,YEAR MFR"
+      ]
+    },
+    {
+      "requestType": "FieldPrepend",
+      "props": {
+        "thingToPrepend": "N"
+      },
+      "fieldNames": [
+        "N-NUMBER"
+      ]
+    },
+    {
+      "requestType": "FieldNvl",
+      "props": {},
+      "fieldNames": [
+        "YEAR MFR"
+      ]
+    }
+  ]
 } 

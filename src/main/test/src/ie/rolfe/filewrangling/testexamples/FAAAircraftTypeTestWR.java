@@ -8,7 +8,6 @@
 package ie.rolfe.filewrangling.testexamples;
 
 import ie.rolfe.filewrangling.FileWrangler;
-import ie.rolfe.filewrangling.examples.FAAAirport;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,14 +17,14 @@ import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class FAAAirportTestWR {
+class FAAAircraftTypeTestWR {
 
     @org.junit.jupiter.api.Test
-    void testFAAAirpprt() {
+    void testFAAAircraftType() {
 
         Properties p = System.getProperties();
-        File inputFile = new File(p.getProperty("user.dir") + "/testdata/airport_subset.txt");
-        File jsonFile = new File(p.getProperty("user.dir") + "/testdata/L_AIRPORT.json");
+        File inputFile = new File(p.getProperty("user.dir") + "/testdata/acftref_subset.txt");
+        File jsonFile = new File(p.getProperty("user.dir") + "/testdata/acftref.json");
 
         File outputFile = new File("/tmp/a.out");
         if (outputFile.exists()) {
@@ -38,8 +37,8 @@ class FAAAirportTestWR {
 
         String line1;
         String line2;
-        String line1Answer = "code,description";
-        String line2Answer = "\"01A\",\"Afognak Lake, AK: Afognak Lake Airport\"";
+        String line1Answer = "code,mfr,model,engines,seats";
+        String line2Answer = "0020901,AAR AIRLIFT GROUP INC,UH-60A,02,015";
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(outputFile));

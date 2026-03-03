@@ -85,7 +85,7 @@ class FieldMapToZeroTest {
 
 
         FieldNvl fieldMapToZero = new FieldNvl(w);
-        Gson g  = new Gson();
+        Gson g = new Gson();
         msg(g.toJson(w));
 
         String input = null;
@@ -100,7 +100,7 @@ class FieldMapToZeroTest {
         Properties p = new Properties();
         p.put("nvlValue", mapValue);
 
-        WranglerRequest w = new WranglerRequest("FieldNvl",p);
+        WranglerRequest w = new WranglerRequest("FieldNvl", p);
 
 
         FieldNvl fieldMapToZero = new FieldNvl(w);
@@ -114,7 +114,6 @@ class FieldMapToZeroTest {
 
     @org.junit.jupiter.api.Test
     void fixFieldNotNullWR() {
-
 
 
         WranglerRequest w = new WranglerRequest("FieldNvl");
@@ -135,7 +134,7 @@ class FieldMapToZeroTest {
         Properties p = new Properties();
         p.put("nvlValue", prepend);
 
-        WranglerRequest w = new WranglerRequest("FieldNvl",p);
+        WranglerRequest w = new WranglerRequest("FieldNvl", p);
 
         FieldNvl fieldMapToZero = new FieldNvl(w);
 
@@ -152,7 +151,7 @@ class FieldMapToZeroTest {
         Properties p = new Properties();
         p.put("nvlValue", "X");
 
-        WranglerRequest w = new WranglerRequest("FieldNvl",p);
+        WranglerRequest w = new WranglerRequest("FieldNvl", p);
         FieldNvl fieldMapToZero = new FieldNvl(w);
 
         String input = "42";

@@ -8,7 +8,6 @@
 package ie.rolfe.filewrangling.testexamples;
 
 import ie.rolfe.filewrangling.FileWrangler;
-import ie.rolfe.filewrangling.examples.FAAAircraftType;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,28 +17,28 @@ import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class FAAAircraftTypeTestWR {
+class FAAOntimeTestWR {
 
     @org.junit.jupiter.api.Test
-    void testFAAAircraftType() {
+    void testFAAOntimeHistory() {
 
         Properties p = System.getProperties();
-        File inputFile = new File(p.getProperty("user.dir") + "/testdata/acftref_subset.txt");
-        File jsonFile = new File(p.getProperty("user.dir") + "/testdata/acftref.json");
+        File inputFile = new File(p.getProperty("user.dir") + "/testdata/ontime_subset.csv");
+        File jsonFile = new File(p.getProperty("user.dir") + "/testdata/ontime_subset.json");
 
         File outputFile = new File("/tmp/a.out");
         if (outputFile.exists()) {
             outputFile.delete();
         }
 
-        FileWrangler f = new FileWrangler(inputFile, outputFile,jsonFile);
+        FileWrangler f = new FileWrangler(inputFile, outputFile, jsonFile);
         f.parseJsonFile();
         f.makeChangedCopy();
 
         String line1;
         String line2;
-        String line1Answer = "code,mfr,model,engines,seats";
-        String line2Answer = "0020901,AAR AIRLIFT GROUP INC,UH-60A,02,015";
+        String line1Answer = "fl_date,op_unique_carrier,tail_num,op_carrier_fl_num,origin,origin_city_name,dest,dest_city_name,crs_dep_time,dep_time,dep_delay,crs_arr_time,crs_elapsed_time,distance";
+        String line2Answer = "01/07/2021,9E,N131EV,4979,ATL,\"Atlanta, GA\",DAY,\"Dayton, OH\",1632,1632,0.00,1809,97.00,432.00";
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(outputFile));
@@ -49,7 +48,6 @@ class FAAAircraftTypeTestWR {
             outputFile.delete();
             assertEquals(line1Answer, line1);
             assertEquals(line2Answer, line2);
-
 
         } catch (Exception e) {
             fail();

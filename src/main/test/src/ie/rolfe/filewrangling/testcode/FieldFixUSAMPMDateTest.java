@@ -115,7 +115,7 @@ public class FieldFixUSAMPMDateTest {
         WranglerRequest w = new WranglerRequest("FieldFixDateFormat", p);
         w.setFieldNames("A_FIELD, ANOTHER_FIELD");
 
-        Gson g  = new Gson();
+        Gson g = new Gson();
         msg(g.toJson(w));
         FieldFixDateFormat fieldToTest = new FieldFixDateFormat(w);
 

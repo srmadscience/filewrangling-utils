@@ -91,7 +91,7 @@ class LineForceToLowerCaseTest {
         p.put("endLine", 1);
         WranglerRequest w = new WranglerRequest("LineForceToLowerCase", p);
         LineForceToLowerCase thingToTest = new LineForceToLowerCase(w);
-        Gson g  = new Gson();
+        Gson g = new Gson();
         msg(g.toJson(w));
 
         String output = thingToTest.fixLine(1, null);

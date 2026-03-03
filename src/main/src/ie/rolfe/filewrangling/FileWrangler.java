@@ -301,7 +301,7 @@ public class FileWrangler {
             Class<?> clazz = Class.forName(PACKAGE_NAME + rawFieldChanges.get(rawFieldId).getOriginalWranglerRequest().requestType);
             Constructor<?> constructor = clazz.getConstructor(WranglerRequest.class);
             Object instance = constructor.newInstance(rawFieldChanges.get(rawFieldId).getOriginalWranglerRequest());
-            if (fieldChanges[fieldId]  == null) {
+            if (fieldChanges[fieldId] == null) {
                 fieldChanges[fieldId] = (CSVFieldWranglerIFace) instance;
             } else {
                 fieldChanges[fieldId].addCSVFieldWranglerIFace((CSVFieldWranglerIFace) instance);

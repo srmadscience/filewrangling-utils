@@ -8,7 +8,7 @@
 package ie.rolfe.filewrangling.testcode;
 
 import com.google.gson.Gson;
-import ie.rolfe.filewrangling.impl.LineChangeOverrideColumnValue;
+import ie.rolfe.filewrangling.impl.LineChangeReplaceAllValueOfFieldInLine;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.util.Properties;
@@ -17,15 +17,16 @@ import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class LineChangeColumnValueTest {
+class LineChangeFieldValueTest {
 
-    public static final String TEST_VALUE = "D";
+    private static final String TEST_VALUE_D = "D";
+    private static final String TEST_VALUE_B = "B";
 
     @org.junit.jupiter.api.Test
     void fixLineNoMatches() {
 
-        LineChangeOverrideColumnValue thingToTest =
-                new LineChangeOverrideColumnValue(1, 1, 1, "D");
+        LineChangeReplaceAllValueOfFieldInLine thingToTest =
+                new LineChangeReplaceAllValueOfFieldInLine(1, 1, "B", "D");
         final String testLine = "A,B,C";
 
         String output = thingToTest.fixLine(42, testLine);
@@ -36,8 +37,8 @@ class LineChangeColumnValueTest {
     @org.junit.jupiter.api.Test
     void fixLineMatches() {
 
-        LineChangeOverrideColumnValue thingToTest =
-                new LineChangeOverrideColumnValue(1, 1, 1, "D");
+        LineChangeReplaceAllValueOfFieldInLine thingToTest =
+                new LineChangeReplaceAllValueOfFieldInLine(1, 1, "B", "D");
         final String testLine = "A,B,C";
         final String expectedLine = "A,D,C";
 
@@ -50,27 +51,29 @@ class LineChangeColumnValueTest {
     @org.junit.jupiter.api.Test
     void fixLineNull() {
 
-        LineChangeOverrideColumnValue thingToTest =
-                new LineChangeOverrideColumnValue(1, 1, 1, "D");
+        LineChangeReplaceAllValueOfFieldInLine thingToTest =
+                new LineChangeReplaceAllValueOfFieldInLine(1, 1, "B", "D");
         String output = thingToTest.fixLine(1, null);
 
         assertNull(output);
     }
 
+
     @org.junit.jupiter.api.Test
     void fixLineNoMatchesWR() {
-
 
         Properties p = new Properties();
         p.put("startLine", 1);
         p.put("endLine", 1);
-        p.put("fieldNumberStartingAtZero", 1);
-        p.put("newValue", TEST_VALUE);
-        WranglerRequest w = new WranglerRequest("LineChangeOverrideColumnValue", p);
+        p.put("columnValue", TEST_VALUE_B);
+        p.put("newValue", TEST_VALUE_D);
+        WranglerRequest w = new WranglerRequest("LineChangeReplaceAllValueOfFieldInLine", p);
 
-        LineChangeOverrideColumnValue thingToTest =
-                new LineChangeOverrideColumnValue(w);
+        Gson g = new Gson();
+        msg(g.toJson(w));
 
+        LineChangeReplaceAllValueOfFieldInLine thingToTest =
+                new LineChangeReplaceAllValueOfFieldInLine(w);
         final String testLine = "A,B,C";
 
         String output = thingToTest.fixLine(42, testLine);
@@ -81,19 +84,17 @@ class LineChangeColumnValueTest {
     @org.junit.jupiter.api.Test
     void fixLineMatchesWR() {
 
-
         Properties p = new Properties();
         p.put("startLine", 1);
         p.put("endLine", 1);
-        p.put("fieldNumberStartingAtZero", 1);
-        p.put("newValue", TEST_VALUE);
-        WranglerRequest w = new WranglerRequest("LineChangeOverrideColumnValue", p);
+        p.put("columnValue", TEST_VALUE_B);
+        p.put("newValue", TEST_VALUE_D);
+        WranglerRequest w = new WranglerRequest("LineChangeReplaceAllValueOfFieldInLine", p);
 
+        LineChangeReplaceAllValueOfFieldInLine thingToTest =
+                new LineChangeReplaceAllValueOfFieldInLine(w);
         final String testLine = "A,B,C";
-        final String expectedLine = "A," + TEST_VALUE + ",C";
-
-        LineChangeOverrideColumnValue thingToTest =
-                new LineChangeOverrideColumnValue(w);
+        final String expectedLine = "A,D,C";
 
         String output = thingToTest.fixLine(1, testLine);
 
@@ -107,15 +108,12 @@ class LineChangeColumnValueTest {
         Properties p = new Properties();
         p.put("startLine", 1);
         p.put("endLine", 1);
-        p.put("fieldNumberStartingAtZero", 1);
-        p.put("newValue", TEST_VALUE);
-        WranglerRequest w = new WranglerRequest("LineChangeOverrideColumnValue", p);
+        p.put("columnValue", TEST_VALUE_B);
+        p.put("newValue", TEST_VALUE_D);
+        WranglerRequest w = new WranglerRequest("LineChangeReplaceAllValueOfFieldInLine", p);
 
-        Gson g  = new Gson();
-        msg(g.toJson(w));
-
-        LineChangeOverrideColumnValue thingToTest =
-                new LineChangeOverrideColumnValue(w);
+        LineChangeReplaceAllValueOfFieldInLine thingToTest =
+                new LineChangeReplaceAllValueOfFieldInLine(w);
         String output = thingToTest.fixLine(1, null);
 
         assertNull(output);

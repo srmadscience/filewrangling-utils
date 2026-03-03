@@ -8,7 +8,6 @@
 package ie.rolfe.filewrangling.testexamples;
 
 import ie.rolfe.filewrangling.FileWrangler;
-import ie.rolfe.filewrangling.examples.FAAOntimeHistory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,14 +17,14 @@ import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class FAAOntimeTestWR {
+class FAAAirportTestWR {
 
     @org.junit.jupiter.api.Test
-    void testFAAOntimeHistory() {
+    void testFAAAirpprt() {
 
         Properties p = System.getProperties();
-        File inputFile = new File(p.getProperty("user.dir") + "/testdata/ontime_subset.csv");
-        File jsonFile = new File(p.getProperty("user.dir") + "/testdata/ontime_subset.json");
+        File inputFile = new File(p.getProperty("user.dir") + "/testdata/airport_subset.txt");
+        File jsonFile = new File(p.getProperty("user.dir") + "/testdata/L_AIRPORT.json");
 
         File outputFile = new File("/tmp/a.out");
         if (outputFile.exists()) {
@@ -38,8 +37,8 @@ class FAAOntimeTestWR {
 
         String line1;
         String line2;
-        String line1Answer = "fl_date,op_unique_carrier,tail_num,op_carrier_fl_num,origin,origin_city_name,dest,dest_city_name,crs_dep_time,dep_time,dep_delay,crs_arr_time,crs_elapsed_time,distance";
-        String line2Answer = "01/07/2021,9E,N131EV,4979,ATL,\"Atlanta, GA\",DAY,\"Dayton, OH\",1632,1632,0.00,1809,97.00,432.00";
+        String line1Answer = "code,description";
+        String line2Answer = "\"01A\",\"Afognak Lake, AK: Afognak Lake Airport\"";
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(outputFile));
@@ -49,6 +48,7 @@ class FAAOntimeTestWR {
             outputFile.delete();
             assertEquals(line1Answer, line1);
             assertEquals(line2Answer, line2);
+
 
         } catch (Exception e) {
             fail();

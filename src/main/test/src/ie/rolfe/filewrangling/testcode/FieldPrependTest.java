@@ -1,7 +1,6 @@
 package ie.rolfe.filewrangling.testcode;
 
 import com.google.gson.Gson;
-import ie.rolfe.filewrangling.impl.FieldKeep;
 import ie.rolfe.filewrangling.impl.FieldPrepend;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
@@ -18,12 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-class FieldKeepTest {
+class FieldPrependTest {
 
     @org.junit.jupiter.api.Test
     void fixFieldNull() {
 
-        FieldKeep fieldToTest = new FieldKeep();
+        FieldPrepend fieldToTest = new FieldPrepend("N");
 
         String input = null;
         String output = fieldToTest.fixField(input);
@@ -34,25 +33,26 @@ class FieldKeepTest {
     @org.junit.jupiter.api.Test
     void fixFieldNotMull() {
 
+        final String StringToPrepend = "N";
         final String payload = "1976T";
 
-        FieldKeep fieldToTest = new FieldKeep();
+        FieldPrepend fieldToTest = new FieldPrepend(StringToPrepend);
 
         String input = payload;
         String output = fieldToTest.fixField(input);
 
-        assertEquals(input, output);
+        assertEquals(StringToPrepend + payload, output);
     }
-
 
     @org.junit.jupiter.api.Test
     void fixFieldNullWR() {
 
+        Properties p = new Properties();
+        p.put("thingToPrepend", "N");
+        WranglerRequest w = new WranglerRequest("FieldPrepend", p);
 
-        WranglerRequest w = new WranglerRequest("FieldKeep");
-
-        FieldKeep fieldToTest = new FieldKeep(w);
-        Gson g  = new Gson();
+        FieldPrepend fieldToTest = new FieldPrepend(w);
+        Gson g = new Gson();
         msg(g.toJson(w));
 
         String input = null;
@@ -64,16 +64,20 @@ class FieldKeepTest {
     @org.junit.jupiter.api.Test
     void fixFieldNotMullWR() {
 
-        WranglerRequest w = new WranglerRequest("FieldKeep");
-
+        final String StringToPrepend = "N";
         final String payload = "1976T";
 
-        FieldKeep fieldToTest = new FieldKeep();
+        Properties p = new Properties();
+        p.put("thingToPrepend", StringToPrepend);
+        WranglerRequest w = new WranglerRequest("FieldPrepend", p);
+
+        FieldPrepend fieldToTest = new FieldPrepend(w);
 
         String input = payload;
         String output = fieldToTest.fixField(input);
 
-        assertEquals(input, output);
+        assertEquals(StringToPrepend + payload, output);
     }
+
 
 }

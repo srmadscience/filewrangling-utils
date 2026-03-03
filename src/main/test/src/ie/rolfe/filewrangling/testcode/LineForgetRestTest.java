@@ -58,7 +58,7 @@ class LineForgetRestTest {
         WranglerRequest w = new WranglerRequest("LineForgetRest", p);
         LineForgetRest l = new LineForgetRest(w);
 
-        Gson g  = new Gson();
+        Gson g = new Gson();
         msg(g.toJson(w));
         String output = l.fixLine(1, null);
 

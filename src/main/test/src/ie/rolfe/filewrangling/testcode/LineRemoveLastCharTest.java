@@ -67,6 +67,7 @@ class LineRemoveLastCharTest {
 
         assertEquals(testOutput, output);
     }
+
     @org.junit.jupiter.api.Test
     void fixLineMatchesWR() {
 
@@ -75,7 +76,7 @@ class LineRemoveLastCharTest {
         p.put("endLine", 1);
         WranglerRequest w = new WranglerRequest("LineRemoveLastChar", p);
         LineRemoveLastChar thingToTest = new LineRemoveLastChar(w);
-        Gson g  = new Gson();
+        Gson g = new Gson();
         msg(g.toJson(w));
 
         final String testInputLine = "ABC";
@@ -93,7 +94,8 @@ class LineRemoveLastCharTest {
         p.put("startLine", 1);
         p.put("endLine", 1);
         WranglerRequest w = new WranglerRequest("LineRemoveLastChar", p);
-        LineRemoveLastChar thingToTest = new LineRemoveLastChar(w);      final String testInputLine = "ABC";
+        LineRemoveLastChar thingToTest = new LineRemoveLastChar(w);
+        final String testInputLine = "ABC";
 
         String output = thingToTest.fixLine(42, testInputLine);
 
@@ -108,7 +110,8 @@ class LineRemoveLastCharTest {
         p.put("startLine", 1);
         p.put("endLine", 1);
         WranglerRequest w = new WranglerRequest("LineRemoveLastChar", p);
-        LineRemoveLastChar thingToTest = new LineRemoveLastChar(w);      String output = thingToTest.fixLine(1, null);
+        LineRemoveLastChar thingToTest = new LineRemoveLastChar(w);
+        String output = thingToTest.fixLine(1, null);
 
         assertNull(output);
     }

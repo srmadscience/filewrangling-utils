@@ -23,8 +23,8 @@ public interface CSVFieldWranglerIFace {
 
     boolean isUsedForField(String fieldName);
 
-    public WranglerRequest getOriginalWranglerRequest() ;
+    public WranglerRequest getOriginalWranglerRequest();
 
-    }
+}
 
 

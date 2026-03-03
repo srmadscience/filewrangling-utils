@@ -1,5 +1,36 @@
 {
-"lineMappings":[{"requestType":"LineReplace","props":{"endLine":1,"startLine":1,"newValue":"code,mfr,model,engines,seats"}}]
-, "fieldMappings":[{"requestType":"FieldKeep", "fieldNames":["CODE","MFR","MODEL","NO-ENG","NO-SEATS"] },{"requestType":"FieldNvl","props":{"nvlValue":"0"}, "fieldNames":["NO-ENG","NO-SEATS"] }] } 
+  "lineMappings": [
+    {
+      "requestType": "LineReplace",
+      "props": {
+        "endLine": 1,
+        "startLine": 1,
+        "newValue": "code,mfr,model,engines,seats"
+      }
+    }
+  ],
+  "fieldMappings": [
+    {
+      "requestType": "FieldKeep",
+      "fieldNames": [
+        "CODE",
+        "MFR",
+        "MODEL",
+        "NO-ENG",
+        "NO-SEATS"
+      ]
+    },
+    {
+      "requestType": "FieldNvl",
+      "props": {
+        "nvlValue": "0"
+      },
+      "fieldNames": [
+        "NO-ENG",
+        "NO-SEATS"
+      ]
+    }
+  ]
+}
 
 
