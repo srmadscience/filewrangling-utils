@@ -1,0 +1,21 @@
+{
+  "lineMappings": [
+    {
+      "requestType": "LineForceToLowerCase",
+      "props": {
+        "endLine": 1,
+        "startLine": 1
+      }
+    }
+  ],
+  "fieldMappings": [
+    {
+      "requestType": "FieldKeep",
+      "props": {},
+      "fieldNames": [
+        "Code",
+        "Description"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="FAACarrierHistory" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="ie.rolfe.filewrangling.examples.FAACarrierHistory" />
+    <module name="filewrangling-utils" />
+    <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/testdata/L_CARRIER_HISTORY.csv $PROJECT_DIR$/testdata//L_CARRIER_HISTORY2.csv" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="ie.rolfe.filewrangling.examples.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
