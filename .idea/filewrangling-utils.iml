@@ -4,6 +4,8 @@
     <content url="file://$MODULE_DIR$" dumb="true">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/src" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/cleaneddata" />
+      <excludeFolder url="file://$MODULE_DIR$/downloads" />
     </content>
   </component>
 </module>
