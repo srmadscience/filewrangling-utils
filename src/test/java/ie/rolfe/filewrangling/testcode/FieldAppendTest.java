@@ -1,4 +1,4 @@
-package src.ie.rolfe.filewrangling.testcode;
+package ie.rolfe.filewrangling.testcode;
 
 import com.google.gson.Gson;
 import ie.rolfe.filewrangling.impl.FieldAppend;

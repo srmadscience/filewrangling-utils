@@ -5,7 +5,7 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package src.ie.rolfe.filewrangling.testcode;
+package ie.rolfe.filewrangling.testcode;
 
 import com.google.gson.Gson;
 import ie.rolfe.filewrangling.impl.FieldChangeDateFormatToEpochSeconds;
