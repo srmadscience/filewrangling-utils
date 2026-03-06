@@ -195,6 +195,9 @@ public class FileWrangler {
             for (int i = 0; i < fm.lineMappings.length; i++) {
 
                 msg(i + " Create instance of " + fm.lineMappings[i].requestType + "...");
+                if (fm.lineMappings[i].comment != null && fm.lineMappings[i].comment.length() > 0) {
+                    msg(i + " comment:" + fm.lineMappings[i].comment);
+                }
 
                 Class<?> clazz = Class.forName(PACKAGE_NAME + fm.lineMappings[i].requestType);
                 Constructor<?> constructor = clazz.getConstructor(WranglerRequest.class);
