@@ -1,0 +1,55 @@
+{
+  "lineMappings": [
+    {
+      "requestType": "LineForceToLowerCase",
+      "props": {
+        "endLine": 1,
+        "startLine": 1
+      }
+    }
+   ,{
+      "requestType": "LineSkipIfNull",
+      "props": {
+        "endLine": -1,
+        "startLine": 2,
+        "columnNames": "iata_code"
+      }
+    }  ],
+  "fieldMappings": [
+    {
+      "requestType": "FieldKeep",
+      "props": {},
+      "fieldNames": [
+      "id",
+	"ident",
+	"type",
+	"name",
+	"latitude_deg",
+	"longitude_deg",
+	"elevation_ft",
+	"continent",
+	"iso_country",
+	"iso_region" ,
+	"municipality",
+	"scheduled_service",
+	"icao_code",
+	"iata_code",
+	"gps_code",
+	"local_code",
+	"home_link",
+	"wikipedia_link",
+	"keywords"
+       ]
+    }
+   ,{
+      "requestType": "FieldNvl",
+      "props": {
+        "nvlValue": "-1"
+      },
+      "fieldNames": [
+        "elevation_ft"
+      ]
+    }
+
+  ]
+}
