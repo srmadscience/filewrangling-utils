@@ -9,7 +9,6 @@ package ie.rolfe.filewrangling.testcode;
 
 import com.google.gson.Gson;
 import ie.rolfe.filewrangling.impl.FieldChangeDateFormatToEpochSeconds;
-import ie.rolfe.filewrangling.impl.FieldFixDateFormat;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
 import java.util.Locale;
@@ -18,7 +17,7 @@ import java.util.Properties;
 import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FieldFixUSAMPMDateTestEpochSeconds {
+public class FieldFixUSAMPMDateEpochSecondsTest {
 
     @org.junit.jupiter.api.Test
     void fixFieldNull() {

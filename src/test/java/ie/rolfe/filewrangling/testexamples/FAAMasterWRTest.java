@@ -7,7 +7,7 @@
  */
 package ie.rolfe.filewrangling.testexamples;
 
-import ie.rolfe.filewrangling.examples.FAAAirport;
+import ie.rolfe.filewrangling.FileWrangler;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,26 +17,28 @@ import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class FAACarrierHistoryWR {
+class FAAMasterWRTest {
 
     @org.junit.jupiter.api.Test
-    void testCarrierHistory() {
+    void testFAAMaster() {
 
         Properties p = System.getProperties();
-        File inputFile = new File(p.getProperty("user.dir") + "/testdata/carrier_history_subset.txt");
+        File inputFile = new File(p.getProperty("user.dir") + "/testdata/master_subset.txt");
+        File jsonFile = new File(p.getProperty("user.dir") + "/testdata/master_subset.json");
 
         File outputFile = new File("/tmp/a.out");
         if (outputFile.exists()) {
             outputFile.delete();
         }
 
-        FAAAirport f = new FAAAirport(inputFile, outputFile);
+        FileWrangler f = new FileWrangler(inputFile, outputFile, jsonFile);
+        f.parseJsonFile();
         f.makeChangedCopy();
 
         String line1;
         String line2;
-        String line1Answer = "code,description";
-        String line2Answer = "\"02Q\",\"Titan Airways (2006 - )\"";
+        String line1Answer = "n_number,model,year";
+        String line2Answer = "N100,7100510,1940";
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(outputFile));

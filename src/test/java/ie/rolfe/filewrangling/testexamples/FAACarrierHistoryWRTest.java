@@ -7,7 +7,7 @@
  */
 package ie.rolfe.filewrangling.testexamples;
 
-import ie.rolfe.filewrangling.FileWrangler;
+import ie.rolfe.filewrangling.examples.FAAAirport;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,28 +17,26 @@ import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class DMAirportTestWR {
+class FAACarrierHistoryWRTest {
 
     @org.junit.jupiter.api.Test
-    void testDMAirpprt() {
+    void testCarrierHistory() {
 
         Properties p = System.getProperties();
-        File inputFile = new File(p.getProperty("user.dir") + "/testdata/airports.csv");
-        File jsonFile = new File(p.getProperty("user.dir") + "/testdata/airports.json");
+        File inputFile = new File(p.getProperty("user.dir") + "/testdata/carrier_history_subset.txt");
 
         File outputFile = new File("/tmp/a.out");
         if (outputFile.exists()) {
             outputFile.delete();
         }
 
-        FileWrangler f = new FileWrangler(inputFile, outputFile, jsonFile);
-        f.parseJsonFile();
+        FAAAirport f = new FAAAirport(inputFile, outputFile);
         f.makeChangedCopy();
 
         String line1;
         String line2;
-        String line1Answer = "\"id\",\"ident\",\"type\",\"name\",\"latitude_deg\",\"longitude_deg\",\"elevation_ft\",\"continent\",\"iso_country\",\"iso_region\",\"municipality\",\"scheduled_service\",\"icao_code\",\"iata_code\",\"gps_code\",\"local_code\",\"home_link\",\"wikipedia_link\",\"keywords\"";
-        String line2Answer = "4650,\"03N\",\"small_airport\",\"Utirik Airport\",11.222219,169.851429,4,\"OC\",\"MH\",\"MH-UTI\",\"Utirik Island\",\"yes\",,\"UTK\",\"03N\",\"03N\",,\"https://en.wikipedia.org/wiki/Utirik_Airport\",";
+        String line1Answer = "code,description";
+        String line2Answer = "\"02Q\",\"Titan Airways (2006 - )\"";
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(outputFile));

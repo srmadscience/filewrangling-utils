@@ -17,14 +17,14 @@ import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class FAAMasterTestWR {
+class FAAAircraftTypeWRTest {
 
     @org.junit.jupiter.api.Test
-    void testFAAMaster() {
+    void testFAAAircraftType() {
 
         Properties p = System.getProperties();
-        File inputFile = new File(p.getProperty("user.dir") + "/testdata/master_subset.txt");
-        File jsonFile = new File(p.getProperty("user.dir") + "/testdata/master_subset.json");
+        File inputFile = new File(p.getProperty("user.dir") + "/testdata/acftref_subset.txt");
+        File jsonFile = new File(p.getProperty("user.dir") + "/testdata/acftref.json");
 
         File outputFile = new File("/tmp/a.out");
         if (outputFile.exists()) {
@@ -37,8 +37,8 @@ class FAAMasterTestWR {
 
         String line1;
         String line2;
-        String line1Answer = "n_number,model,year";
-        String line2Answer = "N100,7100510,1940";
+        String line1Answer = "code,mfr,model,engines,seats";
+        String line2Answer = "0020901,AAR AIRLIFT GROUP INC,UH-60A,02,015";
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(outputFile));
