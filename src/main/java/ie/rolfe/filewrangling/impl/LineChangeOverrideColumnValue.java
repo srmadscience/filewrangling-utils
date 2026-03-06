@@ -13,12 +13,11 @@ import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class LineChangeOverrideColumnValue extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
-    int startLine;
-    int endLine;
+
     int fieldNumberStartingAtZero;
     String newValue;
 
-    public LineChangeOverrideColumnValue(int startLine, int endLine, int fieldNumberStartingAtZero, String newValue) {
+    public LineChangeOverrideColumnValue(long startLine, long endLine, int fieldNumberStartingAtZero, String newValue) {
         this.startLine = startLine;
         this.endLine = endLine;
         this.fieldNumberStartingAtZero = fieldNumberStartingAtZero;

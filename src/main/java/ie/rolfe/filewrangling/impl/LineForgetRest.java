@@ -14,11 +14,9 @@ import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class LineForgetRest extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
-    int startLine;
-    int endLine;
     int lastColumn;
 
-    public LineForgetRest(int startLine, int endLine, int lastColumn) {
+    public LineForgetRest(long startLine, long endLine, int lastColumn) {
         this.startLine = startLine;
         this.endLine = endLine;
         this.lastColumn = lastColumn;

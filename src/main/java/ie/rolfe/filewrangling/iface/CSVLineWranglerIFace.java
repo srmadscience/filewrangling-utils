@@ -11,7 +11,13 @@ public interface CSVLineWranglerIFace {
 
     String getName();
 
+    long getStartLine();
+
+    long getEndLine();
+
     String fixLine(int lineNumber, String line);
+
+    void setColumnNames(String[] columnNames);
 
     void addCSVLineWranglerIFace(CSVLineWranglerIFace theExtraWrangler);
 }

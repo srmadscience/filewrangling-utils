@@ -13,11 +13,8 @@ import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class LineForceToLowerCase extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
-    int startLine;
-    int endLine;
 
-
-    public LineForceToLowerCase(int startLine, int endLine) {
+    public LineForceToLowerCase(long startLine, long endLine) {
         this.startLine = startLine;
         this.endLine = endLine;
     }

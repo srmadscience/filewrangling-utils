@@ -10,6 +10,7 @@ package ie.rolfe.filewrangling;
 import com.google.gson.Gson;
 import ie.rolfe.filewrangling.exceptions.FileWranglingException;
 import ie.rolfe.filewrangling.exceptions.SkipThisFieldException;
+import ie.rolfe.filewrangling.exceptions.SkipThisLineException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.impl.FieldSkip;
@@ -30,6 +31,8 @@ public class FileWrangler {
     public static final char DELIM = ',';
     public static final String DELIM_SPLIT_REGEX = DELIM + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
     public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
+    public static final long ALL_LINES = -1;
+
     private static final int IO_BUFFER_SIZE = 2048;
     File inputFile;
     File outputFile;
@@ -38,11 +41,14 @@ public class FileWrangler {
     ArrayList<CSVLineWranglerIFace> lineChanges = new ArrayList<>();
     ArrayList<CSVFieldWranglerIFace> rawFieldChanges = new ArrayList<>();
     CSVFieldWranglerIFace[] fieldChanges = new CSVFieldWranglerIFace[0];
+    String[] columnNames = new String[0];
 
     Gson gson = new Gson();
 
 
     int headerLine = 1;
+    int lineCount = 0;
+    int linesSkipped = 0;
 
     public FileWrangler(File inputFile, File outputFile, File jsonFile) {
         this.inputFile = inputFile;
@@ -209,7 +215,7 @@ public class FileWrangler {
             }
 
         } catch (Exception e) {
-            throw new FileWranglingException(jsonFile + ":" + e.getMessage());
+            throw new FileWranglingException(jsonFile + "\n" + jsonFileContents + "\n" + e.getMessage());
         }
 
     }
@@ -235,15 +241,15 @@ public class FileWrangler {
         }
 
         if (lineNumber == headerLine) {
-
             mapFieldsToPositions(line);
-
         }
 
         String newLine = line;
 
         for (CSVLineWranglerIFace lineChange : lineChanges) {
-            newLine = lineChange.fixLine(lineNumber, newLine);
+            if (lineNumber >= lineChange.getStartLine() && (lineChange.getEndLine() == ALL_LINES || lineNumber <= lineChange.getEndLine())) {
+                newLine = lineChange.fixLine(lineNumber, newLine);
+            }
         }
 
         if (newLine.indexOf(DELIM) == 0) {
@@ -279,15 +285,22 @@ public class FileWrangler {
     }
 
     private void mapFieldsToPositions(String header) {
-        String[] fields = header.split(DELIM_SPLIT_REGEX, -1);
-
-        if (fieldChanges == null || fieldChanges.length == 0) {
-            fieldChanges = new CSVFieldWranglerIFace[fields.length];
+        columnNames = header.split(DELIM_SPLIT_REGEX, -1);
+        for (int i = 0; i < columnNames.length; i++) {
+            columnNames[i] = columnNames[i].replace("\"", "");
         }
 
-        for (int i = 0; i < fields.length; i++) {
+        for (CSVLineWranglerIFace lineChange : lineChanges) {
+            lineChange.setColumnNames(columnNames);
+        }
+
+        if (fieldChanges == null || fieldChanges.length == 0) {
+            fieldChanges = new CSVFieldWranglerIFace[columnNames.length];
+        }
+
+        for (int i = 0; i < columnNames.length; i++) {
             for (int j = 0; j < rawFieldChanges.size(); j++) {
-                if (rawFieldChanges.get(j).isUsedForField(fields[i])) {
+                if (rawFieldChanges.get(j).isUsedForField(columnNames[i])) {
                     setFieldToCopyOfRawField(j, i);
                 }
             }
@@ -323,7 +336,6 @@ public class FileWrangler {
 
     public void makeChangedCopy() {
 
-        int lineNumber = 0;
 
         try {
             BufferedReader reader;
@@ -335,18 +347,23 @@ public class FileWrangler {
             String line = reader.readLine();
 
             while (line != null) {
-                lineNumber++;
-                printer.println(processLine(lineNumber, line));
+                lineCount++;
+                try {
+                    printer.println(processLine(lineCount, line));
+                } catch (SkipThisLineException e) {
+                    linesSkipped++;
+                }
                 line = reader.readLine();
 
-                if (lineNumber % 1000 == 0) {
-                    msg("Processing line " + lineNumber);
+                if (lineCount % 1000 == 0) {
+                    msg("Processing line " + lineCount);
                 }
             }
 
             reader.close();
             printer.flush();
             printer.close();
+            msg("Lines: " + lineCount + ". Skipped: "+ linesSkipped);
 
         } catch (Exception e) {
             msg(e.getMessage());

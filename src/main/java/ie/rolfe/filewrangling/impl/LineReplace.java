@@ -13,11 +13,9 @@ import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class LineReplace extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
-    int startLine;
-    int endLine;
-    String newValue;
+     String newValue;
 
-    public LineReplace(int startLine, int endLine, String newValue) {
+    public LineReplace(long startLine, long endLine, String newValue) {
         this.startLine = startLine;
         this.endLine = endLine;
         this.newValue = newValue;

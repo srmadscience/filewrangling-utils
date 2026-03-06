@@ -14,12 +14,10 @@ import ie.rolfe.filewrangling.model.WranglerRequest;
 
 public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
-    int startLine;
-    int endLine;
     String columnValue;
     String newValue;
 
-    public LineChangeReplaceAllValueOfFieldInLine(int startLine, int endLine, String columnValue, String newValue) {
+    public LineChangeReplaceAllValueOfFieldInLine(long startLine, long endLine, String columnValue, String newValue) {
         this.startLine = startLine;
         this.endLine = endLine;
         this.columnValue = columnValue;

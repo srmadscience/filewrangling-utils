@@ -15,6 +15,11 @@ import java.util.ArrayList;
 
 public abstract class AbstractLineWrangler implements CSVLineWranglerIFace {
 
+    long startLine;
+    long endLine;
+    String[] columnNames = new String[0];
+
+
     ArrayList<CSVLineWranglerIFace> theExtraWranglers = new ArrayList<>();
 
 
@@ -47,4 +52,20 @@ public abstract class AbstractLineWrangler implements CSVLineWranglerIFace {
     public String getName() {
         return this.getClass().getSimpleName();
     }
+
+    @Override
+    public long getStartLine() {
+        return startLine;
+    }
+
+    @Override
+    public long getEndLine() {
+        return endLine;
+    }
+
+    @Override
+    public void setColumnNames(String[] columnNames) {
+        this.columnNames = columnNames;
+    }
 }
+
