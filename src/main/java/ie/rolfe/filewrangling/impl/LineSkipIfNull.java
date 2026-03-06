@@ -12,6 +12,7 @@ import ie.rolfe.filewrangling.exceptions.SkipThisLineException;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
@@ -72,13 +73,6 @@ public class LineSkipIfNull extends AbstractLineWrangler implements CSVLineWrang
                 throw new SkipThisLineException(columnNames[aColId], lineNumber, line);
             }
         }
-//            for (int i = 0; i < fields.length; i++) {
-//                 if (neededColumnNames.contains(columnNames[i]) && (fields[i] == null || fields[i].isEmpty())) {
-//                    throw new SkipThisLineException(columnNames[i], lineNumber, line);
-//                }
-//
-//            }
-
 
         return processExtraWranglers(lineNumber, line);
     }
@@ -98,4 +92,15 @@ public class LineSkipIfNull extends AbstractLineWrangler implements CSVLineWrang
     }
 
 
+    @Override
+    public String toString() {
+        return "LineSkipIfNull{" +
+                "neededColumnNames=" + neededColumnNames +
+                ", neededColumnIds=" + neededColumnIds +
+                ", startLine=" + startLine +
+                ", endLine=" + endLine +
+                ", columnNames=" + Arrays.toString(columnNames) +
+                ", theExtraWranglers=" + theExtraWranglers +
+                '}';
+    }
 }

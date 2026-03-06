@@ -38,7 +38,7 @@ class DMAirportWRTest {
         String line1;
         String line2;
         String line1Answer = "\"id\",\"ident\",\"type\",\"name\",\"latitude_deg\",\"longitude_deg\",\"elevation_ft\",\"continent\",\"iso_country\",\"iso_region\",\"municipality\",\"scheduled_service\",\"icao_code\",\"iata_code\",\"gps_code\",\"local_code\",\"home_link\",\"wikipedia_link\",\"keywords\"";
-        String line2Answer = "4650,\"03N\",\"small_airport\",\"Utirik Airport\",11.222219,169.851429,4,\"OC\",\"MH\",\"MH-UTI\",\"Utirik Island\",\"yes\",,\"UTK\",\"03N\",\"03N\",,\"https://en.wikipedia.org/wiki/Utirik_Airport\",";
+        String line2Answer = "6523,\"00A\",\"heliport\",\"Total RF Heliport\",40.070985,-74.933689,11,\"NA\",\"US\",\"US-PA\",\"Bensalem\",\"no\",,,\"K00A\",\"00A\",\"https://www.penndot.pa.gov/TravelInPA/airports-pa/Pages/Total-RF-Heliport.aspx\",,";
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(outputFile));

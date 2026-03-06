@@ -21,6 +21,13 @@ public class WranglerRequest {
     public Properties props = new Properties();
     public ArrayList<String> fieldNames = new ArrayList<>();
 
+    /**
+     * Exists so we can have comments in our JSON files.
+     */
+    public String comment = "";
+
+    public WranglerRequest() {}
+
     public WranglerRequest(String requestType) {
         this.requestType = requestType;
     }
@@ -87,12 +94,14 @@ public class WranglerRequest {
 
     }
 
+
     @Override
     public String toString() {
         return "WranglerRequest{" +
                 "requestType='" + requestType + '\'' +
                 ", props=" + props +
                 ", fieldNames=" + fieldNames +
+                ", comment='" + comment + '\'' +
                 '}';
     }
 }

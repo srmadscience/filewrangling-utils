@@ -10,9 +10,10 @@
    ,{
       "requestType": "LineSkipIfNull",
       "props": {
-        "endLine": -1,
+        "endLine": -9999,
         "startLine": 2,
-        "columnNames": "iata_code"
+        "columnNames": "iata_code",
+        "comment": "quite a few airports below sea level, so -1 wont work..."
       }
     }  ],
   "fieldMappings": [
