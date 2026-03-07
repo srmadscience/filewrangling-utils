@@ -14,6 +14,7 @@ import ie.rolfe.filewrangling.model.WranglerRequest;
 public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
     String thingToPrepend;
+    boolean onlyIfMissing = false;
 
     public FieldPrepend(String thingToPrepend) {
         this.thingToPrepend = thingToPrepend;
@@ -22,7 +23,15 @@ public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWrang
 
     public FieldPrepend(WranglerRequest wranglerRequest) throws WranglerRequestException {
         super(wranglerRequest);
-        this.thingToPrepend = (String) wranglerRequest.get("thingToPrepend");
+        this.thingToPrepend = wranglerRequest.getString("thingToPrepend");
+        if (wranglerRequest.contains("onlyIfMissing")) {
+            onlyIfMissing = wranglerRequest.getBool("onlyIfMissing");
+        }
+    }
+
+    public FieldPrepend(String thingToPrepend, boolean onlyIfMissing) {
+        this.thingToPrepend = thingToPrepend;
+        this.onlyIfMissing = onlyIfMissing;
     }
 
     @Override
@@ -30,6 +39,14 @@ public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWrang
 
         if (field == null || field.isEmpty()) {
             return processExtraWranglers(field);
+        }
+
+        if (onlyIfMissing) {
+            if (field.startsWith(thingToPrepend)) {
+                return processExtraWranglers(field);
+            } else {
+                return processExtraWranglers(thingToPrepend + field);
+            }
         }
 
         return processExtraWranglers(thingToPrepend + field);
@@ -40,9 +57,10 @@ public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWrang
     public String toString() {
         return "FieldPrepend{" +
                 "thingToPrepend='" + thingToPrepend + '\'' +
+                ", onlyIfMissing=" + onlyIfMissing +
                 ", fieldNames=" + fieldNames +
                 ", theExtraWranglers=" + theExtraWranglers +
+                ", originalWranglerRequest=" + originalWranglerRequest +
                 '}';
     }
-
 }

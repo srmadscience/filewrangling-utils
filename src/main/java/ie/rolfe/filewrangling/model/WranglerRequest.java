@@ -37,6 +37,11 @@ public class WranglerRequest {
         this.props = props;
     }
 
+    public boolean contains(String key)  {
+        Object value = props.get(key);
+        return value != null;
+    }
+
     public Object get(String key) throws WranglerRequestException {
         Object value = props.get(key);
 
@@ -61,6 +66,17 @@ public class WranglerRequest {
         return Integer.parseInt(theValue.toString());
 
     }
+
+    public boolean getBool(String key) {
+        Object theValue = get(key);
+
+        if (theValue instanceof Boolean) {
+            return (Boolean) theValue;
+        }
+
+        return Boolean.parseBoolean(theValue.toString());
+    }
+
 
     public Locale getLocale(String key) throws WranglerRequestException {
         Object theValue = get(key);
@@ -104,4 +120,6 @@ public class WranglerRequest {
                 ", comment='" + comment + '\'' +
                 '}';
     }
+
+
 }

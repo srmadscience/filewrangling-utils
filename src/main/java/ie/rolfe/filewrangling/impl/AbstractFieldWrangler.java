@@ -63,11 +63,11 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
     public void useForFields(String fieldNameList) {
 
         if (fieldNameList.indexOf(DELIM) == -1) {
-            fieldNames.add(fieldNameList);
+            fieldNames.add(fieldNameList.trim().toLowerCase());
         } else {
             String[] fields = fieldNameList.split(DELIM_SPLIT_REGEX, -1);
             for (int i = 0; i < fields.length; i++) {
-                fieldNames.add(fields[i].trim());
+                fieldNames.add(fields[i].trim().toLowerCase());
             }
         }
 
@@ -75,7 +75,7 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
     public boolean isUsedForField(String fieldName) {
 
-        String testString = new String(fieldName.getBytes(StandardCharsets.UTF_8)).replace("\ufeff", "");
+        String testString = new String(fieldName.getBytes(StandardCharsets.UTF_8)).replace("\ufeff", "").toLowerCase();
 
         return fieldNames.contains(testString);
     }
