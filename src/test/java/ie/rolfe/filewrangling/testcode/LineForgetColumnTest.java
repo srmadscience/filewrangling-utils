@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class LineForgetColumnTest {
 
     private static final String TEST_VALUE_D = "D";
-    private static final String TEST_VALUE_B = "B"; private static final String TEST_VALUE_A = "A";
+    private static final String TEST_VALUE_B = "B";
 
     @org.junit.jupiter.api.Test
     void fixLineNoMatches() {

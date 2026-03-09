@@ -35,7 +35,6 @@ public class LatencyHistogram {
     /**
      * Whether we have 'rolled over' - reached Integer.MAX_VALUE for any counter.
      *
-     * @see resetLatency
      */
     boolean isRolledOver = false;
 
@@ -168,7 +167,6 @@ public class LatencyHistogram {
      *
      * @param latency
      * @param comment
-     * @param howmany
      */
     public void report(int latency, String comment, int howMany) {
 
