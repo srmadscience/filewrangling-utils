@@ -16,6 +16,7 @@ import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.impl.FieldSkip;
 import ie.rolfe.filewrangling.model.FileMapping;
 import ie.rolfe.filewrangling.model.WranglerRequest;
+import org.voltdb.voltutil.stats.SafeHistogramCache;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
@@ -28,12 +29,20 @@ import java.util.Date;
 
 public class FileWrangler {
 
+    public static final String QUOTE = "\"";
     public static final char DELIM = ',';
+
+    // See https://www.baeldung.com/java-split-string-commas
     public static final String DELIM_SPLIT_REGEX = DELIM + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
     public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
     public static final long ALL_LINES = -1;
 
     private static final int IO_BUFFER_SIZE = 2048;
+    private static final long REPORTING_THRESHOLD_NS = 1000;
+    public static final int DEFAULT_HISTOGRAM_SIZE = 10000;
+
+    SafeHistogramCache shc = SafeHistogramCache.getInstance();
+
     File inputFile;
     File outputFile;
     File jsonFile;
@@ -241,6 +250,7 @@ public class FileWrangler {
 
     public String processLine(int lineNumber, String line) {
 
+
         if (line == null) {
             return line;
         }
@@ -251,11 +261,20 @@ public class FileWrangler {
 
         String newLine = line;
 
+
+
         for (CSVLineWranglerIFace lineChange : lineChanges) {
             if (lineNumber >= lineChange.getStartLine() && (lineChange.getEndLine() == ALL_LINES || lineNumber <= lineChange.getEndLine())) {
+                long startNs = System.nanoTime();
                 newLine = lineChange.fixLine(lineNumber, newLine);
+                long endNs = System.nanoTime();
+
+                if (endNs - startNs > REPORTING_THRESHOLD_NS) {
+                    shc.report("linechanges_" + lineChange.getName(), (int) (System.nanoTime() - startNs)/ 1000, "Microsecond latency for line changes", DEFAULT_HISTOGRAM_SIZE);
+                }
             }
         }
+
 
         if (newLine.indexOf(DELIM) == 0) {
             return newLine;
@@ -265,13 +284,19 @@ public class FileWrangler {
             return newLine;
         }
 
+
         // See https://www.baeldung.com/java-split-string-commas
         String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < fields.length && i < fieldChanges.length; i++) {
             try {
+                long startNs = System.nanoTime();
                 fields[i] = fieldChanges[i].fixField(fields[i]);
+                long endNs = System.nanoTime();
+                if (endNs - startNs > REPORTING_THRESHOLD_NS) {
+                    shc.report("fieldchanges_" + fieldChanges[i].getName(), (int) (System.nanoTime() - startNs)/ 1000, "Microsecond latency for line changes", DEFAULT_HISTOGRAM_SIZE);
+                }
                 if (i > 0) {
                     sb.append(DELIM);
                 }
@@ -305,9 +330,11 @@ public class FileWrangler {
 
         for (int i = 0; i < columnNames.length; i++) {
             for (int j = 0; j < rawFieldChanges.size(); j++) {
+
                 if (rawFieldChanges.get(j).isUsedForField(columnNames[i])) {
                     setFieldToCopyOfRawField(j, i);
                 }
+
             }
         }
 
@@ -369,6 +396,7 @@ public class FileWrangler {
             printer.flush();
             printer.close();
             msg("Lines: " + lineCount + ". Skipped: "+ linesSkipped);
+            msg(shc.toString());
 
         } catch (Exception e) {
             msg(e.getMessage());

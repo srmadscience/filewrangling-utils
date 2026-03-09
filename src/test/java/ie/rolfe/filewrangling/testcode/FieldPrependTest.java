@@ -45,6 +45,20 @@ class FieldPrependTest {
     }
 
     @org.junit.jupiter.api.Test
+    void fixFieldNotMullQuotes() {
+
+        final String StringToPrepend = "N";
+        final String payload = "\"1976T\"";
+
+        FieldPrepend fieldToTest = new FieldPrepend(StringToPrepend);
+
+        String input = payload;
+        String output = fieldToTest.fixField(input);
+
+        assertEquals("\"N1976T\"", output);
+    }
+
+    @org.junit.jupiter.api.Test
     void fixFieldNullWR() {
 
         Properties p = new Properties();
@@ -77,6 +91,24 @@ class FieldPrependTest {
         String output = fieldToTest.fixField(input);
 
         assertEquals(StringToPrepend + payload, output);
+    }
+
+    @org.junit.jupiter.api.Test
+    void fixFieldNotMullJustQuotesWR() {
+
+
+        final String payload = "\"\"";
+
+        Properties p = new Properties();
+        p.put("thingToPrepend", "N");
+        WranglerRequest w = new WranglerRequest("FieldPrepend", p);
+
+        FieldPrepend fieldToTest = new FieldPrepend(w);
+
+        String input = payload;
+        String output = fieldToTest.fixField(input);
+
+        assertEquals( payload, output);
     }
 
 

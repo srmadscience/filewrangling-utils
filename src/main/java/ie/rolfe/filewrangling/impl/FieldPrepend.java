@@ -7,9 +7,11 @@
  */
 package ie.rolfe.filewrangling.impl;
 
+import ie.rolfe.filewrangling.FileWrangler;
 import ie.rolfe.filewrangling.exceptions.WranglerRequestException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
+
 
 public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
@@ -37,19 +39,26 @@ public class FieldPrepend extends AbstractFieldWrangler implements CSVFieldWrang
     @Override
     public String fixField(String field) {
 
-        if (field == null || field.isEmpty()) {
+        if (field == null || field.isEmpty() || field.equals(FileWrangler.QUOTE + FileWrangler.QUOTE)) {
             return processExtraWranglers(field);
         }
 
-        if (onlyIfMissing) {
-            if (field.startsWith(thingToPrepend)) {
-                return processExtraWranglers(field);
-            } else {
-                return processExtraWranglers(thingToPrepend + field);
-            }
+        String quoteString = "";
+        String outField = new  String(field);
+
+        if (field.length() >= 2
+                && field.startsWith(String.valueOf(FileWrangler.QUOTE))
+                && field.endsWith(String.valueOf(FileWrangler.QUOTE)))
+        {
+            quoteString = String.valueOf(FileWrangler.QUOTE);
+            outField = outField.substring(1, outField.length()-1);
         }
 
-        return processExtraWranglers(thingToPrepend + field);
+        if (onlyIfMissing && outField.startsWith(thingToPrepend)) {
+            return processExtraWranglers(quoteString  + outField + quoteString);
+        }
+
+        return processExtraWranglers(quoteString + thingToPrepend + outField + quoteString);
     }
 
 
