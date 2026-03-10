@@ -17,6 +17,7 @@ import java.util.HashSet;
 
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
+import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
 
 public class LineForgetColumnsInLine extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
@@ -31,9 +32,6 @@ public class LineForgetColumnsInLine extends AbstractLineWrangler implements CSV
 
     public LineForgetColumnsInLine(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
-
-        this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine = wranglerRequest.getInt("endLine");
         splitAndStoreColumnNames((String) wranglerRequest.get("columnNames"));
     }
 
@@ -58,7 +56,7 @@ public class LineForgetColumnsInLine extends AbstractLineWrangler implements CSV
             return line;
         }
 
-        if (lineNumber >= startLine && lineNumber <= endLine) {
+        if (lineNumber >= startLine && (endLine == ALL_LINES || lineNumber <= endLine)) {
 
             String[] fields = line.split(String.valueOf(BaseFileWrangler.DELIM));
 

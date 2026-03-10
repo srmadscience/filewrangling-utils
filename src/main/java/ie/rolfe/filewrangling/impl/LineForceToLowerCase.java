@@ -11,6 +11,8 @@ package ie.rolfe.filewrangling.impl;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
+import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
+
 public class LineForceToLowerCase extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
 
@@ -22,8 +24,6 @@ public class LineForceToLowerCase extends AbstractLineWrangler implements CSVLin
     public LineForceToLowerCase(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
 
-        this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine = wranglerRequest.getInt("endLine");
     }
 
 
@@ -34,7 +34,7 @@ public class LineForceToLowerCase extends AbstractLineWrangler implements CSVLin
             return line;
         }
 
-        if (lineNumber >= startLine && lineNumber <= endLine) {
+        if (lineNumber >= startLine && (endLine == ALL_LINES || lineNumber <= endLine)) {
             return processExtraWranglers(lineNumber, line.toLowerCase());
         }
         return processExtraWranglers(lineNumber, line);

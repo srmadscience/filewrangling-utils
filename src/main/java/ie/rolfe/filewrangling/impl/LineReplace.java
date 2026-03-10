@@ -11,6 +11,8 @@ package ie.rolfe.filewrangling.impl;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
+import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
+
 public class LineReplace extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
      String newValue;
@@ -25,8 +27,6 @@ public class LineReplace extends AbstractLineWrangler implements CSVLineWrangler
     public LineReplace(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
 
-        this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine = wranglerRequest.getInt("endLine");
         this.newValue = (String) wranglerRequest.get("newValue");
     }
 
@@ -43,7 +43,7 @@ public class LineReplace extends AbstractLineWrangler implements CSVLineWrangler
             return line;
         }
 
-        if (lineNumber >= startLine && lineNumber <= endLine) {
+        if (lineNumber >= startLine && (endLine == ALL_LINES || lineNumber <= endLine)) {
             return processExtraWranglers(lineNumber, newValue);
         }
         return processExtraWranglers(lineNumber, line);

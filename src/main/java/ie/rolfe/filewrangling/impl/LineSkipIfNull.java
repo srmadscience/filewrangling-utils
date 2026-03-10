@@ -17,6 +17,7 @@ import java.util.HashSet;
 
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
+import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
 
 public class LineSkipIfNull extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
@@ -33,8 +34,6 @@ public class LineSkipIfNull extends AbstractLineWrangler implements CSVLineWrang
     public LineSkipIfNull(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
 
-        this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine = wranglerRequest.getInt("endLine");
         splitAndStoreColumnNames((String) wranglerRequest.get("columnNames"));
 
     }
@@ -64,13 +63,14 @@ public class LineSkipIfNull extends AbstractLineWrangler implements CSVLineWrang
         if (fields.length == 0) {
             return line;
         }
+        if (lineNumber >= startLine && (endLine == ALL_LINES || lineNumber <= endLine)) {
+            for (Integer aColId : neededColumnIds) {
 
-        for (Integer aColId : neededColumnIds) {
-
-            if (aColId >= fields.length) {
-                throw new SkipThisLineException("Missing", lineNumber, line);
-            } else if (fields[aColId] == null || fields[aColId].isEmpty()) {
-                throw new SkipThisLineException(columnNames[aColId], lineNumber, line);
+                if (aColId >= fields.length) {
+                    throw new SkipThisLineException("Missing", lineNumber, line, "Column ID too big");
+                } else if (fields[aColId] == null || fields[aColId].isEmpty()) {
+                    throw new SkipThisLineException(columnNames[aColId], lineNumber, line,"Column missing");
+                }
             }
         }
 

@@ -12,6 +12,8 @@ import ie.rolfe.filewrangling.BaseFileWrangler;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
+import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
+
 public class LineForgetRest extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
     int lastColumn;
@@ -26,9 +28,6 @@ public class LineForgetRest extends AbstractLineWrangler implements CSVLineWrang
 
     public LineForgetRest(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
-
-        this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine = wranglerRequest.getInt("endLine");
         this.lastColumn = wranglerRequest.getInt("lastColumn");
     }
 
@@ -40,7 +39,7 @@ public class LineForgetRest extends AbstractLineWrangler implements CSVLineWrang
             return line;
         }
 
-        if (lineNumber >= startLine && lineNumber <= endLine) {
+        if (lineNumber >= startLine && (endLine == ALL_LINES || lineNumber <= endLine)) {
 
             String[] fields = line.split(String.valueOf(BaseFileWrangler.DELIM));
 

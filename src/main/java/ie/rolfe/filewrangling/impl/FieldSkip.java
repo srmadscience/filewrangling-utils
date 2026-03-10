@@ -24,7 +24,7 @@ public class FieldSkip extends AbstractFieldWrangler implements CSVFieldWrangler
 
     @Override
     public String fixField(String field) {
-        throw new SkipThisFieldException(field);
+        throw new SkipThisFieldException(field + " " + toString());
     }
 
     @Override

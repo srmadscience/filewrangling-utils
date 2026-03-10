@@ -8,10 +8,13 @@
 package ie.rolfe.filewrangling.exceptions;
 
 public class SkipThisLineException extends RuntimeException {
-    String columnName;int lineNumber; String line;
+    String columnName;
+    int lineNumber;
+    String line;
 
-    public SkipThisLineException(String columnName, int lineNumber, String line) {
-        this.columnName = columnName;
+    public SkipThisLineException(String columnName, int lineNumber, String line, String message) {
+        super(message);
+                this.columnName = columnName;
         this.lineNumber = lineNumber;
         this.line = line;
     }

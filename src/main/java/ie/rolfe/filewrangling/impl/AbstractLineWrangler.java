@@ -7,6 +7,7 @@
  */
 package ie.rolfe.filewrangling.impl;
 
+import ie.rolfe.filewrangling.exceptions.MissingColumnThisLineException;
 import ie.rolfe.filewrangling.exceptions.WranglerRequestException;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
@@ -19,7 +20,6 @@ public abstract class AbstractLineWrangler implements CSVLineWranglerIFace {
     long endLine;
     String[] columnNames = new String[0];
 
-
     ArrayList<CSVLineWranglerIFace> theExtraWranglers = new ArrayList<>();
 
 
@@ -30,6 +30,9 @@ public abstract class AbstractLineWrangler implements CSVLineWranglerIFace {
         if (!wranglerRequest.requestType.equals(this.getClass().getSimpleName())) {
             throw new WranglerRequestException(wranglerRequest.requestType + " can't be used for " + this.getClass().getSimpleName());
         }
+        this.startLine = wranglerRequest.getInt("startLine");
+        this.endLine = wranglerRequest.getInt("endLine");
+
     }
 
 
@@ -48,6 +51,17 @@ public abstract class AbstractLineWrangler implements CSVLineWranglerIFace {
 
         return newField;
     }
+
+    protected int getIdOfColumn(String columnName) throws MissingColumnThisLineException {
+
+        for (int i = 0; i < columnNames.length; i++) {
+            if (columnNames[i].equalsIgnoreCase(columnName)) {
+                return i;
+            }
+        }
+        throw new MissingColumnThisLineException(columnName, "not found by getIdOfColumn()");
+    }
+
 
     public String getName() {
         return this.getClass().getSimpleName();

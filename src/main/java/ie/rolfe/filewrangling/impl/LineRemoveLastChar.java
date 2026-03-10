@@ -11,6 +11,8 @@ package ie.rolfe.filewrangling.impl;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
+import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
+
 public class LineRemoveLastChar extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
     public LineRemoveLastChar(long startLine, long endLine) {
@@ -21,10 +23,7 @@ public class LineRemoveLastChar extends AbstractLineWrangler implements CSVLineW
 
     public LineRemoveLastChar(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
-
-        this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine = wranglerRequest.getInt("endLine");
-    }
+   }
 
     @Override
     public String fixLine(int lineNumber, String line) {
@@ -33,7 +32,7 @@ public class LineRemoveLastChar extends AbstractLineWrangler implements CSVLineW
             return line;
         }
 
-        if (lineNumber >= startLine && lineNumber <= endLine) {
+        if (lineNumber >= startLine && (endLine == ALL_LINES || lineNumber <= endLine)) {
             return processExtraWranglers(lineNumber, line.substring(0, line.length() - 1));
         }
         return processExtraWranglers(lineNumber, line);

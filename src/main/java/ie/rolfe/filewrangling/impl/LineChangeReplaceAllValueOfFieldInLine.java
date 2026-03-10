@@ -12,6 +12,8 @@ import ie.rolfe.filewrangling.BaseFileWrangler;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
+import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
+
 public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
     String columnValue;
@@ -28,10 +30,8 @@ public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler
     public LineChangeReplaceAllValueOfFieldInLine(WranglerRequest wranglerRequest) {
         super(wranglerRequest);
 
-        this.startLine = wranglerRequest.getInt("startLine");
-        this.endLine = wranglerRequest.getInt("endLine");
-        this.columnValue = (String) wranglerRequest.get("columnValue");
-        this.newValue = (String) wranglerRequest.get("newValue");
+        this.columnValue = wranglerRequest.getString("columnValue");
+        this.newValue = wranglerRequest.getString("newValue");
     }
 
 
@@ -42,7 +42,7 @@ public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler
             return line;
         }
 
-        if (lineNumber >= startLine && lineNumber <= endLine) {
+        if (lineNumber >= startLine && (endLine == ALL_LINES || lineNumber <= endLine)) {
 
             String[] fields = line.split(String.valueOf(BaseFileWrangler.DELIM));
 

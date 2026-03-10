@@ -13,6 +13,7 @@ import ie.rolfe.filewrangling.exceptions.SkipThisFieldException;
 import ie.rolfe.filewrangling.exceptions.SkipThisLineException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
+import ie.rolfe.filewrangling.impl.FieldKeep;
 import ie.rolfe.filewrangling.impl.FieldSkip;
 import ie.rolfe.filewrangling.model.FileMapping;
 import ie.rolfe.filewrangling.model.WranglerRequest;
@@ -219,7 +220,11 @@ public class FileWrangler {
 
             for (int i = 0; i < fm.fieldMappings.length; i++) {
 
-                msg(i + " Create instance of " + fm.fieldMappings[i].requestType + "...");
+                if (fm.fieldMappings[i].comment != null && fm.fieldMappings[i].comment.length() > 0) {
+                    msg(i +   " Create instance of " + fm.fieldMappings[i].requestType + " comment:" + fm.fieldMappings[i].comment);
+                } else {
+                    msg(i + " Create instance of " + fm.fieldMappings[i].requestType + "...");
+                }
 
                 Class<?> clazz = Class.forName(PACKAGE_NAME + fm.fieldMappings[i].requestType);
                 Constructor<?> constructor = clazz.getConstructor(WranglerRequest.class);
@@ -248,7 +253,7 @@ public class FileWrangler {
         }
     }
 
-    public String processLine(int lineNumber, String line) {
+    private String processLine(int lineNumber, String line) {
 
 
         if (line == null) {
@@ -286,7 +291,7 @@ public class FileWrangler {
 
 
         // See https://www.baeldung.com/java-split-string-commas
-        String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+        String[] fields = newLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < fields.length && i < fieldChanges.length; i++) {
@@ -302,7 +307,7 @@ public class FileWrangler {
                 }
                 sb.append(fields[i].trim());
             } catch (SkipThisFieldException e) {
-                //
+                msg(e.getMessage());
             }
         }
 
@@ -317,7 +322,7 @@ public class FileWrangler {
     private void mapFieldsToPositions(String header) {
         columnNames = header.split(DELIM_SPLIT_REGEX, -1);
         for (int i = 0; i < columnNames.length; i++) {
-            columnNames[i] = columnNames[i].replace("\"", "");
+            columnNames[i] = columnNames[i].replace("\"", "").trim();
         }
 
         for (CSVLineWranglerIFace lineChange : lineChanges) {
