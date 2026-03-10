@@ -336,8 +336,12 @@ public class FileWrangler {
         for (int i = 0; i < columnNames.length; i++) {
             for (int j = 0; j < rawFieldChanges.size(); j++) {
 
-                if (rawFieldChanges.get(j).isUsedForField(columnNames[i])) {
-                    setFieldToCopyOfRawField(j, i);
+                try {
+                    if (rawFieldChanges.get(j).isUsedForField(columnNames[i])) {
+                        setFieldToCopyOfRawField(j, i);
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
 
             }

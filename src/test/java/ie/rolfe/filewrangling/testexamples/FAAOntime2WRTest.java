@@ -23,7 +23,7 @@ class FAAOntime2WRTest {
     void testFAAOntimeHistory() {
 
         Properties p = System.getProperties();
-        File inputFile = new File(p.getProperty("user.dir") + "/testdata/ontime_all.csv");
+        File inputFile = new File(p.getProperty("user.dir") + "/testdata/ontime_all_test.csv");
         File jsonFile = new File(p.getProperty("user.dir") + "/testdata/ontime_all.json");
 
         File outputFile = new File("/tmp/a.out");
