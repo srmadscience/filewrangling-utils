@@ -307,7 +307,7 @@ public class FileWrangler {
                 }
                 sb.append(fields[i].trim());
             } catch (SkipThisFieldException e) {
-                msg(e.getMessage());
+                //msg(e.getMessage());
             }
         }
 
