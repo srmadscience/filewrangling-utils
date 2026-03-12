@@ -407,7 +407,7 @@ public class FileWrangler {
 
                 if (System.currentTimeMillis() > (lastReportTime + ONE_MINUTE_MS)) {
                     long rowsPerSecond = (lineCount - lastRowCount) / 60;
-                    msg("Processing line " + lineCount + ", " + rowsPerSecond + " rowsPerSecond..." );
+                    msg("Processing line " + lineCount + ", " + rowsPerSecond + " rows per second..." );
                     lastReportTime = System.currentTimeMillis();
                     lastRowCount = lineCount;
                 }
