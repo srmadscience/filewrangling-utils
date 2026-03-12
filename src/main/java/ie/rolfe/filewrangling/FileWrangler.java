@@ -39,8 +39,9 @@ public class FileWrangler {
     public static final long ALL_LINES = -1;
 
     private static final int IO_BUFFER_SIZE = 2048;
-    private static final long REPORTING_THRESHOLD_NS = 1000;
+    private static final long REPORTING_THRESHOLD_NS = 1000000;
     public static final int DEFAULT_HISTOGRAM_SIZE = 10000;
+    public static final int ONE_MINUTE_MS = 60000;
 
     SafeHistogramCache shc = SafeHistogramCache.getInstance();
 
@@ -275,7 +276,10 @@ public class FileWrangler {
                 long endNs = System.nanoTime();
 
                 if (endNs - startNs > REPORTING_THRESHOLD_NS) {
-                    shc.report("linechanges_" + lineChange.getName(), (int) (System.nanoTime() - startNs)/ 1000, "Microsecond latency for line changes", DEFAULT_HISTOGRAM_SIZE);
+                    shc.report("linechanges_" + lineChange.getName()
+                            , (int) (System.nanoTime() - startNs)/ 1000000
+                            , "Millisecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns"
+                            , DEFAULT_HISTOGRAM_SIZE);
                 }
             }
         }
@@ -300,7 +304,9 @@ public class FileWrangler {
                 fields[i] = fieldChanges[i].fixField(fields[i]);
                 long endNs = System.nanoTime();
                 if (endNs - startNs > REPORTING_THRESHOLD_NS) {
-                    shc.report("fieldchanges_" + fieldChanges[i].getName(), (int) (System.nanoTime() - startNs)/ 1000, "Microsecond latency for line changes", DEFAULT_HISTOGRAM_SIZE);
+                    shc.report("fieldchanges_" + fieldChanges[i].getName()
+                            , (int) (System.nanoTime() - startNs)/ 1000000
+                            , "Millisecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns", DEFAULT_HISTOGRAM_SIZE);
                 }
                 if (i > 0) {
                     sb.append(DELIM);
@@ -379,6 +385,8 @@ public class FileWrangler {
 
 
         try {
+            long lastReportTime = System.currentTimeMillis();
+
             BufferedReader reader;
             reader = new BufferedReader(new FileReader(inputFile));
             FileWriter fw = new FileWriter(outputFile);
@@ -396,8 +404,9 @@ public class FileWrangler {
                 }
                 line = reader.readLine();
 
-                if (lineCount % 1000 == 0) {
+                if (System.currentTimeMillis() > (lastReportTime + ONE_MINUTE_MS)) {
                     msg("Processing line " + lineCount);
+                    lastReportTime = System.currentTimeMillis();
                 }
             }
 
