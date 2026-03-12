@@ -295,7 +295,7 @@ public class FileWrangler {
 
 
         // See https://www.baeldung.com/java-split-string-commas
-        String[] fields = newLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+        String[] fields = newLine.split(DELIM_SPLIT_REGEX, -1);
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < fields.length && i < fieldChanges.length; i++) {
