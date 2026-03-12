@@ -385,7 +385,8 @@ public class FileWrangler {
 
 
         try {
-            long lastReportTime = System.currentTimeMillis();
+            long lastReportTime = System.currentTimeMillis() - ONE_MINUTE_MS;
+            long lastRowCount = 0;
 
             BufferedReader reader;
             reader = new BufferedReader(new FileReader(inputFile));
@@ -405,8 +406,10 @@ public class FileWrangler {
                 line = reader.readLine();
 
                 if (System.currentTimeMillis() > (lastReportTime + ONE_MINUTE_MS)) {
-                    msg("Processing line " + lineCount);
+                    long rowsPerSecond = (lineCount - lastRowCount) / 60;
+                    msg("Processing line " + lineCount + ", " + rowsPerSecond + " rowsPerSecond..." );
                     lastReportTime = System.currentTimeMillis();
+                    lastRowCount = lineCount;
                 }
             }
 
