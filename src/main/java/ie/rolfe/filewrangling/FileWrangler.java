@@ -39,7 +39,7 @@ public class FileWrangler {
     public static final long ALL_LINES = -1;
 
     private static final int IO_BUFFER_SIZE = 2048;
-    private static final long REPORTING_THRESHOLD_NS = 1000000;
+    private static final long REPORTING_THRESHOLD_NS = 1000;
     public static final int DEFAULT_HISTOGRAM_SIZE = 10000;
     public static final int ONE_MINUTE_MS = 60000;
 
@@ -256,7 +256,6 @@ public class FileWrangler {
 
     private String processLine(int lineNumber, String line) {
 
-
         if (line == null) {
             return line;
         }
@@ -277,8 +276,8 @@ public class FileWrangler {
 
                 if (endNs - startNs > REPORTING_THRESHOLD_NS) {
                     shc.report("linechanges_" + lineChange.getName()
-                            , (int) (System.nanoTime() - startNs)/ 1000000
-                            , "Millisecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns"
+                            , (int) (System.nanoTime() - startNs)/ 1000
+                            , "Microsecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns"
                             , DEFAULT_HISTOGRAM_SIZE);
                 }
             }
@@ -293,20 +292,23 @@ public class FileWrangler {
             return newLine;
         }
 
-
+        long startNs = System.nanoTime();
         // See https://www.baeldung.com/java-split-string-commas
         String[] fields = newLine.split(DELIM_SPLIT_REGEX, -1);
+        shc.report("splitbyregex"
+                , (int) (System.nanoTime() - startNs)/ 1000
+                , "Microsecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns", DEFAULT_HISTOGRAM_SIZE);
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < fields.length && i < fieldChanges.length; i++) {
             try {
-                long startNs = System.nanoTime();
+                startNs = System.nanoTime();
                 fields[i] = fieldChanges[i].fixField(fields[i]);
                 long endNs = System.nanoTime();
                 if (endNs - startNs > REPORTING_THRESHOLD_NS) {
                     shc.report("fieldchanges_" + fieldChanges[i].getName()
-                            , (int) (System.nanoTime() - startNs)/ 1000000
-                            , "Millisecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns", DEFAULT_HISTOGRAM_SIZE);
+                            , (int) (System.nanoTime() - startNs)/ 1000
+                            , "Microsecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns", DEFAULT_HISTOGRAM_SIZE);
                 }
                 if (i > 0) {
                     sb.append(DELIM);
