@@ -33,9 +33,7 @@ public class FileWrangler {
     public static final String QUOTE = "\"";
     public static final char DELIM = ',';
 
-    // See https://www.baeldung.com/java-split-string-commas
-    public static final String DELIM_SPLIT_REGEX = DELIM + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
-    public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
+public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
     public static final long ALL_LINES = -1;
 
     private static final int IO_BUFFER_SIZE = 2048;
@@ -283,7 +281,6 @@ public class FileWrangler {
             }
         }
 
-
         if (newLine.indexOf(DELIM) == 0) {
             return newLine;
         }
@@ -293,8 +290,7 @@ public class FileWrangler {
         }
 
         long startNs = System.nanoTime();
-        // See https://www.baeldung.com/java-split-string-commas
-        String[] fields = newLine.split(DELIM_SPLIT_REGEX, -1);
+        String[] fields = splitCSV(newLine);
         shc.report("splitbyregex"
                 , (int) (System.nanoTime() - startNs)/ 1000
                 , "Microsecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns", DEFAULT_HISTOGRAM_SIZE);
@@ -327,8 +323,28 @@ public class FileWrangler {
         rawFieldChanges.add(newField);
     }
 
+    private static String[] splitCSV(String line) {
+        ArrayList<String> fields = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        boolean inQuotes = false;
+        for (int i = 0; i < line.length(); i++) {
+            char c = line.charAt(i);
+            if (c == '"') {
+                inQuotes = !inQuotes;
+                sb.append(c);
+            } else if (c == DELIM && !inQuotes) {
+                fields.add(sb.toString());
+                sb.setLength(0);
+            } else {
+                sb.append(c);
+            }
+        }
+        fields.add(sb.toString());
+        return fields.toArray(new String[0]);
+    }
+
     private void mapFieldsToPositions(String header) {
-        columnNames = header.split(DELIM_SPLIT_REGEX, -1);
+        columnNames = splitCSV(header);
         for (int i = 0; i < columnNames.length; i++) {
             columnNames[i] = columnNames[i].replace("\"", "").trim();
         }
