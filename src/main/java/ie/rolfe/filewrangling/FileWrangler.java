@@ -19,6 +19,8 @@ import ie.rolfe.filewrangling.model.FileMapping;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 import org.voltdb.voltutil.stats.SafeHistogramCache;
 
+import static ie.rolfe.filewrangling.BaseFileWrangler.splitCSV;
+
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -37,7 +39,7 @@ public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
     public static final long ALL_LINES = -1;
 
     private static final int IO_BUFFER_SIZE = 2048;
-    private static final long REPORTING_THRESHOLD_NS = 1000;
+    private static final long REPORTING_THRESHOLD_NS = 1000000;
     public static final int DEFAULT_HISTOGRAM_SIZE = 10000;
     public static final int ONE_MINUTE_MS = 60000;
 
@@ -323,25 +325,6 @@ public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
         rawFieldChanges.add(newField);
     }
 
-    private static String[] splitCSV(String line) {
-        ArrayList<String> fields = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-        boolean inQuotes = false;
-        for (int i = 0; i < line.length(); i++) {
-            char c = line.charAt(i);
-            if (c == '"') {
-                inQuotes = !inQuotes;
-                sb.append(c);
-            } else if (c == DELIM && !inQuotes) {
-                fields.add(sb.toString());
-                sb.setLength(0);
-            } else {
-                sb.append(c);
-            }
-        }
-        fields.add(sb.toString());
-        return fields.toArray(new String[0]);
-    }
 
     private void mapFieldsToPositions(String header) {
         columnNames = splitCSV(header);

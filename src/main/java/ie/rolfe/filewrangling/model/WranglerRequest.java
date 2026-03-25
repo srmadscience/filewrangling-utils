@@ -14,7 +14,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
-import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
+import static ie.rolfe.filewrangling.BaseFileWrangler.splitCSV;
 
 public class WranglerRequest {
     public String requestType;
@@ -102,7 +102,7 @@ public class WranglerRequest {
         if (fieldNameList.indexOf(DELIM) == -1) {
             fieldNames.add(fieldNameList);
         } else {
-            String[] fields = fieldNameList.split(DELIM_SPLIT_REGEX, -1);
+            String[] fields = splitCSV(fieldNameList);
             for (int i = 0; i < fields.length; i++) {
                 fieldNames.add(fields[i].trim());
             }

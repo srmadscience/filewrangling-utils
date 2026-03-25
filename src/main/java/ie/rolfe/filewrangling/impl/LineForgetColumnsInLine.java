@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
-import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
+import static ie.rolfe.filewrangling.BaseFileWrangler.splitCSV;
 import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
 
 public class LineForgetColumnsInLine extends AbstractLineWrangler implements CSVLineWranglerIFace {
@@ -41,7 +41,7 @@ public class LineForgetColumnsInLine extends AbstractLineWrangler implements CSV
         if (fieldNameList.indexOf(DELIM) == -1) {
             neededColumnNames.add(fieldNameList.replace("\"", "").trim().toLowerCase());
         } else {
-            String[] fields = fieldNameList.split(DELIM_SPLIT_REGEX, -1);
+            String[] fields = splitCSV(fieldNameList);
             for (int i = 0; i < fields.length; i++) {
                 neededColumnNames.add(fields[i].replace("\"", "").trim().toLowerCase());
             }

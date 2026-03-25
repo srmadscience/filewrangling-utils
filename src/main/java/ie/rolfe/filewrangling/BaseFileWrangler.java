@@ -24,7 +24,6 @@ import java.util.Date;
 public class BaseFileWrangler {
 
     public static final char DELIM = ',';
-    public static final String DELIM_SPLIT_REGEX = DELIM + "(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
     File inputFile = null;
     File outputFile = null;
     int startFieldLine = 2;
@@ -46,6 +45,26 @@ public class BaseFileWrangler {
      *
      * @param message
      */
+    public static String[] splitCSV(String line) {
+        ArrayList<String> fields = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        boolean inQuotes = false;
+        for (int i = 0; i < line.length(); i++) {
+            char c = line.charAt(i);
+            if (c == '"') {
+                inQuotes = !inQuotes;
+                sb.append(c);
+            } else if (c == DELIM && !inQuotes) {
+                fields.add(sb.toString());
+                sb.setLength(0);
+            } else {
+                sb.append(c);
+            }
+        }
+        fields.add(sb.toString());
+        return fields.toArray(new String[0]);
+    }
+
     public static void msg(String message) {
 
         SimpleDateFormat sdfDate;
@@ -162,8 +181,7 @@ public class BaseFileWrangler {
             return newLine;
         }
 
-        // See https://www.baeldung.com/java-split-string-commas
-        String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+        String[] fields = splitCSV(line);
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < fields.length && i < fieldChanges.length; i++) {
@@ -187,7 +205,7 @@ public class BaseFileWrangler {
     }
 
     private void mapFieldsToPositions(String header) {
-        String[] fields = header.split(DELIM_SPLIT_REGEX, -1);
+        String[] fields = splitCSV(header);
 
         if (fieldChanges == null || fieldChanges.length == 0) {
             fieldChanges = new CSVFieldWranglerIFace[fields.length];

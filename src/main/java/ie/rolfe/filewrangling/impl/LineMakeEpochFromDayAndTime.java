@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
-import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
+import static ie.rolfe.filewrangling.BaseFileWrangler.splitCSV;
 import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
 import static ie.rolfe.filewrangling.FileWrangler.msg;
 
@@ -73,7 +73,7 @@ public class LineMakeEpochFromDayAndTime extends AbstractLineWrangler implements
         }
 
         if (lineNumber >= startLine && (endLine == ALL_LINES || lineNumber <= endLine)) {
-            String[] fields = line.split(DELIM_SPLIT_REGEX, -1);
+            String[] fields = splitCSV(line);
             try {
 
                 if (fields.length == 0) {

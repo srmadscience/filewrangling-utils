@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM;
-import static ie.rolfe.filewrangling.BaseFileWrangler.DELIM_SPLIT_REGEX;
+import static ie.rolfe.filewrangling.BaseFileWrangler.splitCSV;
 
 public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
 
@@ -65,7 +65,7 @@ public abstract class AbstractFieldWrangler implements CSVFieldWranglerIFace {
         if (fieldNameList.indexOf(DELIM) == -1) {
             fieldNames.add(fieldNameList.trim().toLowerCase());
         } else {
-            String[] fields = fieldNameList.split(DELIM_SPLIT_REGEX, -1);
+            String[] fields = splitCSV(fieldNameList);
             for (int i = 0; i < fields.length; i++) {
                 fieldNames.add(fields[i].trim().toLowerCase());
             }
