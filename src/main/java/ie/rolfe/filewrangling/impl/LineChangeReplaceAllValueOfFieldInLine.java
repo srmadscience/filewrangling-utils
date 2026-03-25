@@ -8,10 +8,10 @@
 
 package ie.rolfe.filewrangling.impl;
 
-import ie.rolfe.filewrangling.BaseFileWrangler;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 
+import static ie.rolfe.filewrangling.BaseFileWrangler.splitCSV;
 import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
 
 public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler implements CSVLineWranglerIFace {
@@ -44,7 +44,7 @@ public class LineChangeReplaceAllValueOfFieldInLine extends AbstractLineWrangler
 
         if (lineNumber >= startLine && (endLine == ALL_LINES || lineNumber <= endLine)) {
 
-            String[] fields = line.split(String.valueOf(BaseFileWrangler.DELIM));
+            String[] fields = splitCSV(line);
 
             if (fields.length == 0) {
                 return line;
