@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-class FieldKeepTest {
+public class FieldKeepTest {
 
     @org.junit.jupiter.api.Test
     void fixFieldNull() {

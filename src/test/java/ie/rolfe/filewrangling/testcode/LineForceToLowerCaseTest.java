@@ -17,7 +17,7 @@ import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class LineForceToLowerCaseTest {
+public class LineForceToLowerCaseTest {
 
     @org.junit.jupiter.api.Test
     void fixLineNoMatches() {

@@ -11,7 +11,7 @@ import java.util.Properties;
 import static ie.rolfe.filewrangling.FileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class LineMakeEpochFromDayAndTimeTest {
+public class LineMakeEpochFromDayAndTimeTest {
 
     @Test
     void fixLineNotNull() {

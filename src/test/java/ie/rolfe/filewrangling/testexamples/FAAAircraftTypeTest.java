@@ -17,7 +17,7 @@ import java.util.Properties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class FAAAircraftTypeTest {
+public class FAAAircraftTypeTest {
 
     @org.junit.jupiter.api.Test
     void testFAAAircraftType() {

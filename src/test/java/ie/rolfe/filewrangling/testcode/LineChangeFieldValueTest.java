@@ -17,7 +17,7 @@ import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class LineChangeFieldValueTest {
+public class LineChangeFieldValueTest {
 
     private static final String TEST_VALUE_D = "D";
     private static final String TEST_VALUE_B = "B";

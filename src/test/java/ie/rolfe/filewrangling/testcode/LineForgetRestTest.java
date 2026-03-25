@@ -18,7 +18,7 @@ import java.util.Properties;
 import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class LineForgetRestTest {
+public class LineForgetRestTest {
 
     @Test
     void testNull() {

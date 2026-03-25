@@ -16,7 +16,7 @@ import java.util.Properties;
 import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FieldMapToZeroTest {
+public class FieldMapToZeroTest {
 
     @org.junit.jupiter.api.Test
     void fixFieldNull() {

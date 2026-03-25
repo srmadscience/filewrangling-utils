@@ -18,7 +18,7 @@ import static ie.rolfe.filewrangling.FileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-class FAAOntime50000Test {
+public class FAAOntime50000Test {
 
     @org.junit.jupiter.api.Test
     void testDFAAOntime50000Test() {

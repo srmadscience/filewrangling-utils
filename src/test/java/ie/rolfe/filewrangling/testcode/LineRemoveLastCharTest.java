@@ -18,7 +18,7 @@ import static ie.rolfe.filewrangling.BaseFileWrangler.msg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class LineRemoveLastCharTest {
+public class LineRemoveLastCharTest {
 
     @org.junit.jupiter.api.Test
     void fixLineMatches() {
