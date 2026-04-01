@@ -13,13 +13,10 @@ import ie.rolfe.filewrangling.exceptions.SkipThisFieldException;
 import ie.rolfe.filewrangling.exceptions.SkipThisLineException;
 import ie.rolfe.filewrangling.iface.CSVFieldWranglerIFace;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
-import ie.rolfe.filewrangling.impl.FieldKeep;
 import ie.rolfe.filewrangling.impl.FieldSkip;
 import ie.rolfe.filewrangling.model.FileMapping;
 import ie.rolfe.filewrangling.model.WranglerRequest;
 import org.voltdb.voltutil.stats.SafeHistogramCache;
-
-import static ie.rolfe.filewrangling.BaseFileWrangler.splitCSV;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
@@ -30,19 +27,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import static ie.rolfe.filewrangling.BaseFileWrangler.splitCSV;
+
 public class FileWrangler {
 
     public static final String QUOTE = "\"";
     public static final char DELIM = ',';
 
-public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
+    public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
     public static final long ALL_LINES = -1;
-
-    private static final int IO_BUFFER_SIZE = 2048;
-    private static final long REPORTING_THRESHOLD_NS = 1000000;
     public static final int DEFAULT_HISTOGRAM_SIZE = 10000;
     public static final int ONE_MINUTE_MS = 60000;
-
+    private static final int IO_BUFFER_SIZE = 2048;
+    private static final long REPORTING_THRESHOLD_NS = 1000000;
     SafeHistogramCache shc = SafeHistogramCache.getInstance();
 
     File inputFile;
@@ -207,7 +204,7 @@ public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
 
 
                 if (fm.lineMappings[i].comment != null && fm.lineMappings[i].comment.length() > 0) {
-                    msg(i +   " Create instance of " + fm.lineMappings[i].requestType + " comment:" + fm.lineMappings[i].comment);
+                    msg(i + " Create instance of " + fm.lineMappings[i].requestType + " comment:" + fm.lineMappings[i].comment);
                 } else {
                     msg(i + " Create instance of " + fm.lineMappings[i].requestType + "...");
                 }
@@ -222,7 +219,7 @@ public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
             for (int i = 0; i < fm.fieldMappings.length; i++) {
 
                 if (fm.fieldMappings[i].comment != null && fm.fieldMappings[i].comment.length() > 0) {
-                    msg(i +   " Create instance of " + fm.fieldMappings[i].requestType + " comment:" + fm.fieldMappings[i].comment);
+                    msg(i + " Create instance of " + fm.fieldMappings[i].requestType + " comment:" + fm.fieldMappings[i].comment);
                 } else {
                     msg(i + " Create instance of " + fm.fieldMappings[i].requestType + "...");
                 }
@@ -267,7 +264,6 @@ public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
         String newLine = line;
 
 
-
         for (CSVLineWranglerIFace lineChange : lineChanges) {
             if (lineNumber >= lineChange.getStartLine() && (lineChange.getEndLine() == ALL_LINES || lineNumber <= lineChange.getEndLine())) {
                 long startNs = System.nanoTime();
@@ -276,7 +272,7 @@ public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
 
                 if (endNs - startNs > REPORTING_THRESHOLD_NS) {
                     shc.report("linechanges_" + lineChange.getName()
-                            , (int) (System.nanoTime() - startNs)/ 1000
+                            , (int) (System.nanoTime() - startNs) / 1000
                             , "Microsecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns"
                             , DEFAULT_HISTOGRAM_SIZE);
                 }
@@ -294,7 +290,7 @@ public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
         long startNs = System.nanoTime();
         String[] fields = splitCSV(newLine);
         shc.report("splitbyregex"
-                , (int) (System.nanoTime() - startNs)/ 1000
+                , (int) (System.nanoTime() - startNs) / 1000
                 , "Microsecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns", DEFAULT_HISTOGRAM_SIZE);
         StringBuilder sb = new StringBuilder();
 
@@ -305,7 +301,7 @@ public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
                 long endNs = System.nanoTime();
                 if (endNs - startNs > REPORTING_THRESHOLD_NS) {
                     shc.report("fieldchanges_" + fieldChanges[i].getName()
-                            , (int) (System.nanoTime() - startNs)/ 1000
+                            , (int) (System.nanoTime() - startNs) / 1000
                             , "Microsecond latency when longer  than " + REPORTING_THRESHOLD_NS + "ns", DEFAULT_HISTOGRAM_SIZE);
                 }
                 if (i > 0) {
@@ -408,7 +404,7 @@ public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
 
                 if (System.currentTimeMillis() > (lastReportTime + ONE_MINUTE_MS)) {
                     long rowsPerSecond = (lineCount - lastRowCount) / 60;
-                    msg("Processing line " + lineCount + ", " + rowsPerSecond + " rows per second..." );
+                    msg("Processing line " + lineCount + ", " + rowsPerSecond + " rows per second...");
                     lastReportTime = System.currentTimeMillis();
                     lastRowCount = lineCount;
                 }
@@ -417,7 +413,7 @@ public static final String PACKAGE_NAME = "ie.rolfe.filewrangling.impl.";
             reader.close();
             printer.flush();
             printer.close();
-            msg("Lines: " + lineCount + ". Skipped: "+ linesSkipped);
+            msg("Lines: " + lineCount + ". Skipped: " + linesSkipped);
             msg(shc.toString());
 
         } catch (Exception e) {
