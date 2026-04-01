@@ -10,6 +10,7 @@ ie/rolfe/filewrangling/testexamples/FAAMasterTest.class
 ie/rolfe/filewrangling/testcode/LineForgetColumnTest.class
 ie/rolfe/filewrangling/testexamples/FAAOntime2WRTest.class
 ie/rolfe/filewrangling/testcode/LineChangeColumnValueTest.class
+ie/rolfe/filewrangling/testexamples/FAAOntime50000Test.class
 ie/rolfe/filewrangling/testcode/FieldMapToZeroTest.class
 ie/rolfe/filewrangling/testexamples/FAAOntimeTest.class
 ie/rolfe/filewrangling/testexamples/FAAMasterWRTest.class

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ie.rolfe.filewrangling.testexamples.FAAAircraftTypeWRTest" time="0.005" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ie.rolfe.filewrangling.testexamples.FAAAircraftTypeWRTest" time="0.006" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="24"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/Users/dwrolfe/IdeaProjects/cratedb-flightdata-example/filewrangling-utils/target/test-classes:/Users/dwrolfe/IdeaProjects/cratedb-flightdata-example/filewrangling-utils/target/classes:/Users/dwrolfe/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/dwrolfe/.m2/repository/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/dwrolfe/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:"/>
+    <property name="java.class.path" value="/Users/dwrolfe/IdeaProjects/filewrangling-utils/target/test-classes:/Users/dwrolfe/IdeaProjects/filewrangling-utils/target/classes:/Users/dwrolfe/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/dwrolfe/.m2/repository/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/dwrolfe/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:"/>
     <property name="java.vm.vendor" value="Homebrew"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
@@ -13,10 +13,10 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IE"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/24.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/dwrolfe/IdeaProjects/cratedb-flightdata-example/filewrangling-utils/target/surefire/surefirebooter-20260310153227996_3.jar /Users/dwrolfe/IdeaProjects/cratedb-flightdata-example/filewrangling-utils/target/surefire 2026-03-10T15-32-27_953-jvmRun1 surefire-20260310153227996_1tmp surefire_0-20260310153227996_2tmp"/>
+    <property name="sun.java.command" value="/Users/dwrolfe/IdeaProjects/filewrangling-utils/target/surefire/surefirebooter-20260325161814258_3.jar /Users/dwrolfe/IdeaProjects/filewrangling-utils/target/surefire 2026-03-25T16-18-14_216-jvmRun1 surefire-20260325161814258_1tmp surefire_0-20260325161814258_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/Users/dwrolfe/IdeaProjects/cratedb-flightdata-example/filewrangling-utils/target/test-classes:/Users/dwrolfe/IdeaProjects/cratedb-flightdata-example/filewrangling-utils/target/classes:/Users/dwrolfe/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/dwrolfe/.m2/repository/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/dwrolfe/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:"/>
+    <property name="surefire.test.class.path" value="/Users/dwrolfe/IdeaProjects/filewrangling-utils/target/test-classes:/Users/dwrolfe/IdeaProjects/filewrangling-utils/target/classes:/Users/dwrolfe/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/dwrolfe/.m2/repository/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/dwrolfe/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/Users/dwrolfe/.m2/repository/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/Users/dwrolfe"/>
     <property name="user.language" value="en"/>
@@ -24,20 +24,20 @@
     <property name="java.version.date" value="2025-07-15"/>
     <property name="java.home" value="/opt/homebrew/Cellar/openjdk/24.0.2/libexec/openjdk.jdk/Contents/Home"/>
     <property name="file.separator" value="/"/>
-    <property name="basedir" value="/Users/dwrolfe/IdeaProjects/cratedb-flightdata-example/filewrangling-utils"/>
+    <property name="basedir" value="/Users/dwrolfe/IdeaProjects/filewrangling-utils"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/dwrolfe/IdeaProjects/cratedb-flightdata-example/filewrangling-utils/target/surefire/surefirebooter-20260310153227996_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/dwrolfe/IdeaProjects/filewrangling-utils/target/surefire/surefirebooter-20260325161814258_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="24.0.2"/>
     <property name="user.name" value="dwrolfe"/>
     <property name="stdout.encoding" value="UTF-8"/>
     <property name="path.separator" value=":"/>
-    <property name="os.version" value="26.2"/>
+    <property name="os.version" value="26.3.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
@@ -46,7 +46,7 @@
     <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="java.io.tmpdir" value="/var/folders/kw/csh2pggn2rx_4zf7vq26znhh0000gq/T/"/>
     <property name="java.version" value="24.0.2"/>
-    <property name="user.dir" value="/Users/dwrolfe/IdeaProjects/cratedb-flightdata-example/filewrangling-utils"/>
+    <property name="user.dir" value="/Users/dwrolfe/IdeaProjects/filewrangling-utils"/>
     <property name="os.arch" value="aarch64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="native.encoding" value="UTF-8"/>
@@ -59,58 +59,84 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="68.0"/>
   </properties>
-  <testcase name="testFAAAircraftType" classname="ie.rolfe.filewrangling.testexamples.FAAAircraftTypeWRTest" time="0.004">
-    <system-out><![CDATA[2026-03-10 15:32:29:0 Create instance of LineReplace...
-2026-03-10 15:32:29:0 LineReplace{startLine=1, endLine=1, newValue='code,mfr,model,engines,seats', theExtraWranglers=[]}
-2026-03-10 15:32:29:0 Create instance of FieldKeep...
-2026-03-10 15:32:29:0 FieldKeep{fieldNames=[code, mfr, model, no-eng, no-seats], theExtraWranglers=[]}
-2026-03-10 15:32:29:1 Create instance of FieldNvl...
-2026-03-10 15:32:29:1 FieldNvl{nvlValue='0', fieldNames=[no-eng, no-seats], theExtraWranglers=[]}
-2026-03-10 15:32:29:Lines: 2. Skipped: 0
-2026-03-10 15:32:29:{linechanges_LineReplace=linechanges_LineReplace 
- Reports=               1 Average=               3, Total=               3, 50%=               3, 95%=               3, 99%=               3, 99.5%=               3, 99.95%=               3, Max=               3
-3	1.0	Microsecond latency for line changes
-, linechanges_LineForceToLowerCase=linechanges_LineForceToLowerCase 
- Reports=               4 Average=              10, Total=              39, 50%=               6, 95%=              20, 99%=              20, 99.5%=              20, 99.95%=              20, Max=              20
-2	1.0	Microsecond latency for line changes
-6	1.0	Microsecond latency for line changes
-11	1.0	Microsecond latency for line changes
-20	1.0	Microsecond latency for line changes
+  <testcase name="testFAAAircraftType" classname="ie.rolfe.filewrangling.testexamples.FAAAircraftTypeWRTest" time="0.006">
+    <system-out><![CDATA[2026-03-25 16:18:15:0 Create instance of LineReplace...
+2026-03-25 16:18:15:0 LineReplace{startLine=1, endLine=1, newValue='code,mfr,model,engines,seats', theExtraWranglers=[]}
+2026-03-25 16:18:15:0 Create instance of FieldKeep...
+2026-03-25 16:18:15:0 FieldKeep{fieldNames=[code, mfr, model, no-eng, no-seats], theExtraWranglers=[]}
+2026-03-25 16:18:15:1 Create instance of FieldNvl...
+2026-03-25 16:18:15:1 FieldNvl{nvlValue='0', fieldNames=[no-eng, no-seats], theExtraWranglers=[]}
+2026-03-25 16:18:15:Processing line 1, 0 rows per second...
+2026-03-25 16:18:15:Lines: 2. Skipped: 0
+2026-03-25 16:18:15:{splitbyregex=splitbyregex 
+ Reports=          134658 Average=               1, Total=         188,859, 50%=               1, 95%=               4, 99%=               7, 99.5%=               9, 99.95%=              25, Max=            2046
+0	49183.0	Microsecond latency when longer  than 1000000ns
+1	30710.0	Microsecond latency when longer  than 1000000ns
+2	30148.0	Microsecond latency when longer  than 1000000ns
+3	15942.0	Microsecond latency when longer  than 1000000ns
+4	5028.0	Microsecond latency when longer  than 1000000ns
+5	1629.0	Microsecond latency when longer  than 1000000ns
+6	638.0	Microsecond latency when longer  than 1000000ns
+7	340.0	Microsecond latency when longer  than 1000000ns
+8	242.0	Microsecond latency when longer  than 1000000ns
+9	170.0	Microsecond latency when longer  than 1000000ns
+10	128.0	Microsecond latency when longer  than 1000000ns
+11	100.0	Microsecond latency when longer  than 1000000ns
+12	80.0	Microsecond latency when longer  than 1000000ns
+13	56.0	Microsecond latency when longer  than 1000000ns
+14	39.0	Microsecond latency when longer  than 1000000ns
+15	30.0	Microsecond latency when longer  than 1000000ns
+16	22.0	Microsecond latency when longer  than 1000000ns
+17	23.0	Microsecond latency when longer  than 1000000ns
+18	16.0	Microsecond latency when longer  than 1000000ns
+19	15.0	Microsecond latency when longer  than 1000000ns
+20	10.0	Microsecond latency when longer  than 1000000ns
+21	15.0	Microsecond latency when longer  than 1000000ns
+22	11.0	Microsecond latency when longer  than 1000000ns
+23	7.0	Microsecond latency when longer  than 1000000ns
+24	6.0	Microsecond latency when longer  than 1000000ns
+25	5.0	Microsecond latency when longer  than 1000000ns
+26	1.0	Microsecond latency when longer  than 1000000ns
+27	3.0	Microsecond latency when longer  than 1000000ns
+28	6.0	Microsecond latency when longer  than 1000000ns
+29	3.0	Microsecond latency when longer  than 1000000ns
+30	3.0	Microsecond latency when longer  than 1000000ns
+31	6.0	Microsecond latency when longer  than 1000000ns
+32	3.0	Microsecond latency when longer  than 1000000ns
+33	2.0	Microsecond latency when longer  than 1000000ns
+35	2.0	Microsecond latency when longer  than 1000000ns
+36	2.0	Microsecond latency when longer  than 1000000ns
+37	1.0	Microsecond latency when longer  than 1000000ns
+38	5.0	Microsecond latency when longer  than 1000000ns
+39	3.0	Microsecond latency when longer  than 1000000ns
+40	1.0	Microsecond latency when longer  than 1000000ns
+42	4.0	Microsecond latency when longer  than 1000000ns
+43	4.0	Microsecond latency when longer  than 1000000ns
+44	1.0	Microsecond latency when longer  than 1000000ns
+45	1.0	Microsecond latency when longer  than 1000000ns
+46	2.0	Microsecond latency when longer  than 1000000ns
+48	1.0	Microsecond latency when longer  than 1000000ns
+49	1.0	Microsecond latency when longer  than 1000000ns
+50	1.0	Microsecond latency when longer  than 1000000ns
+52	1.0	Microsecond latency when longer  than 1000000ns
+58	1.0	Microsecond latency when longer  than 1000000ns
+59	2.0	Microsecond latency when longer  than 1000000ns
+62	1.0	Microsecond latency when longer  than 1000000ns
+63	1.0	Microsecond latency when longer  than 1000000ns
+66	1.0	Microsecond latency when longer  than 1000000ns
+70	1.0	Microsecond latency when longer  than 1000000ns
+2046	1.0	Microsecond latency when longer  than 1000000ns
 , fieldchanges_FieldKeep=fieldchanges_FieldKeep 
- Reports=             784 Average=               4, Total=           3,090, 50%=               1, 95%=               3, 99%=              18, 99.5%=              36, 99.95%=            1808, Max=            1808
-1	678.0	Microsecond latency for line changes
-2	49.0	Microsecond latency for line changes
-3	24.0	Microsecond latency for line changes
-4	8.0	Microsecond latency for line changes
-5	2.0	Microsecond latency for line changes
-6	2.0	Microsecond latency for line changes
-7	4.0	Microsecond latency for line changes
-9	1.0	Microsecond latency for line changes
-11	1.0	Microsecond latency for line changes
-12	1.0	Microsecond latency for line changes
-13	1.0	Microsecond latency for line changes
-14	1.0	Microsecond latency for line changes
-16	2.0	Microsecond latency for line changes
-17	2.0	Microsecond latency for line changes
-18	1.0	Microsecond latency for line changes
-22	1.0	Microsecond latency for line changes
-27	1.0	Microsecond latency for line changes
-34	1.0	Microsecond latency for line changes
-36	1.0	Microsecond latency for line changes
-42	1.0	Microsecond latency for line changes
-48	1.0	Microsecond latency for line changes
-1808	1.0	Microsecond latency for line changes
-, fieldchanges_FieldFixDateFormat=fieldchanges_FieldFixDateFormat 
- Reports=               1 Average=             560, Total=             560, 50%=             560, 95%=             560, 99%=             560, 99.5%=             560, 99.95%=             560, Max=             560
-560	1.0	Microsecond latency for line changes
-, linechanges_LineForgetRest=linechanges_LineForgetRest 
- Reports=               1 Average=               9, Total=               9, 50%=               9, 95%=               9, 99%=               9, 99.5%=               9, 99.95%=               9, Max=               9
-9	1.0	Microsecond latency for line changes
-, linechanges_LineChangeOverrideColumnValue=linechanges_LineChangeOverrideColumnValue 
- Reports=               3 Average=              17, Total=              52, 50%=               7, 95%=              39, 99%=              39, 99.5%=              39, 99.95%=              39, Max=              39
-6	1.0	Microsecond latency for line changes
-7	1.0	Microsecond latency for line changes
-39	1.0	Microsecond latency for line changes
+ Reports=               4 Average=           2,111, Total=           8,445, 50%=            2006, 95%=            2503, 99%=            2503, 99.5%=            2503, 99.95%=            2503, Max=            2503
+1845	1.0	Microsecond latency when longer  than 1000000ns
+2006	1.0	Microsecond latency when longer  than 1000000ns
+2091	1.0	Microsecond latency when longer  than 1000000ns
+2503	1.0	Microsecond latency when longer  than 1000000ns
+, linechanges_LineMakeEpochFromDayAndTime=linechanges_LineMakeEpochFromDayAndTime 
+ Reports=               3 Average=           1,927, Total=           5,781, 50%=            1834, 95%=            2135, 99%=            2135, 99.5%=            2135, 99.95%=            2135, Max=            2135
+1812	1.0	Microsecond latency when longer  than 1000000ns
+1834	1.0	Microsecond latency when longer  than 1000000ns
+2135	1.0	Microsecond latency when longer  than 1000000ns
 }
 {}
 {}

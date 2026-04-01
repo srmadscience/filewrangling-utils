@@ -8,7 +8,6 @@
 
 package ie.rolfe.filewrangling.impl;
 
-import ie.rolfe.filewrangling.BaseFileWrangler;
 import ie.rolfe.filewrangling.exceptions.BadInputDateException;
 import ie.rolfe.filewrangling.exceptions.MissingColumnThisLineException;
 import ie.rolfe.filewrangling.iface.CSVLineWranglerIFace;
@@ -22,7 +21,6 @@ import java.util.Locale;
 
 import static ie.rolfe.filewrangling.BaseFileWrangler.splitCSV;
 import static ie.rolfe.filewrangling.FileWrangler.ALL_LINES;
-import static ie.rolfe.filewrangling.FileWrangler.msg;
 
 public class LineMakeEpochFromDayAndTime extends AbstractLineWrangler implements CSVLineWranglerIFace {
 
